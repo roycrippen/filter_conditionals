@@ -1,0 +1,7 @@
+[package]
+name = "filter_conditionals"
+version = "0.1.0"
+authors = ["roycrippen <roycrippen@gmail.com>"]
+
+[dependencies]
+walkdir = "2.1.4"
