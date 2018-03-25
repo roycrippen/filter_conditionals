@@ -112,7 +112,6 @@ impl<'a> fmt::Display for Search<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let s_targets = self.targets
             .iter()
-            .filter(|k| **k != "__TESTING_TARGET_DO_NOT_REMOVE__")
             .fold("\n  [ ".to_string(), |mut acc, k| {
                 acc.push_str("\n    ");
                 acc.push_str(*k);
@@ -130,16 +129,5 @@ impl<'a> fmt::Display for Search<'a> {
         let s_target_usages = format!("\nSpecific target usages: {}\n  ]", s_target_usages);
 
         write!(f, "{}{}", s_targets, s_target_usages)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn contains_target_test() {
-        let search: Search = Default::default();
-        assert!(search.contains_target("__TESTING_TARGET_DO_NOT_REMOVE__"));
     }
 }
