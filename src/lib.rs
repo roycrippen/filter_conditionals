@@ -74,13 +74,13 @@ pub fn print_vec_range<T: Display>(xs: &Vec<T>, start: usize, end: usize) {
     (start..end + 1).for_each(|i| println!("{:4} {}", i + 1, xs[i]))
 }
 
-pub fn clean_nested(ss: &mut Vec<String>, nested: &Nested) {
+pub fn comment_lines(ss: &mut Vec<String>, nested: &Nested) {
     if nested.start_line > 0 && nested.end_line > 0 {
         (nested.start_line - 1..nested.end_line).for_each(|i| ss[i] = format!("// {}", ss[i]));
     }
 }
 
-pub fn print_clean_nested(ss: &Vec<String>, nested: &Nested, detailed: bool) {
+pub fn print_commented_lines(ss: &Vec<String>, nested: &Nested, detailed: bool) {
     if nested.start_line > 0 && nested.end_line > 0 {
         println!("{}", nested);
         if detailed {

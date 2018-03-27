@@ -4,5 +4,27 @@
         "dedup",
         "pred",
         "walkdir"
+    ],
+    "cSpell.enabledLanguageIds": [
+        "c",
+        "cpp",
+        "csharp",
+        "go",
+        "handlebars",
+        "haskell",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "latex",
+        "markdown",
+        "php",
+        "plaintext",
+        "python",
+        "restructuredtext",
+        "rust",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yml"
     ]
 }

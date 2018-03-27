@@ -1,0 +1,9 @@
+#if ( NRTSIM )
+#if ( NRTSIM || RTCLSIM )
+#if (NRTSIM || RTCLSIM || _DEBUG)
+#if (NRTSIM || RTCLSIM)
+#if (NRTSIM)
+#if (defined CPU_B) || (defined NRTSIM)
+#if (defined NRTSIM)
+#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+#ifdef NRTSIM

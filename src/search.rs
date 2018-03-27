@@ -82,7 +82,7 @@ impl<'a> Default for Search<'a> {
     fn default() -> Search<'a> {
         let buffer1 = include_str!("targets.txt");
         let targets = buffer1.lines().filter(|s| !s.starts_with("//")).collect();
-        let buffer2 = include_str!("target_usages.txt");
+        let buffer2 = include_str!("target_affirms.txt");
         let target_usages = buffer2.lines().filter(|s| !s.starts_with("//")).collect();
         Search {
             targets: targets,

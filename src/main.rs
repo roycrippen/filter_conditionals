@@ -26,8 +26,8 @@ fn main() {
         for i in 0..10 {
             let nested = search.get_nested_affirmative_target(&ss, &full_file);
             if nested.start_line > 0 {
-                clean_nested(&mut ss, &nested);
-                print_clean_nested(&ss, &nested, false);
+                comment_lines(&mut ss, &nested);
+                print_commented_lines(&ss, &nested, true);
             } else {
                 break;
             }
@@ -59,7 +59,7 @@ fn main() {
                 }
             }
         }
-        clean_nested(&mut ss, &nested);
+        comment_lines(&mut ss, &nested);
 
         // process not affirmative
     }
