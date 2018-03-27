@@ -1,8 +1,8 @@
-//NRTSIM
-//RTCLSIM
-_WIN32
-_WIN64
-__linux__
-_DEBUG
-__DEBUG__
-__APPLE__
+NRTSIM
+RTCLSIM
+//_WIN32
+//_WIN64
+//__linux__
+//_DEBUG
+//__DEBUG__
+//__APPLE__

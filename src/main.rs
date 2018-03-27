@@ -4,7 +4,7 @@ mod lib;
 
 use search::Search;
 use metrics::Metrics;
-use lib::{get_file_list, is_affirmative, is_def_start, print_vec, read_file};
+use lib::*;
 
 const MARKER: &'static str =
     "=========================================================================================\n";
@@ -14,24 +14,34 @@ fn main() {
     let search: Search = Default::default();
     println!("{}", search);
 
-    // let files = get_file_list("/home/crippenre/dev/booster/OBV2_4_SC");
-    let files = get_file_list("/home/roy/dev/cpp/cppcheck");
+    let files = get_file_list("/home/crippenre/dev/booster/OBV2_4_SC");
     metrics.total_files = files.len();
 
-    // search.debug_print_target_ifs(&files);
-    // search.debug_print_unique_target_ifs(&files);
+    search.debug_print_unique_target_ifs(&files);
 
-    // need to manually take care of nested targets
-    if search.debug_print_nested_target_ifs(&files) {
-        return ();
-    }
-
-    for (full_file, _file) in files {
+    for (full_file, _file) in files.clone() {
         let mut ss = read_file(&full_file);
+
+        // process nested
+        for i in 0..10 {
+            let nested = search.get_nested_affirmative_target(&ss, &full_file);
+            if nested.start_line > 0 {
+                clean_nested(&mut ss, &nested);
+                print_clean_nested(&ss, &nested, false);
+            } else {
+                break;
+            }
+        }
+
         let mut target_line = false;
-        for mut s in ss {
-            if is_def_start(&s) && search.contains_target(&s) {
-                if is_affirmative(&s) && search.contains_target_usage(&s) {
+
+        // process affirmative start_defs
+        let mut nested: Nested = Default::default();
+        for (i, s) in ss.clone().into_iter().enumerate() {
+            let s = s.trim();
+            if is_start(s) {
+                if is_affirmative(s) && search.contains_target_usage(s) {
+                    nested.start_line = i + 1;
                     target_line = true;
                     metrics.affected_files.insert(full_file.clone());
                     metrics.removed_blocks += 1;
@@ -41,14 +51,17 @@ fn main() {
             }
 
             if target_line {
-                metrics.removed_lines.push(s.clone());
-                // let s_ = "// ".to_string() + &s;
-                if s.starts_with("#endif") || s.starts_with("#else") {
+                metrics.removed_lines.push(s.clone().to_string());
+                if is_end(s) {
                     target_line = false;
                     metrics.removed_lines.push(MARKER.to_string());
+                    nested.end_line = i + 1;
                 }
             }
         }
+        clean_nested(&mut ss, &nested);
+
+        // process not affirmative
     }
     metrics.print_summary_metrics();
 

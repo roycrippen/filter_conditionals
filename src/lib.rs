@@ -5,13 +5,33 @@ use self::walkdir::{DirEntry, WalkDir};
 use std::io::prelude::*;
 use std::fs::File;
 use std::fmt::Display;
+use std::fmt;
 
-pub fn is_def_start(s: &String) -> bool {
-    s.starts_with("#if") || s.starts_with("#ifdef") || s.starts_with("#ifndef")
+#[derive(Debug, Default, Clone)]
+pub struct Nested {
+    pub conditional: String,
+    pub start_line: usize,
+    pub end_line: usize,
+    pub file: String,
 }
 
-pub fn is_affirmative(s: &String) -> bool {
-    !s.contains("!")
+impl fmt::Display for Nested {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+pub fn is_start(s: &str) -> bool {
+    s.starts_with("#")
+        && (s.starts_with("#if") || s.starts_with("#ifdef") || s.starts_with("#elif"))
+}
+
+pub fn is_end(s: &str) -> bool {
+    s.starts_with("#endif") || s.starts_with("#elif") || s.starts_with("#else")
+}
+
+pub fn is_affirmative(s: &str) -> bool {
+    !s.contains("!") && !s.starts_with("#ifndef")
 }
 
 pub fn read_file(path: &String) -> Vec<String> {
@@ -48,6 +68,26 @@ fn is_source(entry: &DirEntry) -> bool {
 
 pub fn print_vec<T: Display>(xs: &Vec<T>) {
     xs.iter().for_each(|x| println!("{}", x))
+}
+
+pub fn print_vec_range<T: Display>(xs: &Vec<T>, start: usize, end: usize) {
+    (start..end + 1).for_each(|i| println!("{:4} {}", i + 1, xs[i]))
+}
+
+pub fn clean_nested(ss: &mut Vec<String>, nested: &Nested) {
+    if nested.start_line > 0 && nested.end_line > 0 {
+        (nested.start_line - 1..nested.end_line).for_each(|i| ss[i] = format!("// {}", ss[i]));
+    }
+}
+
+pub fn print_clean_nested(ss: &Vec<String>, nested: &Nested, detailed: bool) {
+    if nested.start_line > 0 && nested.end_line > 0 {
+        println!("{}", nested);
+        if detailed {
+            print_vec_range(&ss, nested.start_line - 1, nested.end_line - 1);
+            println!("");
+        }
+    }
 }
 
 // #[derive(Debug)]

@@ -2,7 +2,7 @@
 use std::collections::HashSet;
 use std::fmt;
 
-use lib::{is_affirmative, is_def_start, print_vec, read_file};
+use lib::*;
 
 pub struct Search<'a> {
     pub targets: HashSet<&'a str>,
@@ -24,11 +24,12 @@ impl<'a> Search<'a> {
         for &(ref fully_qualified_file, ref _file) in files {
             let ss = read_file(&fully_qualified_file);
             for s in ss {
-                if is_def_start(&s) && self.contains_target(&s) {
+                let s_trim = s.trim().to_string();
+                if is_start(&s_trim) && self.contains_target(&s) {
                     if is_affirmative(&s) {
-                        xs.push(s);
+                        xs.push(s_trim);
                     } else {
-                        ys.push(s);
+                        ys.push(s_trim);
                     }
                 }
             }
@@ -44,54 +45,36 @@ impl<'a> Search<'a> {
         for y in ys.iter() {
             println!("not affirmative if: {:50}", y)
         }
+        println!("")
     }
 
-    pub fn debug_print_target_ifs(&self, files: &Vec<(String, String)>) {
-        let mut xs = vec![];
-        for &(ref fully_qualified_file, ref _file) in files {
-            let ss = read_file(&fully_qualified_file);
-            for s in ss {
-                if is_def_start(&s) && self.contains_target(&s) {
-                    xs.push(s);
-                }
-            }
-        }
-        xs.sort();
-        print_vec(&xs);
-    }
-
-    // find nested target ifs
-    // comments out the appropriate sections of these files by hand
-    pub fn debug_print_nested_target_ifs(&self, files: &Vec<(String, String)>) -> bool {
+    // find nested affirmative targets
+    pub fn get_nested_affirmative_target(&self, ss: &Vec<String>, file: &String) -> Nested {
         let mut target_line = false;
-        let mut ns = Vec::new();
-        for &(ref fully_qualified_file, ref _file) in files {
-            let ss = read_file(&fully_qualified_file);
-            for s in ss {
-                if target_line {
-                    if is_def_start(&s) {
-                        ns.push(fully_qualified_file);
-                    }
-
-                    if s.starts_with("#endif") || s.starts_with("#else") {
-                        target_line = false;
-                    }
+        let mut nested: Nested = Default::default();
+        for (i, s) in ss.into_iter().enumerate() {
+            let s = s.trim();
+            if target_line {
+                if is_start(s) || s.starts_with("#ifndef") {
+                    nested.conditional = s.clone().to_string();
+                    nested.start_line = i + 1;
+                    nested.file = file.clone();
                 }
 
-                if is_def_start(&s) && self.contains_target(&s) {
-                    target_line = true;
+                if s.starts_with("#endif") {
+                    if nested.start_line > 0 {
+                        nested.end_line = i + 1;
+                        return nested;
+                    }
+                    target_line = false;
                 }
             }
+
+            if is_start(s) && is_affirmative(s) && self.contains_target_usage(s) {
+                target_line = true;
+            }
         }
-        if ns.len() > 0 {
-            println!("Files with nested targets: {}", ns.len());
-            println!("Manually comments out the appropriate sections of these files by hand.");
-            print_vec(&ns);
-            true
-        } else {
-            println!("No nested targets.");
-            false
-        }
+        nested
     }
 }
 
@@ -117,7 +100,7 @@ impl<'a> fmt::Display for Search<'a> {
                 acc.push_str(*k);
                 acc
             });
-        let s_targets = format!("Target identifiers: {}\n  ]", s_targets);
+        let s_targets = format!("Target identifiers: {}\n  ]\n", s_targets);
 
         let s_target_usages = self.target_usages
             .iter()
@@ -126,7 +109,7 @@ impl<'a> fmt::Display for Search<'a> {
                 acc.push_str(*k);
                 acc
             });
-        let s_target_usages = format!("\nSpecific target usages: {}\n  ]", s_target_usages);
+        let s_target_usages = format!("\nSpecific target usages: {}\n  ]\n", s_target_usages);
 
         write!(f, "{}{}", s_targets, s_target_usages)
     }
