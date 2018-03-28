@@ -8,14 +8,14 @@ use std::fmt::Display;
 use std::fmt;
 
 #[derive(Debug, Default, Clone)]
-pub struct Nested {
+pub struct Mark {
     pub conditional: String,
     pub start_line: usize,
     pub end_line: usize,
     pub file: String,
 }
 
-impl fmt::Display for Nested {
+impl fmt::Display for Mark {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)
     }
@@ -74,26 +74,18 @@ pub fn print_vec_range<T: Display>(xs: &Vec<T>, start: usize, end: usize) {
     (start..end + 1).for_each(|i| println!("{:4} {}", i + 1, xs[i]))
 }
 
-pub fn comment_lines(ss: &mut Vec<String>, nested: &Nested) {
-    if nested.start_line > 0 && nested.end_line > 0 {
-        (nested.start_line - 1..nested.end_line).for_each(|i| ss[i] = format!("// {}", ss[i]));
+pub fn comment_lines(ss: &mut Vec<String>, mark: &Mark) {
+    if mark.start_line > 0 && mark.end_line > 0 {
+        (mark.start_line - 1..mark.end_line).for_each(|i| ss[i] = format!("// {}", ss[i]));
     }
 }
 
-pub fn print_commented_lines(ss: &Vec<String>, nested: &Nested, detailed: bool) {
-    if nested.start_line > 0 && nested.end_line > 0 {
-        println!("{}", nested);
+pub fn print_commented_lines(ss: &Vec<String>, mark: &Mark, detailed: bool) {
+    if mark.start_line > 0 && mark.end_line > 0 {
+        println!("{}", mark);
         if detailed {
-            print_vec_range(&ss, nested.start_line - 1, nested.end_line - 1);
+            print_vec_range(&ss, mark.start_line - 1, mark.end_line - 1);
             println!("");
         }
     }
 }
-
-// #[derive(Debug)]
-// enum BlockTerminator {
-//     Endif,
-//     ElseOrEndif,
-// }
-
-// use BlockTerminator::*;

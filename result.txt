@@ -1,0 +1,4185 @@
+Target identifiers: 
+  [ 
+    RTCLSIM
+    NRTSIM
+  ]
+
+Specific target usages: 
+  [ 
+    #if (defined NRTSIM)
+    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+    #if ( NRTSIM || RTCLSIM )
+    #if ( NRTSIM )
+    #if (defined CPU_B) || (defined NRTSIM)
+    #ifdef NRTSIM
+    #if (NRTSIM || RTCLSIM || _DEBUG)
+    #if (NRTSIM)
+    #if (NRTSIM || RTCLSIM)
+  ]
+
+affirmative if: #if ( NRTSIM )                                    
+affirmative if: #if ( NRTSIM || RTCLSIM )                         
+affirmative if: #if (NRTSIM || RTCLSIM || _DEBUG)                 
+affirmative if: #if (NRTSIM || RTCLSIM)                           
+affirmative if: #if (NRTSIM)                                      
+affirmative if: #if (defined CPU_B) || (defined NRTSIM)           
+affirmative if: #if (defined NRTSIM)                              
+affirmative if: #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )      
+affirmative if: #ifdef NRTSIM                                     
+affirmative if: #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
+
+not affirmative if: #if !( NRTSIM || RTCLSIM )                        
+not affirmative if: #if !(NRTSIM || RTCLSIM)                          
+not affirmative if: #if !(NRTSIM)                                     
+not affirmative if: #if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )    
+not affirmative if: #if ( !NRTSIM && !RTCLSIM )                       
+not affirmative if: #if ( !NRTSIM )                                   
+not affirmative if: #if (!NRTSIM && !RTCLSIM)                         
+not affirmative if: #if (!NRTSIM )                                    
+not affirmative if: #if (!NRTSIM || _TBBVSIM_ ) // Not needed for desktop simulation
+not affirmative if: #if (!NRTSIM)                                     
+not affirmative if: #if (!NRTSIM) // Not needed for desktop simulation
+not affirmative if: #if (!defined CPU_B) && (!defined NRTSIM)         
+not affirmative if: #if (!defined CPU_B) || (defined NRTSIM)          
+not affirmative if: #if (!defined NRTSIM)                             
+not affirmative if: #if ((NRTSIM || RTCLSIM) && (!__PPC604__))        
+not affirmative if: #if (defined CPU_B) && (!defined NRTSIM)          
+not affirmative if: #if (defined WINDVIEW_DEBUG) && (!defined NRTSIM) 
+not affirmative if: #ifndef NRTSIM                                    
+not affirmative if: #ifndef RTCLSIM                                   
+
+Mark { conditional: "#ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */", start_line: 46, end_line: 55, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
+  46 // #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
+  47 // 
+  48 // #include "systypes.h"
+  49 // 
+  50 // #define INT32  oscINT32
+  51 // #define UINT16 oscUINT16
+  52 // #define UINT32 oscUINT32
+  53 // #define UINT   oscUINT8
+  54 // 
+  55 // #else
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 57, end_line: 207, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AcsAutopilot_test/src/AcsAutopilot_test.cc" }
+  57 // #if ( NRTSIM || RTCLSIM )
+  58 // void help(char*);
+  59 // 
+  60 // /*
+  61 // ************************************************************************
+  62 // *
+  63 // *   Unit:     acsAutopilot_test
+  64 // *
+  65 // *   @brief    This program will validate the ACS Autopilot GN&C
+  66 // *             Algorithms.
+  67 // *
+  68 // ************************************************************************
+  69 // */
+  70 // int main (int argc, char *argv[])
+  71 // {
+  72 // 
+  73 // /*--------------------------[ Local Data]------------------------------*/
+  74 // 
+  75 //     int   cmdLineOpt;
+  76 //     int   status = -1;
+  77 //     char *pInFilename  = NULL;
+  78 //     char *pOutFilename = NULL;
+  79 //     char *pCfgFilename = NULL;
+  80 // 
+  81 // /*--------------------------[ Code Section ]---------------------------*/
+  82 // 
+  83 //     while ((cmdLineOpt = getopt (argc, argv, "c:i:o:h")) != EOF)
+  84 //     {
+  85 //         switch (cmdLineOpt)
+  86 //         {
+  87 //             case 'c':
+  88 //             {
+  89 //                 pCfgFilename = optarg;
+  90 //                 if (NULL == pCfgFilename)
+  91 //                 {
+  92 //                     help("Missing mandatory arguments for config file!\n");
+  93 //                 }
+  94 //             }
+  95 //             break;
+  96 //             case 'i':
+  97 //             {
+  98 //                 pInFilename = optarg;
+  99 //                 if (NULL == pInFilename)
+ 100 //                 {
+ 101 //                     help("Missing mandatory arguments for input file!\n");
+ 102 //                 }
+ 103 //             }
+ 104 //             break;
+ 105 //             case 'o':
+ 106 //             {
+ 107 //                 pOutFilename = optarg;
+ 108 //                 if (NULL == pOutFilename)
+ 109 //                 {
+ 110 //                     help("Missing mandatory arguments for output file!\n");
+ 111 //                 }
+ 112 //             }
+ 113 //             break;
+ 114 //             case 'h':
+ 115 //             {
+ 116 //                 help(NULL);
+ 117 //             }
+ 118 //             break;
+ 119 //             default:
+ 120 //             {
+ 121 //                 help("Unrecognized option!");
+ 122 //             }
+ 123 //         }
+ 124 //     }
+ 125 // 
+ 126 //     status = acsAutopilot_test(pInFilename, pCfgFilename, pOutFilename);
+ 127 // 
+ 128 //     exit (status);
+ 129 // }
+ 130 // 
+ 131 // /*
+ 132 // ************************************************************************
+ 133 // *
+ 134 // *   @fn       help
+ 135 // *
+ 136 // *   @param    errorString - Additional clarification of error that
+ 137 // *             was encountered.
+ 138 // *
+ 139 // *   @brief    This routine displays to standard out the detailed
+ 140 // *             usage of the ACS autopilot test driver.
+ 141 // *
+ 142 // ************************************************************************
+ 143 // */
+ 144 // void help(char* errorString)
+ 145 // {
+ 146 // 
+ 147 // /*--------------------------[ Local Data]------------------------------*/
+ 148 // 
+ 149 //    int errorCode = 0;
+ 150 // 
+ 151 // /*--------------------------[ Code Section ]---------------------------*/
+ 152 // 
+ 153 //    printf("Description: The Attitude Control System (ACS) Autopilot test\n");
+ 154 //    printf("             driver is used to verify the following methods in:\n");
+ 155 //    printf("             the ParabolicRCS class\n");
+ 156 //    printf("               - computeAngularAccel,\n");
+ 157 //    printf("               - rollSwitchingLine,\n");
+ 158 //    printf("               - pitchYawSwitchingLine, and\n");
+ 159 //    printf("               - transformBodyCmds2ThrusterCmds\n");
+ 160 //    printf("\n");
+ 161 //    printf("Synopsis:\n");
+ 162 //    printf("\n");
+ 163 // 
+ 164 //    printf("ACS Autopilot test is as follows:\n");
+ 165 //    printf("    AcsAutopilot_test -i <input filename> -c <config filename>\n");
+ 166 //    printf("                      [-o <output filename>]\n");
+ 167 //    printf("\n");
+ 168 //    printf(" General Parameters:\n");
+ 169 //    printf("   input filename  - The path and name of the input data file to be used.\n");
+ 170 //    printf("   config filename - The path and name of the configuration data file.\n");
+ 171 //    printf("   output filename - The path and name of the results file to use (optional).\n");
+ 172 //    printf("                     If none is given then stdout is used.\n\n");
+ 173 // 
+ 174 //    if ( NULL != errorString )
+ 175 //    {
+ 176 //       printf("Invalid arguments: %s\n", errorString);
+ 177 //       errorCode = -1;
+ 178 //    }
+ 179 // 
+ 180 //    exit (errorCode);
+ 181 // }
+ 182 // 
+ 183 // /*
+ 184 // ************************************************************************
+ 185 // *
+ 186 // *   @fn       ntopzero
+ 187 // *
+ 188 // *   @brief    This routine converts negative to positive zero.  The sign
+ 189 // *             bit of real number could remain set on the desktop test
+ 190 // *             environment when a value is zero.  This is used for
+ 191 // *             displaying data.
+ 192 // *
+ 193 // ************************************************************************
+ 194 // */
+ 195 // static inline double ntopzero(double x)
+ 196 // {
+ 197 //     if ( x != 0.0 )
+ 198 //     {
+ 199 //         return(x);
+ 200 //     }
+ 201 //     else
+ 202 //     {
+ 203 //         return(fabs(x));
+ 204 //     }
+ 205 // }
+ 206 // 
+ 207 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 135, end_line: 214, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AlphaLoop_test/src/AlphaLoop_test.cc" }
+ 135 // #if (NRTSIM || RTCLSIM)
+ 136 // void printHelp()
+ 137 // {
+ 138 //     fprintf(stderr,
+ 139 //             "can't open <input Filename> | AlphaLoop_test\n"
+ 140 //             "\t[-c <config Filename>] [> <output Filename>]\n"
+ 141 //             "  -- or --\n"
+ 142 //             "AlphaLoop_test < <input Filename>\n"
+ 143 //             "\t[-c <config Filename>] [<output Filename>]\n"
+ 144 //             "  -- or --\n"
+ 145 //             "AlphaLoop_test\n"
+ 146 //             "\t[-c <Configuration Filename>]\n"
+ 147 //             "\t[-o <input Filename>]\n"
+ 148 //             "\t[-i <output Filename>]\n");
+ 149 // }
+ 150 // 
+ 151 // /**
+ 152 // ********************************************************************************
+ 153 // *   @fn     main
+ 154 // *
+ 155 // *   @param  argc - Number of input command line arguments
+ 156 // *   @param  argv - Character array holding each command line argument
+ 157 // *
+ 158 // *   @return retVal - Return value of alphaloop_test and alphaloop_coverage
+ 159 // *
+ 160 // *   @brief  Starting point for the AlphaLoop_test unit test driver. This calls
+ 161 // *           the alphaloop_test and alphaloop_coverage functions.
+ 162 // ********************************************************************************
+ 163 // */
+ 164 // int main(int argc, char *argv[])
+ 165 // {
+ 166 //     oscINT32 cmdLineOpt;
+ 167 //     oscChar* pConfigFileName = NULL;
+ 168 //     oscChar* pInFileName     = NULL;
+ 169 //     oscChar* pOutFileName    = NULL;
+ 170 //     oscINT32 retVal          = 0;
+ 171 // 
+ 172 //     while ((cmdLineOpt = getopt(argc, argv, "c:i:o:")) != EOF)
+ 173 //     {
+ 174 //         switch (cmdLineOpt)
+ 175 //         {
+ 176 //             case 'c':
+ 177 //                 pConfigFileName = optarg;
+ 178 //                 if (NULL == pConfigFileName)
+ 179 //                 {
+ 180 //                     perror (optarg);
+ 181 //                     exit (1);
+ 182 //                 }
+ 183 //                 break;
+ 184 // 
+ 185 //             case 'i':
+ 186 //                 pInFileName = optarg;
+ 187 //                 if (NULL == pInFileName)
+ 188 //                 {
+ 189 //                     perror (optarg);
+ 190 //                     exit (1);
+ 191 //                 }
+ 192 //                 break;
+ 193 // 
+ 194 //             case 'o':
+ 195 //                 pOutFileName = optarg;
+ 196 //                 if (NULL == pOutFileName)
+ 197 //                 {
+ 198 //                     perror (optarg);
+ 199 //                     exit (1);
+ 200 //                 }
+ 201 //                 break;
+ 202 // 
+ 203 //             default:
+ 204 //                 fprintf(stderr, "Unrecognized option -%c\n", cmdLineOpt);
+ 205 //                 printHelp();
+ 206 //                 exit (2);
+ 207 //         }
+ 208 //     }
+ 209 // 
+ 210 //     retVal = alphaLoop_test(pConfigFileName,pInFileName,pOutFileName);
+ 211 // 
+ 212 //     exit (retVal);
+ 213 // }
+ 214 // #endif // (NRTSIM || RTCLSIM)
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 79, end_line: 184, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
+  79 // #if ( NRTSIM || RTCLSIM )
+  80 // 
+  81 // /**
+  82 // *******************************************************************************
+  83 // *   @fn         printHelp
+  84 // *
+  85 // *   @param      None
+  86 // *   @return     None
+  87 // *   @brief      This method will printout a Usage description.
+  88 // *
+  89 // *******************************************************************************
+  90 // */
+  91 // void printHelp()
+  92 // {
+  93 //     fprintf (
+  94 //              stderr,
+  95 //              "cat <input Filename> | innerLoop_test\n"
+  96 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  97 //              "  -- or --\n"
+  98 //              "innerLoop_test < <input Filename>\n"
+  99 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+ 100 //              "  -- or --\n"
+ 101 //              "innerLoop_test\n"
+ 102 //              "\t[-i <input Filename>]\n"
+ 103 //              "\t[-c <config Filename>]\n"
+ 104 //              "\t[-o <output Filename>]\n"
+ 105 //             );
+ 106 // }
+ 107 // 
+ 108 // 
+ 109 // /**
+ 110 // *******************************************************************************
+ 111 // *   @fn         main
+ 112 // *
+ 113 // *   @param      char * pInFilename  - Input data file
+ 114 // *   @param      char * pCfgFilename - optional config file
+ 115 // *   @param      char * pOutFilename - Output results file
+ 116 // *   @return     0 = OK; Non-zero = Error
+ 117 // *   @brief      This program will validate the Inner Loop GN&C Algorithm
+ 118 // *
+ 119 // *******************************************************************************
+ 120 // */
+ 121 // int main
+ 122 //     (
+ 123 //     int    argc,
+ 124 //     char * argv[]
+ 125 //     )
+ 126 // {
+ 127 //     int    cmdLineOpt;
+ 128 //     char * pCfgFilename = NULL;
+ 129 //     char * pInFilename  = NULL;
+ 130 //     char * pOutFilename = NULL;
+ 131 //     int    retVal       = 0;
+ 132 // 
+ 133 //     while ((cmdLineOpt = getopt (argc, argv, "c:i:o:")) != EOF)
+ 134 //     {
+ 135 //         switch (cmdLineOpt)
+ 136 //         {
+ 137 //             case 'c':
+ 138 //             {
+ 139 //                 pCfgFilename = optarg;
+ 140 //                 if (NULL == pCfgFilename)
+ 141 //                 {
+ 142 //                     perror (optarg);
+ 143 //                     exit (1);
+ 144 //                 }
+ 145 //             }
+ 146 //             break;
+ 147 // 
+ 148 //             case 'i':
+ 149 //             {
+ 150 //                 pInFilename = optarg;
+ 151 //                 if (NULL == pInFilename)
+ 152 //                 {
+ 153 //                     perror (optarg);
+ 154 //                     exit (1);
+ 155 //                 }
+ 156 //             }
+ 157 //             break;
+ 158 // 
+ 159 //             case 'o':
+ 160 //             {
+ 161 //                 pOutFilename = optarg;
+ 162 //                 if (NULL == pOutFilename)
+ 163 //                 {
+ 164 //                     perror (optarg);
+ 165 //                     exit (1);
+ 166 //                 }
+ 167 //             }
+ 168 //             break;
+ 169 // 
+ 170 //             default:
+ 171 //             {
+ 172 //                 fprintf(stderr, "Unrecognized option -%c\n", cmdLineOpt);
+ 173 //                 printHelp();
+ 174 //                 exit (2);
+ 175 //             }
+ 176 //         }
+ 177 //     }
+ 178 // 
+ 179 //     retVal = innerLoop_test(pInFilename, pCfgFilename, pOutFilename);
+ 180 // 
+ 181 //     exit (retVal);
+ 182 // }
+ 183 // 
+ 184 // #endif /* ( NRTSIM || RTCLSIM ) */
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 767, end_line: 769, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
+ 767 // #if ( NRTSIM || RTCLSIM )
+ 768 //     MyActuator &myActuator = *(new MyActuator("/dev/null"));
+ 769 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 92, end_line: 94, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc" }
+  92 // #if (NRTSIM || RTCLSIM)
+  93 // void help(char*);
+  94 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 138, end_line: 238, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc" }
+ 138 // #if (NRTSIM || RTCLSIM)
+ 139 // 
+ 140 // /**
+ 141 // ********************************************************************************
+ 142 // *   @fn:    main(argc, argv[])
+ 143 // *
+ 144 // *   @param  argc - number of elements in argv
+ 145 // *   @param  argv - array of char* *
+ 146 // *   @return Integer value of test result
+ 147 // *
+ 148 // *   @brief  The main routine (which is compiled only for the desktop simulation)
+ 149 // *           parses the command line and then calls the test routine (which is
+ 150 // *           compiled for both the target hardware and the desktop sim)
+ 151 // ********************************************************************************
+ 152 // */
+ 153 // int main(int argc, char * argv[])
+ 154 // {
+ 155 // /*------------------------------[ Local Data ]--------------------------------*/
+ 156 // 
+ 157 //     int  cmdLineOpt    = 0;
+ 158 //     char *pInFilename  = NULL;
+ 159 //     char *pOutFilename = NULL;
+ 160 //     int  testResult    = -1;
+ 161 // 
+ 162 // /*-----------------------------[ Code Section ]-------------------------------*/
+ 163 // 
+ 164 //     while ((cmdLineOpt = getopt (argc, argv, "i:o:")) != EOF)
+ 165 //     {
+ 166 //         switch (cmdLineOpt)
+ 167 //         {
+ 168 //             case 'i':
+ 169 //             {
+ 170 //                 pInFilename = optarg;
+ 171 //                 if (NULL == pInFilename)
+ 172 //                 {
+ 173 //                     help("getopt set NULL input filename for -i option\n");
+ 174 //                 }
+ 175 //             }
+ 176 //             break;
+ 177 //             case 'o':
+ 178 //             {
+ 179 //                 pOutFilename = optarg;
+ 180 //                 if (NULL == pOutFilename)
+ 181 //                 {
+ 182 //                     help("getopt set NULL output filename for -o option.\n");
+ 183 //                 }
+ 184 //             }
+ 185 //             break;
+ 186 //             default:
+ 187 //             {
+ 188 //                 help("invalid or incomplete option");
+ 189 //                 exit(-1);
+ 190 //             }
+ 191 //             break;
+ 192 //         }
+ 193 //     }
+ 194 // 
+ 195 //     if ( NULL == pInFilename )
+ 196 //     {
+ 197 //         help("no input file in argument list");
+ 198 //     }
+ 199 //     else
+ 200 //     {
+ 201 //         testResult = OpenLoop_test(pInFilename, pOutFilename);
+ 202 //     }
+ 203 // 
+ 204 //     exit(testResult);
+ 205 // }
+ 206 // 
+ 207 // /**
+ 208 // ********************************************************************************
+ 209 // *   @fn     help(errorString)
+ 210 // *
+ 211 // *   @param  errorString - Additional clarification of an error
+ 212 // *
+ 213 // *   @brief  This routine displays to stdout the detailed usage of the
+ 214 // *           OpenLoopGuidance test driver
+ 215 // ********************************************************************************
+ 216 // */
+ 217 // void help(char* errorString)
+ 218 // {
+ 219 //     printf("Description: The Open Loop Guidance test driver is used\n");
+ 220 //     printf("to verify the openloopguidance class.\n");
+ 221 // 
+ 222 //     printf("Synopsis\n");
+ 223 // 
+ 224 //     printf("Open Loop Guidance test is as follows:\n");
+ 225 //     printf("OpenLoop_test -i <input filename> [-o <output filename>]\n");
+ 226 // 
+ 227 //     printf("General Parameters:\n");
+ 228 //     printf("   input filename  - The path and name of the input data file to be used.\n");
+ 229 //     printf("   output filename - The path and name of the results file to use.  If none\n");
+ 230 //     printf("                     is given then stdout is used.\n\n");
+ 231 // 
+ 232 //    if (NULL != errorString)
+ 233 //    {
+ 234 //       printf("Invalid arguments: %s\n", errorString);
+ 235 //    }
+ 236 // }
+ 237 // 
+ 238 // #endif /* (NRTSIM || RTCLSIM) */
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 678, end_line: 680, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc" }
+ 678 // #if (NRTSIM || RTCLSIM)
+ 679 //         help("Missing mandatory Input Filename.\n");
+ 680 // #endif
+
+Mark { conditional: "#if ( NRTSIM )", start_line: 88, end_line: 180, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OuterLoop_test/src/OuterLoop_test.cc" }
+  88 // #if ( NRTSIM )
+  89 // 
+  90 // void printHelp()
+  91 // {
+  92 //     fprintf (
+  93 //              stderr,
+  94 //              "cat <input Filename> | OuterLoop_test\n"
+  95 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  96 //              "  -- or --\n"
+  97 //              "OuterLoop_test < <input Filename>\n"
+  98 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  99 //              "  -- or --\n"
+ 100 //              "OuterLoop_test\n"
+ 101 //              "\t[-i <input Filename>]\n"
+ 102 //              "\t[-c <config Filename>]\n"
+ 103 //              "\t[-o <output Filename>]\n"
+ 104 //             );
+ 105 // }
+ 106 // 
+ 107 // 
+ 108 // /**
+ 109 // *******************************************************************************
+ 110 // *   @fn         main
+ 111 // *
+ 112 // *   @return     .
+ 113 // *   @brief      This program will validate the Outer Loop GN&C Algorithm
+ 114 // *
+ 115 // *******************************************************************************
+ 116 // */
+ 117 // int main
+ 118 //     (
+ 119 //     int    argc,
+ 120 //     char * argv[]
+ 121 //     )
+ 122 // {
+ 123 //     int    cmdLineOpt;
+ 124 //     char * pCfgFilename = NULL;
+ 125 //     char * pInFilename  = NULL;
+ 126 //     char * pOutFilename = NULL;
+ 127 //     int    retVal       = 0;
+ 128 // 
+ 129 //     while ((cmdLineOpt = getopt (argc, argv, "c:i:o:")) != EOF)
+ 130 //     {
+ 131 //         switch (cmdLineOpt)
+ 132 //         {
+ 133 //             case 'c':
+ 134 //             {
+ 135 //                 pCfgFilename = optarg;
+ 136 //                 if (NULL == pCfgFilename)
+ 137 //                 {
+ 138 //                     perror (optarg);
+ 139 //                     exit (1);
+ 140 //                 }
+ 141 //             }
+ 142 //             break;
+ 143 // 
+ 144 //             case 'i':
+ 145 //             {
+ 146 //                 pInFilename = optarg;
+ 147 //                 if (NULL == pInFilename)
+ 148 //                 {
+ 149 //                     perror (optarg);
+ 150 //                     exit (1);
+ 151 //                 }
+ 152 //             }
+ 153 //             break;
+ 154 // 
+ 155 //             case 'o':
+ 156 //             {
+ 157 //                 pOutFilename = optarg;
+ 158 //                 if (NULL == pOutFilename)
+ 159 //                 {
+ 160 //                     perror (optarg);
+ 161 //                     exit (1);
+ 162 //                 }
+ 163 //             }
+ 164 //             break;
+ 165 // 
+ 166 //             default:
+ 167 //             {
+ 168 //                 fprintf(stderr, "Unrecognized option -%c\n", cmdLineOpt);
+ 169 //                 printHelp();
+ 170 //                 exit (2);
+ 171 //             }
+ 172 //         }
+ 173 //     }
+ 174 // 
+ 175 //     retVal = OuterLoop_test(pCfgFilename, pInFilename, pOutFilename);
+ 176 // 
+ 177 //     exit (retVal);
+ 178 // }
+ 179 // 
+ 180 // #endif /* ( NRTSIM ) */
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 66, end_line: 160, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cFilter/test/AccelFilter_test/src/AccelFilter_test.cc" }
+  66 // #if ( NRTSIM || RTCLSIM )
+  67 // 
+  68 // void printHelp()
+  69 // {
+  70 //     fprintf (
+  71 //              stderr,
+  72 //              "cat <input Filename> | AccelFilter_test\n"
+  73 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  74 //              "  -- or --\n"
+  75 //              "AccelFilter_test < <input Filename>\n"
+  76 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  77 //              "  -- or --\n"
+  78 //              "AccelFilter_test\n"
+  79 //              "\t[-i <input Filename>]\n"
+  80 //              "\t[-c <config Filename>]\n"
+  81 //              "\t[-o <output Filename>]\n"
+  82 //             );
+  83 // }
+  84 // 
+  85 // 
+  86 // /**
+  87 // *******************************************************************************
+  88 // *   @fn         main
+  89 // *
+  90 // *   @param      .
+  91 // *   @param      .
+  92 // *   @return     .
+  93 // *   @brief      Accel Filter test program Unix entry point
+  94 // *
+  95 // *******************************************************************************
+  96 // */
+  97 // int main
+  98 //     (
+  99 //     int    argc,
+ 100 //     char * argv[]
+ 101 //     )
+ 102 // {
+ 103 //     int    cmdLineOpt;
+ 104 //     char * pCfgFilename = NULL;
+ 105 //     char * pInFilename  = NULL;
+ 106 //     char * pOutFilename = NULL;
+ 107 //     int    retVal       = 0;
+ 108 // 
+ 109 //     while ((cmdLineOpt = getopt (argc, argv, "c:i:o:")) != EOF)
+ 110 //     {
+ 111 //         switch (cmdLineOpt)
+ 112 //         {
+ 113 //             case 'c':
+ 114 //             {
+ 115 //                 pCfgFilename = optarg;
+ 116 //                 if (NULL == pCfgFilename)
+ 117 //                 {
+ 118 //                     perror (optarg);
+ 119 //                     exit (1);
+ 120 //                 }
+ 121 //             }
+ 122 //             break;
+ 123 // 
+ 124 //             case 'i':
+ 125 //             {
+ 126 //                 pInFilename = optarg;
+ 127 //                 if (NULL == pInFilename)
+ 128 //                 {
+ 129 //                     perror (optarg);
+ 130 //                     exit (1);
+ 131 //                 }
+ 132 //             }
+ 133 //             break;
+ 134 // 
+ 135 //             case 'o':
+ 136 //             {
+ 137 //                 pOutFilename = optarg;
+ 138 //                 if (NULL == pOutFilename)
+ 139 //                 {
+ 140 //                     perror (optarg);
+ 141 //                     exit (1);
+ 142 //                 }
+ 143 //             }
+ 144 //             break;
+ 145 // 
+ 146 //             default:
+ 147 //             {
+ 148 //                 fprintf(stderr, "Unrecognized option -%c\n", cmdLineOpt);
+ 149 //                 printHelp();
+ 150 //                 exit (2);
+ 151 //             }
+ 152 //         }
+ 153 //     }
+ 154 // 
+ 155 //     retVal = AccelFilter_test(pCfgFilename, pInFilename, pOutFilename);
+ 156 // 
+ 157 //     exit (retVal);
+ 158 // }
+ 159 // 
+ 160 // #endif /* ( NRTSIM || RTCLSIM ) */
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 67, end_line: 161, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cFilter/test/RateFilter_test/src/RateFilter_test.cc" }
+  67 // #if ( NRTSIM || RTCLSIM )
+  68 // 
+  69 // void printHelp()
+  70 // {
+  71 //     fprintf (
+  72 //              stderr,
+  73 //              "cat <input Filename> | RateFilter_test\n"
+  74 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  75 //              "  -- or --\n"
+  76 //              "RateFilter_test < <input Filename>\n"
+  77 //              "\t[-c <config Filename>] [> <output Filename>]\n"
+  78 //              "  -- or --\n"
+  79 //              "RateFilter_test\n"
+  80 //              "\t[-i <input Filename>]\n"
+  81 //              "\t[-c <config Filename>]\n"
+  82 //              "\t[-o <output Filename>]\n"
+  83 //             );
+  84 // }
+  85 // 
+  86 // 
+  87 // /**
+  88 // *******************************************************************************
+  89 // *   @fn         main
+  90 // *
+  91 // *   @param      .
+  92 // *   @param      .
+  93 // *   @return     .
+  94 // *   @brief      Rate Filter test program Unix entry point
+  95 // *
+  96 // *******************************************************************************
+  97 // */
+  98 // int main
+  99 //     (
+ 100 //     int    argc,
+ 101 //     char * argv[]
+ 102 //     )
+ 103 // {
+ 104 //     int    cmdLineOpt;
+ 105 //     char * pCfgFilename = NULL;
+ 106 //     char * pInFilename  = NULL;
+ 107 //     char * pOutFilename = NULL;
+ 108 //     int    retVal       = 0;
+ 109 // 
+ 110 //     while ((cmdLineOpt = getopt (argc, argv, "c:i:o:")) != EOF)
+ 111 //     {
+ 112 //         switch (cmdLineOpt)
+ 113 //         {
+ 114 //             case 'c':
+ 115 //             {
+ 116 //                 pCfgFilename = optarg;
+ 117 //                 if (NULL == pCfgFilename)
+ 118 //                 {
+ 119 //                     perror (optarg);
+ 120 //                     exit (1);
+ 121 //                 }
+ 122 //             }
+ 123 //             break;
+ 124 // 
+ 125 //             case 'i':
+ 126 //             {
+ 127 //                 pInFilename = optarg;
+ 128 //                 if (NULL == pInFilename)
+ 129 //                 {
+ 130 //                     perror (optarg);
+ 131 //                     exit (1);
+ 132 //                 }
+ 133 //             }
+ 134 //             break;
+ 135 // 
+ 136 //             case 'o':
+ 137 //             {
+ 138 //                 pOutFilename = optarg;
+ 139 //                 if (NULL == pOutFilename)
+ 140 //                 {
+ 141 //                     perror (optarg);
+ 142 //                     exit (1);
+ 143 //                 }
+ 144 //             }
+ 145 //             break;
+ 146 // 
+ 147 //             default:
+ 148 //             {
+ 149 //                 fprintf(stderr, "Unrecognized option -%c\n", cmdLineOpt);
+ 150 //                 printHelp();
+ 151 //                 exit (2);
+ 152 //             }
+ 153 //         }
+ 154 //     }
+ 155 // 
+ 156 //     retVal = RateFilter_test(pCfgFilename, pInFilename, pOutFilename);
+ 157 // 
+ 158 //     exit (retVal);
+ 159 // }
+ 160 // 
+ 161 // #endif /* ( NRTSIM || RTCLSIM ) */
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 317, end_line: 321, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 317 // #ifdef NRTSIM
+ 318 //                 printf("LambertScrubGuide: Attempting to execute in an invalid "
+ 319 //                        "mode ... Exiting\n");
+ 320 //                 exit(-1);
+ 321 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 359, end_line: 362, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 359 // #ifdef NRTSIM
+ 360 //                 printf("LambertScrubGuide: Failed to converge in guidance "
+ 361 //                        "mode %d\n", guidanceMode);
+ 362 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 413, end_line: 418, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 413 // #ifdef NRTSIM
+ 414 //         printf("LambertScrubGuide::setGuidanceMode: Cannot command "
+ 415 //                "guidance to UNINITIALIZED mode using this function. "
+ 416 //                "Use resetGuidance function instead ... Exiting\n");
+ 417 //         exit(-1);
+ 418 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 440, end_line: 446, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 440 // #ifdef NRTSIM
+ 441 //                     printf("LambertScrubGuide::setGuidanceMode: Cannot command "
+ 442 //                            "guidance to INIT_GUIDANCE_FIXED_IGNITION_TIME mode "
+ 443 //                            "with an unbalanced scrub strategy specified ... "
+ 444 //                            "Exiting\n");
+ 445 //                     exit(-1);
+ 446 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 451, end_line: 457, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 451 // #ifdef NRTSIM
+ 452 //                 printf("LambertScrubGuide::setGuidanceMode: Cannot command "
+ 453 //                        "guidance to INIT_GUIDANCE_FIXED_IGNITION_TIME mode "
+ 454 //                        "without setting all the mandatory parameters ... "
+ 455 //                        "Exiting\n");
+ 456 //                 exit(-1);
+ 457 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 462, end_line: 467, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 462 // #ifdef NRTSIM
+ 463 //             printf("LambertScrubGuide::setGuidanceMode: Can only transition "
+ 464 //                    "guidance to INIT_GUIDANCE_FIXED_IGNITION_TIME mode from "
+ 465 //                    "the UNINITIALIZED mode ... Exiting\n");
+ 466 //             exit(-1);
+ 467 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 486, end_line: 492, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 486 // #ifdef NRTSIM
+ 487 //                 printf("LambertScrubGuide::setGuidanceMode: Cannot command "
+ 488 //                        "guidance to INIT_GUIDANCE_VARIABLE_IGNITION_TIME mode "
+ 489 //                        "without setting all the mandatory parameters ... "
+ 490 //                        "Exiting\n");
+ 491 //                 exit(-1);
+ 492 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 497, end_line: 502, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 497 // #ifdef NRTSIM
+ 498 //             printf("LambertScrubGuide::setGuidanceMode: Can only transition "
+ 499 //                    "guidance to INIT_GUIDANCE_VARIABLE_IGNITION_TIME mode from "
+ 500 //                    "the UNINITIALIZED mode ... Exiting\n");
+ 501 //             exit(-1);
+ 502 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 510, end_line: 516, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 510 // #ifdef NRTSIM
+ 511 //             printf("*** WARNING -> NO TRANSLATIONAL ERRORS NORMAL TO THE "
+ 512 //                    "ALONG DIRECTION WILL BE CORRECTED !!!\n"
+ 513 //                    "LambertScrubGuide::setGuidanceMode: Guidance "
+ 514 //                    "commanded to INIT_GUIDANCE_VARIABLE_IGNITION_TIME mode "
+ 515 //                    "with a balanced scrub strategy.\n");
+ 516 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 526, end_line: 532, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc" }
+ 526 // #ifdef NRTSIM
+ 527 //         printf("LambertScrubGuide::setGuidanceMode: Cannot command "
+ 528 //                "guidance to STANDBY mode using this function. "
+ 529 //                "STANDBY mode is automatically entered after initialization "
+ 530 //                "... Exiting\n");
+ 531 //         exit(-1);
+ 532 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 23, end_line: 25, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+  23 // #if (NRTSIM)
+  24 // #include "cmdlineargs.hh"
+  25 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 47, end_line: 179, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+  47 // #if (NRTSIM)
+  48 // /**
+  49 // ********************************************************************************
+  50 // * @fn       printHelp(void)
+  51 // *
+  52 // * @brief    Print usage instructions for the user
+  53 // ********************************************************************************
+  54 // */
+  55 // void printHelp(void)
+  56 // {
+  57 //     printf("Lambert Guidance Test\n");
+  58 //     printf("---------------------\n");
+  59 //     printf("Execute test on the Flight Computer and in UNIX/LINUX using:\n\n");
+  60 //     printf("LambertGuidance_test -s scrubStrategy -im initScrubMode -o "
+  61 //            "pOutFileName\n\n");
+  62 //     printf("   scrubStrategy -> Enumerated LambertEnergyScrubStrategy in "
+  63 //            "lambertScrubGuide.hh\n");
+  64 //     printf("   initScrubMode -> Enumerated LambertScrubGuidanceMode in "
+  65 //            "lambertScrubGuide.hh\n");
+  66 //     printf("   pOutFileName  -> Output filename\n\n");
+  67 //     printf("Optional Argument\n");
+  68 // 
+  69 //     exit(1);
+  70 // }
+  71 // 
+  72 // /**
+  73 // ********************************************************************************
+  74 // *   @fn     main(int argc,char* argv[])
+  75 // *
+  76 // *   @param  argc - Number of command line arguments
+  77 // *   @param  argv - Command line argument strings
+  78 // *   @return 0 if nominal, < 0 on error
+  79 // *
+  80 // *   @brief  Main entry point for the LambertScrubGuidance_test test driver
+  81 // ********************************************************************************
+  82 // */
+  83 // int main(int argc, char* argv[])
+  84 // {
+  85 //     oscINT32 scrubStrategy = 0;
+  86 //     oscINT32 initScrubMode = 0;
+  87 //     oscINT32 failureMode = 0;
+  88 //     oscINT32 offNomMode = 0;
+  89 //     oscINT32 result = 0;
+  90 //     oscINT32 setPend = 0;
+  91 // 
+  92 //     /*
+  93 //     ** Load the command line arguments in the CmdLineArgs class so the arguments
+  94 //     ** can be used to define the behavior of the test driver
+  95 //     */
+  96 //     CmdLineArgs::loadArgs(argc,argv);
+  97 // 
+  98 //     /*
+  99 //     ** The scrub strategies are the enumerated values of
+ 100 //     ** LambertEnergyScrubStrategy in lambertScrubGuide.hh
+ 101 //     */
+ 102 //     if (false == CmdLineArgs::getArg("s",scrubStrategy))
+ 103 //     {
+ 104 //         printf("Error: No scrub strategy provided.\n\n");
+ 105 //         printHelp();
+ 106 //     }
+ 107 // 
+ 108 //     /*
+ 109 //     ** The guidance modes are the enumerated values of LambertScrubGuidanceMode
+ 110 //     ** in lambertScrubGuide.hh
+ 111 //     */
+ 112 //     if (false == CmdLineArgs::getArg("im",initScrubMode))
+ 113 //     {
+ 114 //         printf("Error: No initial mode provided.\n\n");
+ 115 //         printHelp();
+ 116 //     }
+ 117 // 
+ 118 //     /*
+ 119 //     ** setPend sets whether pending during executeGuidance calls are made.
+ 120 //     ** p = 0 or not set, guidance clock syncing is not used. 
+ 121 //     ** p = 1 the non pend case will be run with guidance clock syncing
+ 122 //     ** p = 2 the pend case is run with guidance clock syncing
+ 123 //     */
+ 124 //     CmdLineArgs::getArg("p",setPend);
+ 125 // 
+ 126 //     /*
+ 127 //     ** Store the optional failure modes for the LambertScrubGuide class. The
+ 128 //     ** following failure modes are currently supported.
+ 129 //     **
+ 130 //     **  0. Do not run any failure cases
+ 131 //     **  1. Call setGuidanceMode with mode = UNINITIALIZED
+ 132 //     **  2. Call initErrorCheck with guidanceMode not equal to UNINITIALIZED
+ 133 //     **  3. Force every convergence failure statement for each guidanceMode in
+ 134 //     **     taskFunc
+ 135 //     **  4. Failure case 1 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
+ 136 //     **     setGuidanceMode
+ 137 //     **  5. Failure case 2 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
+ 138 //     **     setGuidanceMode
+ 139 //     **  6. Failure case 3 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
+ 140 //     **     setGuidanceMode
+ 141 //     **  7. Failure case 1 with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in
+ 142 //     **     setGuidanceMode
+ 143 //     **  8. Failure case 2 with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in
+ 144 //     **     setGuidanceMode
+ 145 //     **  9. Warning with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in setGuidanceMode
+ 146 //     **     and failure by calling setGuidanceMode again with mode = STANDBY
+ 147 //     **  10. Failure case 1 with RECOMPUTE_IGNITION_TIME in setGuidanceMode
+ 148 //     **  11. Failure case 2 with RECOMPUTE_IGNITION_TIME in setGuidanceMode
+ 149 //     **  12. Failure case with RUN_GUIDANCE in setGuidanceMode
+ 150 //     **  13. Failure in setGuidanceMode with mode set to unknown value
+ 151 //     **  14. Call setScrubStrategy with guidanceMode not UNINITIALIZED
+ 152 //     **  15. Call calcAxleOfRotation with scrubStrategy set to unknown value
+ 153 //     **  16. Call calcScrub with inPlaneAxis vector set to ZERO_VECTOR3
+ 154 //     */
+ 155 //     CmdLineArgs::getArg("fm",failureMode);
+ 156 // 
+ 157 //     /*
+ 158 //     ** Store the optional off-nominal modes for the LambertScrubGuide class.
+ 159 //     ** These are mainly used to increase code coverage. The following modes are
+ 160 //     ** currently supported.
+ 161 //     **
+ 162 //     **  0. Do not run any off-nominal paths
+ 163 //     **  1. Conditional code in executeGuidance when lateScrubTransitionFlag is
+ 164 //     **     set
+ 165 //     */
+ 166 //     CmdLineArgs::getArg("offnom",offNomMode);
+ 167 // 
+ 168 //     /*
+ 169 //     ** Run the test driver function
+ 170 //     */
+ 171 //     result = LambertGuideTestChild::LambertGuidance_test(scrubStrategy,
+ 172 //                                                          initScrubMode,
+ 173 //                                                          failureMode,
+ 174 //                                                          offNomMode,
+ 175 //                                                          setPend);
+ 176 //     exit(result);
+ 177 // }
+ 178 // 
+ 179 // #endif /* (NRTSIM) */
+
+Mark { conditional: "#if (NRTSIM)", start_line: 200, end_line: 206, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+ 200 // #if (NRTSIM)
+ 201 // oscINT32 LambertGuideTestChild::LambertGuidance_test(oscUINT32 scrubStrategy,
+ 202 //                                                      oscUINT32 initScrubMode,
+ 203 //                                                      oscUINT32 failureMode,
+ 204 //                                                      oscUINT32 offNomMode,
+ 205 //                                                      oscUINT32 setPend)
+ 206 // #else
+
+Mark { conditional: "#if (NRTSIM)", start_line: 427, end_line: 429, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+ 427 // #if (NRTSIM)
+ 428 //     OsTask::setInitEntryFunction(LambertGuideTestChild::Start,OSTASK_MIN_PRIORITY);
+ 429 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 455, end_line: 666, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+ 455 // #if (NRTSIM)
+ 456 //     switch (failureMode)
+ 457 //     {
+ 458 //         /*
+ 459 //         ** Do not execute any failure modes
+ 460 //         */
+ 461 //         case 0:
+ 462 //             break;
+ 463 // 
+ 464 //         /*
+ 465 //         ** Call setGuidanceMode with mode = UNINITIALIZED
+ 466 //         */    
+ 467 //         case 1:
+ 468 //             TestMode = LambertScrubGuide::UNINITIALIZED;
+ 469 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 470 //             break;
+ 471 // 
+ 472 //         /*
+ 473 //         ** Call initErrorCheck with guidanceMode not equal to UNINITIALIZED
+ 474 //         */
+ 475 //         case 2:
+ 476 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
+ 477 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 478 // 
+ 479 //             /*
+ 480 //             ** setGuidanceIterationLimit calls private method initErrorCheck
+ 481 //             */
+ 482 //             lambertGuideObj->setGuidanceIterationLimit(10);
+ 483 //             break;
+ 484 // 
+ 485 //         /*
+ 486 //         ** Force every convergence failure statement for each guidanceMode in
+ 487 //         ** taskFunc
+ 488 //         */
+ 489 //         case 3:
+ 490 //             lambertGuideObj->setScrubStrategy(
+ 491 //                                 (LambertEnergyScrubStrategy)scrubStrategy);
+ 492 //             navigatorPtr->setNavVelocitySync(TRUE);
+ 493 //             lambertGuideObj->setGuidanceIterationLimit(0);
+ 494 //             lambertGuideObj->start();
+ 495 // 
+ 496 //             /*
+ 497 //             ** Run taskFunc for INIT_GUIDANCE_FIXED_IGNITION_TIME
+ 498 //             */
+ 499 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
+ 500 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 501 //             SystemState::updateSchedTime();
+ 502 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 503 //             OsTask::execRunQueue();
+ 504 // 
+ 505 //             /*
+ 506 //             ** Run taskFunc for INIT_GUIDANCE_VARIABLE_IGNITION_TIME
+ 507 //             */
+ 508 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
+ 509 // 
+ 510 //             lambertGuideObj->resetGuidance(
+ 511 //                                 LambertScrubGuide::MAINTAIN_SETTINGS);
+ 512 // 
+ 513 //             /*
+ 514 //             ** The following method is only called to increse code coverage
+ 515 //             */
+ 516 //             lambertGuideObj->setIgnitionIterationLimit(0);
+ 517 // 
+ 518 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 519 //             SystemState::updateSchedTime();
+ 520 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 521 //             OsTask::execRunQueue();
+ 522 // 
+ 523 //             /*
+ 524 //             ** Run taskFunc for RECOMPUTE_IGNITION_TIME
+ 525 //             */
+ 526 //             TestMode = LambertScrubGuide::RECOMPUTE_IGNITION_TIME;
+ 527 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 528 //             SystemState::updateSchedTime();
+ 529 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 530 //             OsTask::execRunQueue();
+ 531 // 
+ 532 //             /*
+ 533 //             ** Run taskFunc for RUN_GUIDANCE
+ 534 //             */
+ 535 //             TestMode = LambertScrubGuide::RUN_GUIDANCE;
+ 536 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 537 //             SystemState::updateSchedTime();
+ 538 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 539 //             OsTask::execRunQueue();
+ 540 // 
+ 541 //             /*
+ 542 //             ** Reset guidance and run taskFunc in UNINITIALIZED state
+ 543 //             */
+ 544 //             lambertGuideObj->resetGuidance(
+ 545 //                                 LambertScrubGuide::MAINTAIN_SETTINGS);
+ 546 //             SystemState::updateSchedTime();
+ 547 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 548 //             OsTask::execRunQueue();
+ 549 // 
+ 550 //             /*
+ 551 //             ** Exit, since none of these failure cases end program execution
+ 552 //             */
+ 553 //             exit(1);
+ 554 //             break;
+ 555 // 
+ 556 //         /*
+ 557 //         ** Failure case 1 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
+ 558 //         ** setGuidanceMode
+ 559 //         */
+ 560 //         case 4:
+ 561 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
+ 562 //             lambertGuideObj->setScrubStrategy(
+ 563 //                         LambertScrubGuide::COMBINED_PLANE_TRANSLATION_GUIDANCE);
+ 564 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 565 //             break;
+ 566 // 
+ 567 //         /*
+ 568 //         ** Failure case 2 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
+ 569 //         ** setGuidanceMode
+ 570 //         */
+ 571 //         case 5:
+ 572 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
+ 573 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 574 //             break;
+ 575 // 
+ 576 //         /*
+ 577 //         ** Failure case 3 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
+ 578 //         ** setGuidanceMode
+ 579 //         */
+ 580 //         case 6:
+ 581 //             lambertGuideObj->setScrubStrategy(
+ 582 //                                 (LambertEnergyScrubStrategy)scrubStrategy);
+ 583 //             navigatorPtr->setNavVelocitySync(TRUE);
+ 584 //             lambertGuideObj->start();
+ 585 // 
+ 586 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
+ 587 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 588 //             SystemState::updateSchedTime();
+ 589 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 590 //             OsTask::execRunQueue();
+ 591 // 
+ 592 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 593 //             break;
+ 594 // 
+ 595 //         /*
+ 596 //         ** Failure case 1 with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in
+ 597 //         ** setGuidanceMode
+ 598 //         */
+ 599 //         case 7:
+ 600 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
+ 601 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 602 //             break;
+ 603 // 
+ 604 //         /*
+ 605 //         ** Failure case 1 with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in
+ 606 //         ** setGuidanceMode
+ 607 //         */
+ 608 //         case 8:
+ 609 //             lambertGuideObj->setScrubStrategy(
+ 610 //                                 (LambertEnergyScrubStrategy)scrubStrategy);
+ 611 //             navigatorPtr->setNavVelocitySync(TRUE);
+ 612 //             lambertGuideObj->start();
+ 613 // 
+ 614 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
+ 615 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 616 //             SystemState::updateSchedTime();
+ 617 //             cbList.procCallbackList(SystemState::getSchedTime());
+ 618 //             OsTask::execRunQueue();
+ 619 // 
+ 620 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 621 //             break;
+ 622 // 
+ 623 //         /*
+ 624 //         ** Warning with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in setGuidanceMode
+ 625 //         ** and failure by calling setGuidanceMode again with mode = STANDBY
+ 626 //         */
+ 627 //         case 9:
+ 628 //             lambertGuideObj->setScrubStrategy(
+ 629 //                                 LambertScrubGuide::IN_PLANE_TURN_DOWN_THEN_UP);
+ 630 //             
+ 631 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
+ 632 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 633 //             
+ 634 //             TestMode = LambertScrubGuide::STANDBY;
+ 635 //             lambertGuideObj->setGuidanceMode(TestMode);
+ 636 //             break;
+ 637 // 
+ 638 //         /*
+ 639 //         ** Failure case 1 with RECOMPUTE_IGNITION_TIME in setGuidanceMode
+ 640 //         */
+ 641 //         case 10:
+ 642 //             /*
+ 643 //             ** Do a COMPLETE_RESET with resetGuidance
+ 644 //             */
+ 645 //             lambertGuideObj->resetGuidance(LambertScrubGuide::COMPLETE_RESET);
+ 646 // 
+ 647 //             /*
+ 648 //             ** Call every set function again, except for
+ 649 //             ** setIntermediateTargetPosition so lambertInitStatus will not be
+ 650 //             ** equal to GOOD_STATUS
+ 651 //             */
+ 652 //             lambertGuideObj->setGuidanceClock(LmbGt0Clock);
+ 653 //             lambertGuideObj->setDVCapacity(lambDrvtransVelCapacity);
+ 654 //             lambertGuideObj->setTranslationTableAlong(&transPosAlongTable);
+ 655 //             lambertGuideObj->setTranslationTableCross(&transPosCrossTable);
+ 656 //             lambertGuideObj->setTranslationFactorTable(&transFactorTable);
+ 657 //             lambertGuideObj->setTargetPosition(lambPosZEM1,lambPosZEM2,
+ 658 //                                                lambPosZEM3,
+ 659 //                                                lambTimeZEM + lambGt0AtLaunch);
+ 660 //             lambertGuideObj->setTSolution(lambDrvTSolution);
+ 661 // 
+ 662 // 
+ 663 // #ifdef VEH2STAGE
+ 664 //             lambertGuideObj->setTIgnition(lambDrvStage2IgnitionTime +
+ 665 //                                           lambGt0AtLaunch,5.00);
+ 666 // #else
+
+Mark { conditional: "#if (NRTSIM)", start_line: 1035, end_line: 1037, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+1035 // #if (NRTSIM)
+1036 //         OsTask::execRunQueue();
+1037 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 1049, end_line: 1062, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+1049 // #if (NRTSIM)
+1050 //             if ( 2 == setPend ) // run for pend case
+1051 //             {
+1052 //                 while ( lambertGuideObj->getGuidanceMode() != LambertScrubGuide::RUN_GUIDANCE &&
+1053 //                         lambertGuideObj->getGuidanceMode() != LambertScrubGuide::STANDBY)
+1054 //                 {
+1055 // 
+1056 //                     SystemState::updateSchedTime();
+1057 //                     cbList.procCallbackList(SystemState::getSchedTime());
+1058 // 
+1059 //                     OsTask::execRunQueue();
+1060 //                 }
+1061 //             }
+1062 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 59, end_line: 65, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.hh" }
+  59 // #if (NRTSIM)
+  60 //     static int LambertGuidance_test(oscUINT32 scrubStrategy,
+  61 //                                     oscUINT32 initScrubMode,
+  62 //                                     oscUINT32 failureMode,
+  63 //                                     oscUINT32 offNomMode,
+  64 //                                     oscUINT32 setPend);
+  65 // #else
+
+Mark { conditional: "#if ( NRTSIM )", start_line: 91, end_line: 194, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/VelocitySteering_test/src/VelocitySteering_test.cc" }
+  91 // #if ( NRTSIM )
+  92 // /*
+  93 // ;------------------------------------------------------------------------------
+  94 // ;
+  95 // ;       @fn     error ( void )
+  96 // ;       @param
+  97 // ;       @return
+  98 // ;       @brief
+  99 // ;
+ 100 // ;----------------------------------------------------------------------------*/
+ 101 // 
+ 102 // void printHelp ( void )
+ 103 // {
+ 104 //     cout << endl << "Velocity Steering Test";
+ 105 //     cout << "Execute test on the FC using: " << endl;
+ 106 //     cout << "VelocitySteeringTest( pCfgFilename, pInFilename, pOutFilename )" << endl;
+ 107 //     cout << "Execute test in UNIX/LINUX using: " << endl; 
+ 108 //     cout << "VelocitySteeringTest -c pCfgFilename -i pInFilename -o pOutFilename" << endl <<endl;
+ 109 //     cout << "   pCfgFilename  Configuration filename" << endl;
+ 110 //     cout << "   pInFilename  Input filename"         << endl;
+ 111 //     cout << "   pOutFilename  Output filename"        << endl;
+ 112 // 
+ 113 //     exit( 1 );
+ 114 // }
+ 115 //     
+ 116 //     
+ 117 // /*
+ 118 // ;------------------------------------------------------------------------------
+ 119 // ;
+ 120 // ;       @fn             main( int argc, char** argv )
+ 121 // ;
+ 122 // ;       @param          argc - Number of command line arguments.
+ 123 // ;       @param          argv - Command line argument strings.
+ 124 // ;       @return         0 if nominal, < 0 on error.
+ 125 // ;       @brief          Main entry point for program
+ 126 // ;
+ 127 // ;------------------------------------------------------------------------------
+ 128 // */
+ 129 // 
+ 130 // int main(int argc,  char *argv[])
+ 131 // {
+ 132 //     int               cmdLineOpt;
+ 133 //     int               result = 0;
+ 134 //     char            * pCfgFilename = NULL;
+ 135 //     char            * pInFilename  = NULL;
+ 136 //     char            * pOutFilename = NULL;
+ 137 // 
+ 138 //     
+ 139 //     static char optstring[]  = "c:i:o:h";
+ 140 //       
+ 141 //     while ((cmdLineOpt = getopt  (argc, argv, optstring)) != EOF)
+ 142 //      {
+ 143 //         switch (cmdLineOpt)
+ 144 //         {
+ 145 //             case 'c':   /* Configuration file */
+ 146 //                 pCfgFilename = optarg;
+ 147 //                 if (NULL == pCfgFilename)
+ 148 //                 {
+ 149 //                     perror (optarg);
+ 150 //                     //cout << "ERROR: Missing config filename."  << endl;
+ 151 //                     printHelp();
+ 152 // 
+ 153 //                 }
+ 154 //                 break;
+ 155 // 
+ 156 //             case 'i':   /* Input File */
+ 157 //                 pInFilename = optarg;
+ 158 //                 if (NULL == pInFilename)
+ 159 //                 {
+ 160 //                     perror (optarg);
+ 161 //                     //cout << "ERROR: Missing input filename." << endl;
+ 162 //                     printHelp();
+ 163 //                 }
+ 164 //                 break;
+ 165 // 
+ 166 //             case 'o':   /* Output File */
+ 167 //                 pOutFilename = optarg;
+ 168 //                 if (NULL == pOutFilename)
+ 169 //                 {   
+ 170 //                     perror (optarg);
+ 171 //                     //cout << "ERROR: Missing output filename." << endl;
+ 172 //                     printHelp();
+ 173 //                 }
+ 174 //                 break;
+ 175 // 
+ 176 //             case 'h':   /* Help */
+ 177 //                 printHelp();
+ 178 //                 break;
+ 179 // 
+ 180 //             default:
+ 181 //             {
+ 182 //                 fprintf(stderr, "Unrecognized option -%c\n", cmdLineOpt);
+ 183 //                 printHelp();
+ 184 //                 break;
+ 185 //             }
+ 186 //         }
+ 187 //     }
+ 188 // 
+ 189 //     result = VelocitySteering_test(pCfgFilename, pInFilename, pOutFilename  );
+ 190 // 
+ 191 //     exit(result);
+ 192 // }
+ 193 // 
+ 194 // #endif /* ( NRTSIM ) */
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 162, end_line: 169, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cNavigator/src/navdata.cc" }
+ 162 //             #if ( NRTSIM || RTCLSIM )
+ 163 //             else
+ 164 //             {
+ 165 //                 printf("ERROR: Navigator class\n");
+ 166 //                 printf("    rateFilterPtr cannot be active.\n");
+ 167 //                 exit(-1);
+ 168 //             }
+ 169 //             #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 470, end_line: 481, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cNavigator/src/NexGenSigiRT.cc" }
+ 470 // #if (NRTSIM)
+ 471 //                 /*
+ 472 //                 ** Additional logic so that NRTSIM mimics 1553 device driver
+ 473 //                 ** behaviour relative to interrupting on EO29 than EO11.
+ 474 //                 ** When EO29 messages arive they should be on even parity.
+ 475 //                 */
+ 476 //                 if ( !SchedTask::evenParity() )
+ 477 //                 {
+ 478 //                     SchedTask::interruptCnt++;
+ 479 //                     printf("INFO: Incrementing NexGenSigi counter.\n");
+ 480 //                 }
+ 481 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 84, end_line: 87, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh" }
+  84 // #if (NRTSIM || RTCLSIM)
+  85 //             printf("Upper limit not >= lower limit ... Exiting\n");
+  86 //             exit(-1);
+  87 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 95, end_line: 101, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh" }
+  95 // #if (NRTSIM || RTCLSIM)
+  96 //         if ( limit < _FLOATING_POINT_TOLERENCE ) {
+  97 //             printf("Lower limit not < zero tolerance %f ... Exiting\n",
+  98 //                     _FLOATING_POINT_TOLERENCE);
+  99 //             exit(-1);
+ 100 //         }
+ 101 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 106, end_line: 111, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh" }
+ 106 // #if (NRTSIM || RTCLSIM)
+ 107 //             else {
+ 108 //                 printf("Lower limit not <= upper limit ... Exiting\n");
+ 109 //                 exit(-1);
+ 110 //             }
+ 111 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 26, end_line: 28, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/hwdevice.hh" }
+  26 // #if (NRTSIM || RTCLSIM)
+  27 // #include "simhwdevice.hh"
+  28 // #else
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 512, end_line: 522, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/lambertScrubGuide.hh" }
+ 512 // #ifdef NRTSIM
+ 513 //     void initErrorCheck(const BYTE *string)
+ 514 //     {
+ 515 //         if (guidanceMode != UNINITIALIZED )
+ 516 //         {
+ 517 //             printf("%s: This function can only be called if guidance is in "
+ 518 //                    "the UNINITILIZED state ... Exiting\n",string);
+ 519 //             exit(-1);
+ 520 //         }
+ 521 //     }
+ 522 // #else
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 313, end_line: 324, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/navdata.hh" }
+ 313 //             #if ( NRTSIM || RTCLSIM )
+ 314 //             /*
+ 315 //             ** Perform some checking to ensure that the table
+ 316 //             ** is NULL when the user passes their own constant mass center.
+ 317 //             */
+ 318 //             if ( pMassCenterTable != NULL )
+ 319 //             {
+ 320 //                 printf("WARNING: Navigator class\n");
+ 321 //                 printf("    pMassCenterTable is not equal to NULL.\n");
+ 322 //                 printf("    Your constant data will be overwritten.\n");
+ 323 //             }
+ 324 //             #endif
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 358, end_line: 362, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/navdata.hh" }
+ 358 //                     #if ( NRTSIM || RTCLSIM )
+ 359 //                     printf("ERROR: Navigator class\n");
+ 360 //                     printf("    MassCenter was not set.\n");
+ 361 //                     exit(-1);
+ 362 //                     #endif
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 368, end_line: 372, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/navdata.hh" }
+ 368 //                     #if ( NRTSIM || RTCLSIM )
+ 369 //                     printf("ERROR: Navigator class\n");
+ 370 //                     printf("    SensorLocation was not set.\n");
+ 371 //                     exit(-1);
+ 372 //                     #endif
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 378, end_line: 382, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/navdata.hh" }
+ 378 //                     #if ( NRTSIM || RTCLSIM )
+ 379 //                     printf("ERROR: Navigator class\n");
+ 380 //                     printf("    RateDataPtr was not set.\n");
+ 381 //                     exit(-1);
+ 382 //                     #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 24, end_line: 26, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/que.hh" }
+  24 // #if (NRTSIM || RTCLSIM)
+  25 // #include "simQue.hh"
+  26 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 23, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/timeBase.hh" }
+  21 // #if (NRTSIM || RTCLSIM)
+  22 // #include "simTimeBase.hh"
+  23 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 22, end_line: 24, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/watchdog.hh" }
+  22 // #if (NRTSIM || RTCLSIM)
+  23 // #include "simwatchdog.hh"
+  24 // #else
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 75, end_line: 171, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc" }
+  75 // #if ( NRTSIM || RTCLSIM )
+  76 // void help(char*);
+  77 // 
+  78 // /*
+  79 // ************************************************************************
+  80 // *
+  81 // *   Unit:     TvcActuator_test
+  82 // *
+  83 // *   @brief    This program will validate the TVC Actuator GN&C
+  84 // *             Algorithms.
+  85 // *
+  86 // ************************************************************************
+  87 // */
+  88 // int main(int argc, char * argv[])
+  89 // {
+  90 // 
+  91 // /*--------------------------[ Local Data]------------------------------*/
+  92 // 
+  93 //     int  cmdLineOpt;
+  94 //     char *pInFilename  = NULL;
+  95 //     char *pOutFilename = NULL;
+  96 // 
+  97 // /*--------------------------[ Code Section ]---------------------------*/
+  98 // 
+  99 //     while ((cmdLineOpt = getopt (argc, argv, "i:o:")) != EOF)
+ 100 //     {
+ 101 //         switch (cmdLineOpt)
+ 102 //         {
+ 103 //             case 'i':
+ 104 //             {
+ 105 //                 pInFilename = optarg;
+ 106 //                 if (NULL == pInFilename)
+ 107 //                 {
+ 108 //                     help("Missing mandatory arguments for input file!\n");
+ 109 //                 }
+ 110 //             }
+ 111 //             break;
+ 112 //             case 'o':
+ 113 //             {
+ 114 //                 pOutFilename = optarg;
+ 115 //                 if (NULL == pOutFilename)
+ 116 //                 {
+ 117 //                     help("Missing mandatory arguments for output file!\n");
+ 118 //                 }
+ 119 //             }
+ 120 //             break;
+ 121 //             default:
+ 122 //             {
+ 123 //                 help("Unrecognized option!");
+ 124 //             }
+ 125 //         }
+ 126 //     }
+ 127 // 
+ 128 //     exit (TvcActuator_test(pInFilename, pOutFilename));
+ 129 // }
+ 130 // 
+ 131 // /*
+ 132 // ************************************************************************
+ 133 // *
+ 134 // *   @fn       help(errorString)
+ 135 // *
+ 136 // *   @param    errorString - Additional clarification of error that
+ 137 // *             was encountered.
+ 138 // *
+ 139 // *   @brief    This routine displays to standard out the detailed
+ 140 // *             usage of the TVC actuator test driver.
+ 141 // *
+ 142 // ************************************************************************
+ 143 // */
+ 144 // void help(char* errorString)
+ 145 // {
+ 146 // 
+ 147 // /*--------------------------[ Local Data]------------------------------*/
+ 148 // 
+ 149 //    int errorCode = 0;
+ 150 // 
+ 151 // /*--------------------------[ Code Section ]---------------------------*/
+ 152 // 
+ 153 //    printf("Description: The TVC actuator test driver is used to verify the AlliedTvc and ParkerTvc classes.\n");
+ 154 //    printf("Synopsis\n\n");
+ 155 //    printf("TVC actuator test is as follows:\n");
+ 156 //    printf("TvcActuator_test -i <input filename> [-o <output filename>]\n\n");
+ 157 //    printf("General Parameters:\n");
+ 158 //    printf("input filename  - The path and name of the input data file to be used.\n");
+ 159 //    printf("output filename - The path and name of the results file to use.  If none\n");
+ 160 //    printf("                  is given then stdout is used.\n\n");
+ 161 // 
+ 162 //    if ( NULL != errorString )
+ 163 //    {
+ 164 //       printf ("Invalid arguments: %s\n", errorString);
+ 165 //       errorCode = -1;
+ 166 //    }
+ 167 // 
+ 168 //    exit (errorCode);
+ 169 // }
+ 170 // 
+ 171 // #endif /* ( NRTSIM || RTCLSIM ) */
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 688, end_line: 692, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc" }
+ 688 // #if ( NRTSIM || RTCLSIM )
+ 689 //     delete &simAlliedHwDevice;
+ 690 //     delete &simParkerHwDevice;
+ 691 //     delete &simParkerHwDevice_s3;
+ 692 // #endif /* ( NRTSIM || RTCLSIM ) */
+
+Mark { conditional: "#if (NRTSIM)", start_line: 38, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+  38 // #if (NRTSIM)
+  39 // #include "fileparser.hh"
+  40 // #include "cmdlineargs.hh"
+  41 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 93, end_line: 148, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+  93 // #if (NRTSIM)
+  94 //     simOutput = 0;
+  95 //     FileParser &MissionFile = *(new FileParser("MISSION.DAT"));
+  96 // 
+  97 //     /*
+  98 //     ** Set the simOutput based on the command line argument "so", otherwise,
+  99 //     ** set it based on the value in the MISSION.DAT data file.
+ 100 //     */
+ 101 //     BOOLEAN simOutputSpecified = CmdLineArgs::getArg("so", simOutput);
+ 102 //     if (false == simOutputSpecified)
+ 103 //     {
+ 104 //         simOutput = (INT4)MissionFile.getDouble("simOutput");
+ 105 //     }
+ 106 // 
+ 107 //     /*
+ 108 //     ** Error check the value of the simOutput variable
+ 109 //     */
+ 110 //     if (simOutput > 2)
+ 111 //     {
+ 112 //         printf("WARNING: Setting simOutput value (%d) to 1\n",
+ 113 //                simOutput);
+ 114 //         simOutput = 1;
+ 115 //     }
+ 116 // 
+ 117 //     /*
+ 118 //     ** Specify a single output time step for all data
+ 119 //     */
+ 120 //     double outputDeltaT;
+ 121 //     bool dtSpecified = CmdLineArgs::getArg("dt", outputDeltaT);
+ 122 //     if (false == dtSpecified)
+ 123 //     {
+ 124 //         outputDeltaT = MissionFile.getDouble("OutputDeltaT");
+ 125 //     }
+ 126 // 
+ 127 //     if (outputDeltaT < 0.0)
+ 128 //     {
+ 129 //         printf("WARNING: outputDeltaT < 0.0.  Reset (%f) to 0.0.\n",
+ 130 //                outputDeltaT);
+ 131 //         outputDeltaT = 0.0;
+ 132 //     }
+ 133 // 
+ 134 //     /*
+ 135 //     ** Simulation output time step
+ 136 //     */
+ 137 //     covOutputDt = outputDeltaT;
+ 138 //     banOutputDt = outputDeltaT;
+ 139 // 
+ 140 //     if (outputDeltaT < _FLOATING_POINT_TOLERANCE)
+ 141 //     {
+ 142 //         covOutputDt = MissionFile.getDouble("covOutputDt");
+ 143 //         banOutputDt = MissionFile.getDouble("banOutputDt");
+ 144 //     }
+ 145 // 
+ 146 //     MissionFile.disableUnreadDataWarnings();
+ 147 //     delete &MissionFile;
+ 148 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 166, end_line: 168, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+ 166 // #if (NRTSIM)
+ 167 //     SET_OUTPUT_PRODUCER_NAME_OBV(COV, "cov", simOutput);
+ 168 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 193, end_line: 195, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+ 193 // #if (NRTSIM)
+ 194 //     SET_OUTPUT_PRODUCER_NAME_OBV(BAN, "ban", simOutput);
+ 195 // #endif
+
+Mark { conditional: "#if (NRTSIM)", start_line: 337, end_line: 340, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+ 337 // #if (NRTSIM)
+ 338 //     ACTIVATE_OUTPUT_OBV(COV, covOutputDt, simOutput);
+ 339 //     ACTIVATE_OUTPUT_OBV(BAN, banOutputDt, simOutput);
+ 340 // #endif
+
+Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 17, end_line: 343, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+  17 // #if (defined CPU_B) || (defined NRTSIM)
+  18 // 
+  19 // /*
+  20 // ** Standard library definitions
+  21 // */
+  22 // #include <math.h>
+  23 // 
+  24 // #include "banCovMgr.hh"
+  25 // #include "systypes.h"
+  26 // #include "sysprio.hh"
+  27 // #include "bandata.hh"
+  28 // #include "BanAndCovData.hh"
+  29 // #include "NexGenSigi.hh"
+  30 // #include "NexGenSigiData.hh"
+  31 // #include "navcovpropagator.hh"
+  32 // #include "bandata.hh"
+  33 // #include "geodeticmodel.hh"
+  34 // #include "ObvState.hh"
+  35 // #include "vector3.hh"
+  36 // #include "constant.hh"
+  37 // 
+  38 // // #if (NRTSIM)
+  39 // // #include "fileparser.hh"
+  40 // // #include "cmdlineargs.hh"
+  41 // // #endif
+  42 // 
+  43 // /*
+  44 // ** Define intermediary macros for OutputProducer methods that allows
+  45 // ** OBV to disable nrtsim and flight software output on the desktop.
+  46 // ** If c is 0, these macros expand to null (do nothing).  If c==1, this
+  47 // ** macro activates the output, and if c==2, verbose output is also activated.
+  48 // ** See simoutput.hh & fltoutput.hh for macro definitions.
+  49 // */
+  50 // #define SET_OUTPUT_PRODUCER_NAME_OBV(a, b, c) \
+  51 //     SET_OUTPUT_PRODUCER_NAME((a), (b));       \
+  52 //     if (2 == (c))                             \
+  53 //     {                                         \
+  54 //         SET_OUTPUT_VERBOSE((a));              \
+  55 //     }
+  56 // #define ACTIVATE_OUTPUT_OBV(a, b, c) \
+  57 //     if ((c) > 0)                     \
+  58 //     {                                \
+  59 //         ACTIVATE_OUTPUT((a), (b));   \
+  60 //     }
+  61 // #define DEACTIVATE_OUTPUT_OBV(a, c) \
+  62 //     if ((c) > 0)                    \
+  63 //     {                               \
+  64 //         DEACTIVATE_OUTPUT((a));     \
+  65 //     }
+  66 // 
+  67 // SINGLETON_IMPL(BanCovMgr);
+  68 // 
+  69 // BanCovMgr::BanCovMgr()
+  70 // {
+  71 //     /*
+  72 //     ** Instantiate navigator object
+  73 //     */
+  74 //     NavigatorObj = NexGenSigi::getSingleton();
+  75 // 
+  76 //     /*
+  77 //     ** Set IMU to body transformation
+  78 //     */
+  79 //     NavigatorObj->setDevice2Body(navigatorToBodyData);
+  80 // 
+  81 //     /*
+  82 //     ** *************************************************************************
+  83 //     **
+  84 //     **  Simulation output rate parameters
+  85 //     **
+  86 //     ** *************************************************************************
+  87 //     */
+  88 // 
+  89 //     /*
+  90 //     ** Declare simOutput, used throughout flightSequencer.cc
+  91 //     ** NRTSIM output is disabled by default.
+  92 //     */
+  93 // // #if (NRTSIM)
+  94 // //     simOutput = 0;
+  95 // //     FileParser &MissionFile = *(new FileParser("MISSION.DAT"));
+  96 // // 
+  97 // //     /*
+  98 // //     ** Set the simOutput based on the command line argument "so", otherwise,
+  99 // //     ** set it based on the value in the MISSION.DAT data file.
+ 100 // //     */
+ 101 // //     BOOLEAN simOutputSpecified = CmdLineArgs::getArg("so", simOutput);
+ 102 // //     if (false == simOutputSpecified)
+ 103 // //     {
+ 104 // //         simOutput = (INT4)MissionFile.getDouble("simOutput");
+ 105 // //     }
+ 106 // // 
+ 107 // //     /*
+ 108 // //     ** Error check the value of the simOutput variable
+ 109 // //     */
+ 110 // //     if (simOutput > 2)
+ 111 // //     {
+ 112 // //         printf("WARNING: Setting simOutput value (%d) to 1\n",
+ 113 // //                simOutput);
+ 114 // //         simOutput = 1;
+ 115 // //     }
+ 116 // // 
+ 117 // //     /*
+ 118 // //     ** Specify a single output time step for all data
+ 119 // //     */
+ 120 // //     double outputDeltaT;
+ 121 // //     bool dtSpecified = CmdLineArgs::getArg("dt", outputDeltaT);
+ 122 // //     if (false == dtSpecified)
+ 123 // //     {
+ 124 // //         outputDeltaT = MissionFile.getDouble("OutputDeltaT");
+ 125 // //     }
+ 126 // // 
+ 127 // //     if (outputDeltaT < 0.0)
+ 128 // //     {
+ 129 // //         printf("WARNING: outputDeltaT < 0.0.  Reset (%f) to 0.0.\n",
+ 130 // //                outputDeltaT);
+ 131 // //         outputDeltaT = 0.0;
+ 132 // //     }
+ 133 // // 
+ 134 // //     /*
+ 135 // //     ** Simulation output time step
+ 136 // //     */
+ 137 // //     covOutputDt = outputDeltaT;
+ 138 // //     banOutputDt = outputDeltaT;
+ 139 // // 
+ 140 // //     if (outputDeltaT < _FLOATING_POINT_TOLERANCE)
+ 141 // //     {
+ 142 // //         covOutputDt = MissionFile.getDouble("covOutputDt");
+ 143 // //         banOutputDt = MissionFile.getDouble("banOutputDt");
+ 144 // //     }
+ 145 // // 
+ 146 // //     MissionFile.disableUnreadDataWarnings();
+ 147 // //     delete &MissionFile;
+ 148 // // #endif
+ 149 // 
+ 150 //     /*
+ 151 //     ** *************************************************************************
+ 152 //     **
+ 153 //     **  Instantiate and set properties of Covariance Object
+ 154 //     **
+ 155 //     ** *************************************************************************
+ 156 //     */
+ 157 //     geodeticModel = new EarthWGS84ModelJ2Gravity();
+ 158 // 
+ 159 //     COV = new NavCovariancePropagator48States(NavigatorObj,
+ 160 //                                               geodeticModel,
+ 161 //                                               DT_200Hz,
+ 162 //                                               DT_1Hz,
+ 163 //                                               ObvState::getGT0Clock());
+ 164 // 
+ 165 //     COV->stop();
+ 166 // // #if (NRTSIM)
+ 167 // //     SET_OUTPUT_PRODUCER_NAME_OBV(COV, "cov", simOutput);
+ 168 // // #endif
+ 169 // 
+ 170 //     /*
+ 171 //     ** *************************************************************************
+ 172 //     **
+ 173 //     **  Instantiate and set properties of Booster-Aided Nav Object
+ 174 //     **
+ 175 //     ** *************************************************************************
+ 176 //     */
+ 177 //     BAN = new BanData(NavigatorObj,
+ 178 //                       COV,
+ 179 //                       geodeticModel,
+ 180 //                       ObvState::getGT0Clock());
+ 181 //     BAN->stop();
+ 182 // 
+ 183 //     /*
+ 184 //     ** SIGI sensor time delay (the time from sensor sampling to data
+ 185 //     ** arrival at the flight computer). The time delay is published by
+ 186 //     ** Honeywell in the SIGI NexGen Time Delay and Time Tag Error Analysis
+ 187 //     ** (SDRL-32) was measured to be 11.77 ms for 50 Hz data. The current
+ 188 //     ** GT0 time will be adjusted by this value to produce a BAN timestamp
+ 189 //     ** that more accurately represents when the sensors were sampled
+ 190 //     ** relative to GT0.
+ 191 //     */
+ 192 //     BAN->setNavSensorDelayTime(banNavSensorDelayTime);
+ 193 // // #if (NRTSIM)
+ 194 // //     SET_OUTPUT_PRODUCER_NAME_OBV(BAN, "ban", simOutput);
+ 195 // // #endif
+ 196 // }
+ 197 // 
+ 198 // BanCovMgr::~BanCovMgr()
+ 199 // {
+ 200 //     delete BAN;
+ 201 //     delete COV;
+ 202 //     delete geodeticModel;
+ 203 // }
+ 204 // 
+ 205 // void BanCovMgr::start()
+ 206 // {
+ 207 //     /*
+ 208 //     ** Navigator local variables used in access methods
+ 209 //     */
+ 210 //     Angle longitude = ZERO_ANGLE;
+ 211 //     Angle latitude = ZERO_ANGLE;
+ 212 //     double altitude = 0.0;
+ 213 // 
+ 214 //     /*
+ 215 //     ** *******************************************************************
+ 216 //     **
+ 217 //     **   NAVCOVPROPAGATOR SETUP
+ 218 //     **
+ 219 //     *******************************************************************
+ 220 //     */
+ 221 // 
+ 222 //     /*
+ 223 //     ** Set values for SIGI navigator
+ 224 //     */
+ 225 //     COV->setIntegratedVelocityCovariance(integratedVelocityCovariance[0],
+ 226 //                                          integratedVelocityCovariance[1],
+ 227 //                                          integratedVelocityCovariance[2]);
+ 228 //     COV->setPositionCovariance(positionCovariance[0],
+ 229 //                                positionCovariance[1],
+ 230 //                                positionCovariance[2]);
+ 231 //     COV->setVelocityCovariance(velocityCovariance[0],
+ 232 //                                velocityCovariance[1],
+ 233 //                                velocityCovariance[2]);
+ 234 //     COV->setTiltCovariance(tiltCovariance[0], tiltCovariance[1]);
+ 235 // 
+ 236 //     /*
+ 237 //     ** Set initial heading covariance with latitude dependent value.
+ 238 //     */
+ 239 //     NavigatorObj->getPosition(latitude, longitude, altitude);
+ 240 //     double cosLat = cos(latitude);
+ 241 // 
+ 242 //     /*
+ 243 //     ** The following logic prevents a divide by zero error.
+ 244 //     ** cosLat is small when latitude is close to 90 degrees.
+ 245 //     ** So this divide by zero logic arbitrarily uses 89 degrees.
+ 246 //     */
+ 247 //     if (cosLat < _FLOATING_POINT_TOLERANCE)
+ 248 //     {
+ 249 //         cosLat = cos(89 * DEG2RAD);
+ 250 //     }
+ 251 //     double headingErrorAtLatitude = covAtFGR * cos(latAtFGR) / cosLat;
+ 252 //     COV->setHeadingCovariance(headingErrorAtLatitude);
+ 253 // 
+ 254 //     /*
+ 255 //     ** Gravity Anomaly initial covariance data
+ 256 //     */
+ 257 //     COV->setGravityAnomalyCovariance(gravityAnomalyCovariance[0],
+ 258 //                                      gravityAnomalyCovariance[1],
+ 259 //                                      gravityAnomalyCovariance[2]);
+ 260 // 
+ 261 //     /*
+ 262 //     ** Accelerometer bias initial covariance data
+ 263 //     */
+ 264 //     COV->setCovAccelBias(covAccelBias[0], covAccelBias[1], covAccelBias[2]);
+ 265 // 
+ 266 //     /*
+ 267 //     ** Accelerometer scale factor initial covariance data
+ 268 //     */
+ 269 //     COV->setCovAccelSF(covAccelSF[0], covAccelSF[1], covAccelSF[2]);
+ 270 // 
+ 271 //     /*
+ 272 //     ** Accelerometer misalignment initial covariance data
+ 273 //     */
+ 274 //     COV->setCovAccelMisalign(covAccelMisalign[0], covAccelMisalign[1],
+ 275 //                              covAccelMisalign[2], covAccelMisalign[3],
+ 276 //                              covAccelMisalign[4], covAccelMisalign[5]);
+ 277 // 
+ 278 //     /*
+ 279 //     ** Accelerometer scale factor asymmetry initial covariance data
+ 280 //     */
+ 281 //     COV->setCovAccelSFA(covAccelSFA[0], covAccelSFA[1], covAccelSFA[2]);
+ 282 // 
+ 283 //     /*
+ 284 //     ** Accelerometer scale factor nonlinearity initial covariance data
+ 285 //     */
+ 286 //     COV->setCovAccelG2Sens(covAccelG2Sens[0],
+ 287 //                            covAccelG2Sens[1],
+ 288 //                            covAccelG2Sens[2]);
+ 289 // 
+ 290 //     /*
+ 291 //     ** Accelerometer scale factor anisoelasticity initial covariance data
+ 292 //     */
+ 293 //     COV->setCovAccelAniso(covAccelAniso[0], covAccelAniso[1], covAccelAniso[2]);
+ 294 // 
+ 295 //     /*
+ 296 //     ** Gyro bias initial covariance data
+ 297 //     */
+ 298 //     COV->setCovGyroBias(covGyroBias[0], covGyroBias[1], covGyroBias[2]);
+ 299 // 
+ 300 //     /*
+ 301 //     ** Gyro scale factor initial covariance data
+ 302 //     */
+ 303 //     COV->setCovGyroSF(covGyroSF[0], covGyroSF[1], covGyroSF[2]);
+ 304 // 
+ 305 //     /*
+ 306 //     ** Gyro misalignment initial covariance data
+ 307 //     */
+ 308 //     COV->setCovGyroMisalign(covGyroMisalign[0], covGyroMisalign[1],
+ 309 //                             covGyroMisalign[2], covGyroMisalign[3],
+ 310 //                             covGyroMisalign[4], covGyroMisalign[5]);
+ 311 // 
+ 312 //     /*
+ 313 //     ** Velocity process noise
+ 314 //     */
+ 315 //     COV->setQVelocity(qVelocity[0], qVelocity[1], qVelocity[2]);
+ 316 // 
+ 317 //     /*
+ 318 //     ** Attitude process noise
+ 319 //     */
+ 320 //     COV->setQAttitude(qAttitude[0], qAttitude[1], qAttitude[2]);
+ 321 // 
+ 322 //     /*
+ 323 //     ** Gyro Bias Process Noise
+ 324 //     */
+ 325 //     COV->setQGyroBias(qGyroBias[0], qGyroBias[1], qGyroBias[2]);
+ 326 // 
+ 327 //     /*
+ 328 //     ** Accel Bias Process Noise
+ 329 //     */
+ 330 //     COV->setQAccelBias(qAccelBias[0], qAccelBias[1], qAccelBias[2]);
+ 331 // 
+ 332 //     /*
+ 333 //     ** Wait for MDL Complete to start BAN and COV
+ 334 //     */
+ 335 //     COV->start();
+ 336 //     BAN->start();
+ 337 // // #if (NRTSIM)
+ 338 // //     ACTIVATE_OUTPUT_OBV(COV, covOutputDt, simOutput);
+ 339 // //     ACTIVATE_OUTPUT_OBV(BAN, banOutputDt, simOutput);
+ 340 // // #endif
+ 341 // }
+ 342 // 
+ 343 // #endif // CPU_B
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 91, end_line: 131, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/bandata.cc" }
+  91 // #ifdef NRTSIM
+  92 // 
+  93 //     /*
+  94 //     ** Register member data for output
+  95 //     ** NOTE: Below macros expand to NULL in flight code
+  96 //     */
+  97 //     BYTE name[32];
+  98 //     REGISTER_OUTPUT(this, gt0ClockPtr->getTime(), "gt0Time");
+  99 //     REGISTER_OUTPUT(this, primaryKeepAliveCounter, "primaryKeepAliveCounter");
+ 100 //     REGISTER_OUTPUT(this, secondaryKeepAliveCounter,
+ 101 //                     "secondaryKeepAliveCounter");
+ 102 //     REGISTER_OUTPUT(this, latitude, "lat");
+ 103 //     REGISTER_OUTPUT(this, longitude, "lon");
+ 104 //     REGISTER_OUTPUT(this, altitude, "alt");
+ 105 //     REGISTER_OUTPUT(this, RofBwrtEexpE, "posECEF");
+ 106 //     REGISTER_OUTPUT(this, VofBwrtEexpE, "velECEF");
+ 107 //     REGISTER_OUTPUT(this, OutArray<double>((q2EfromB), 4), "q2EfromB");
+ 108 // 
+ 109 //     for( i = 0; i < NUM_ECI_STATES; i++ )
+ 110 //     {
+ 111 //        sprintf(name, "PECIRow%d", i+1);
+ 112 //        //strcpy(name,"PECIRow");
+ 113 //        //charData = 0x30 + i + 1;
+ 114 //        //strcat(name, &charData);
+ 115 //        REGISTER_OUTPUT_VERBOSE(
+ 116 //            this,
+ 117 //            OutArray<double>((const double *)PECI9x9[i], NUM_ECI_STATES),
+ 118 //            name);
+ 119 //     }
+ 120 // 
+ 121 //     for( i = 0; i < NUM_ECI_STATES; i++ )
+ 122 //     {
+ 123 //        sprintf(name, "PECIDia%d", i+1);
+ 124 //        //strcpy(name,"PECIDia");
+ 125 //        //charData = 0x30 + i + 1;
+ 126 //        //strcat(name, &charData);
+ 127 //        //strcat(name, &charData);
+ 128 //        REGISTER_OUTPUT(this, PECI9x9[i][i], name);
+ 129 //     }
+ 130 // 
+ 131 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 34, end_line: 39, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+  34 // #ifdef NRTSIM
+  35 // void   orbLEDset (oscUINT32 value)
+  36 // {
+  37 //     printf("Setting LED to read %Xh\n", value);
+  38 // };
+  39 // #endif
+
+Mark { conditional: "#if (defined NRTSIM)", start_line: 136, end_line: 141, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+ 136 // #if (defined NRTSIM)
+ 137 //     (void) _result;
+ 138 //     // Return success in NRTSIM
+ 139 //     localResult=0;
+ 140 //     return (localResult);
+ 141 // #else
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 100, end_line: 112, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cCle/src/CleTxMessageFactory.cc" }
+ 100 // #ifdef NRTSIM
+ 101 // void CleTxMessageFactory::clear()
+ 102 // {
+ 103 //     for (size_t index =0; index < CLETX_MAX_ENTRIES; index++)
+ 104 //     {
+ 105 //         if (NULL != response_table[index])
+ 106 //         {
+ 107 //             delete response_table[index];
+ 108 //         }
+ 109 //     }
+ 110 //     std::memset( response_table, 0, sizeof(response_table) );
+ 111 // }
+ 112 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 30, end_line: 35, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc" }
+  30 // #ifdef NRTSIM
+  31 // bool dummyLaunchEnable = false;
+  32 // bool Discrete::isLaunchEnableActive( void ){return dummyLaunchEnable;};
+  33 // void Discrete::enableGT0Processing( void ){};
+  34 // void Discrete::disableGT0Processing( void ){};
+  35 // #else
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 338, end_line: 343, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
+ 338 // #ifdef NRTSIM
+ 339 //     /*
+ 340 //      * Free the memory on shutdown in the sim, no need to in flight
+ 341 //      */
+ 342 //     ::free((void *)pLocal);
+ 343 // #endif
+
+Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 527, end_line: 540, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
+ 527 // #if (defined CPU_B) || (defined NRTSIM)
+ 528 // 
+ 529 //     if( missionMode )
+ 530 //     {
+ 531 //         ObvState::setMissionMode( missionMode );
+ 532 //     }
+ 533 // 
+ 534 //     /* use if and when needed */
+ 535 // #if 0
+ 536 //     if( minorFrame )
+ 537 //     {
+ 538 //         // e.g. setMinorFrame( minorFrame );
+ 539 //     }
+ 540 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 18, end_line: 20, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+  18 // #ifdef NRTSIM
+  19 // #include "pthreadsupport.hh"
+  20 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 29, end_line: 31, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+  29 // #ifdef NRTSIM
+  30 //     void *bSideTestmain( void * );
+  31 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 39, end_line: 67, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+  39 // #ifdef NRTSIM
+  40 // int main( void )
+  41 // {
+  42 //     pthread_t threadA;
+  43 //     pthread_t threadB;
+  44 // 
+  45 //     createPthread(&threadA,NULL,aSideTestmain,NULL,
+  46 //                   "OsTask::exec(%s): cannot create pthread\n");
+  47 // 
+  48 //     detachPthread(&threadA,
+  49 //                   "OsTask::exec(%s): cannot detach pthread\n");
+  50 // 
+  51 //     sleep(1);
+  52 // 
+  53 //     createPthread(&threadB,NULL,bSideTestmain,NULL,
+  54 //                   "OsTask::exec(%s): cannot create pthread\n");
+  55 // 
+  56 //     detachPthread(&threadB,
+  57 //                   "OsTask::exec(%s): cannot detach pthread\n");
+  58 // 
+  59 //     sleep(10);
+  60 // 
+  61 //     cancelPthread(&threadA,
+  62 //                   "OsTask::kill(%s): cannot cancel pthread\n");
+  63 // 
+  64 //     cancelPthread(&threadB,
+  65 //                   "OsTask::kill(%s): cannot cancel pthread\n");
+  66 // }
+  67 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 119, end_line: 125, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+ 119 // #ifdef NRTSIM
+ 120 //     while(xTest::instanceCounter < 2)
+ 121 //     {
+ 122 //         //Wait for task B to come up
+ 123 //         usleep(1000);
+ 124 //     }
+ 125 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 151, end_line: 155, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+ 151 // #ifdef NRTSIM
+ 152 //             // Desktop runs with 2 threads, not 2 CPUs, so need to give up
+ 153 //             // context here for other "side" to run
+ 154 //             usleep(1);
+ 155 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 178, end_line: 180, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+ 178 // #ifdef NRTSIM
+ 179 //     exitPthread(NULL);
+ 180 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 185, end_line: 229, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
+ 185 // #ifdef NRTSIM
+ 186 // #include "BitSweepTest.hh"
+ 187 // #include "FlightCompBit.hh"
+ 188 // #include "PostIrrevsBit.hh"
+ 189 // #include "PreLaunchBit.hh"
+ 190 // #include "StartUpBit.hh"
+ 191 // #include "hwdevice.hh"
+ 192 // #include "CleKvRxMngr.hh"
+ 193 // #include "ObvRemoteTerminal.hh"
+ 194 // #include "callbacklist.hh"
+ 195 // #include "banCovMgr.hh"
+ 196 // #include "ObvStatusResponse.hh"
+ 197 // #include "NexGenSigi.hh"
+ 198 // #include "BitTask.hh"
+ 199 // #include "PrimaryNavigationResponse.hh"
+ 200 // #include "rcsact.hh"
+ 201 // #include "CleKvTxMngr.hh"
+ 202 // #include "ObvRemoteTerminal.hh"
+ 203 // #include "eventList.hh"
+ 204 // #include "maintModeTest.hh"
+ 205 // #include "NavCovarianceMatrixResponse.hh"
+ 206 // #include "covpropagator.hh"
+ 207 // void ObvStatusResponse::getTlmData(UBYTE *){};
+ 208 // void NexGenSigi::getTlmData(UBYTE *){};
+ 209 // void BitTask::getTlmData(UBYTE *){};
+ 210 // void PrimaryNavigationResponse::getTlmData(unsigned char*){};
+ 211 // void RcsActuator::getTlmData(UBYTE *){};
+ 212 // void CleKvTxMngr::getTlmData(unsigned char*){};
+ 213 // void SigiRt::getTlmData(unsigned char*){};
+ 214 // void EventList::getTlmData(unsigned char*){};
+ 215 // void MaintModeTest::getTlmData(UBYTE *buf){};
+ 216 // void CleKvRxMngr::getTlmData(unsigned char*){};
+ 217 // void CleKvRt::getTlmData(unsigned char*){};
+ 218 // void CovarianceMatrixPart1Response::getTlmData(unsigned char*){};
+ 219 // void CovarianceMatrixPart2Response::getTlmData(unsigned char*){};
+ 220 // void CovarianceMatrixPart3Response::getTlmData(unsigned char*){};
+ 221 // void CovarianceMatrixPart4Response::getTlmData(unsigned char*){};
+ 222 // void CovarianceMatrixPart5Response::getTlmData(unsigned char*){};
+ 223 // void CovarianceMatrixPart6Response::getTlmData(unsigned char*){};
+ 224 // void CovarianceMatrixPart7Response::getTlmData(unsigned char*){};
+ 225 // void CovariancePropagator::getTlmData(unsigned char*){};
+ 226 // void Orion38::getTlmData(unsigned char*){};
+ 227 // void Orion50::getTlmData(unsigned char*){};
+ 228 // void Orion50SXL::getTlmData(unsigned char*){};
+ 229 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 18, end_line: 20, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc" }
+  18 // #ifdef NRTSIM
+  19 // #include "pthreadsupport.hh"
+  20 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 63, end_line: 67, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc" }
+  63 // #ifdef NRTSIM
+  64 //             // Desktop runs with 2 threads, not 2 CPUs, so need to give up
+  65 //             // context here for other "side" to run
+  66 //             usleep(1);
+  67 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 91, end_line: 95, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc" }
+  91 // #ifdef NRTSIM
+  92 //             // Desktop runs with 2 threads, not 2 CPUs, so need to give up
+  93 //             // context here for other "side" to run
+  94 //             usleep(1);
+  95 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 101, end_line: 104, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc" }
+ 101 // #ifdef NRTSIM
+ 102 //     sleep(5);
+ 103 //     exitPthread(NULL);
+ 104 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 26, end_line: 28, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc" }
+  26 // #ifdef NRTSIM
+  27 // #include "scheduler.hh"
+  28 // #endif
+
+Mark { conditional: "#if ( NRTSIM )", start_line: 45, end_line: 48, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc" }
+  45 // #if ( NRTSIM )
+  46 //     OsTask::setInitEntryFunction(UnitTest::Start,OSTASK_MIN_PRIORITY);
+  47 //     OsTask::execRunQueue();
+  48 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 118, end_line: 121, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc" }
+ 118 // #ifdef NRTSIM
+ 119 //     OsTask::execRunQueue();
+ 120 //     TaskDelay::execRunQueue();
+ 121 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 40, end_line: 42, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+  40 // #ifdef NRTSIM
+  41 //             reinterpret_cast<oscSizeT>(::malloc((sizeof(UserReservedMemTest) * 2)));
+  42 // #else
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 47, end_line: 58, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+  47 // #ifdef NRTSIM
+  48 //         // No need for separate memory on desktop, just read from the same spot
+  49 //         testMem = (UserReservedMemTest *)start_addr;
+  50 //         remoteTestMem = (UserReservedMemTest *)(start_addr + sizeof(UserReservedMemTest));
+  51 //     }
+  52 //     else
+  53 //     {
+  54 //         // No need for separate memory on desktop, just read from the same spot
+  55 //         remoteTestMem = (UserReservedMemTest *)start_addr;
+  56 //         testMem = (UserReservedMemTest *)(start_addr + sizeof(UserReservedMemTest));
+  57 //     }
+  58 // #else
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 99, end_line: 106, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+  99 // #ifdef NRTSIM
+ 100 //         // Clear the queue out if it had been running elsewhere
+ 101 //         while (!cleTxQueue.isEmpty())
+ 102 //         {
+ 103 //             Full1553MsgType temp;
+ 104 //             cleTxQueue.get(&temp, sizeof(temp));
+ 105 //         }
+ 106 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 119, end_line: 122, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+ 119 // #ifdef NRTSIM
+ 120 //     CleTxMessageFactory::clear();
+ 121 //     ::free((void *)start_addr);
+ 122 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 593, end_line: 597, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+ 593 // #ifdef NRTSIM
+ 594 //         // Desktop runs with 2 threads, not 2 CPUs, so need to give up
+ 595 //         // context here for other "side" to run
+ 596 //         usleep(1);
+ 597 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2497, end_line: 2501, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTlm/src/idents.cc" }
+2497 // #if (NRTSIM || RTCLSIM)
+2498 // void CovariancePropagator::getTlmData(oscUINT8 *)
+2499 // {
+2500 // }
+2501 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 30, end_line: 32, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/DataPages.cc" }
+  30 // #ifdef NRTSIM
+  31 // oscSizeT SIO_SRAM_BASE_ADDRESS = reinterpret_cast<oscSizeT>(::malloc(0x8000));
+  32 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 63, end_line: 69, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/DataPages.cc" }
+  63 // #ifdef NRTSIM
+  64 //     if (0 != SIO_SRAM_BASE_ADDRESS)
+  65 //     {
+  66 //         // Free the simulated HW telemetry block
+  67 //         ::free(reinterpret_cast<void *>(SIO_SRAM_BASE_ADDRESS));
+  68 //     }
+  69 // #endif
+
+Mark { conditional: "#if ( NRTSIM )", start_line: 78, end_line: 82, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh" }
+  78 // #if ( NRTSIM )
+  79 //     oscINT32 simOutput;
+  80 //     double covOutputDt;
+  81 //     double banOutputDt;
+  82 // #endif
+
+Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 17, end_line: 86, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh" }
+  17 // #if (defined CPU_B) || (defined NRTSIM)
+  18 // 
+  19 // #include "singleton.hh"
+  20 // 
+  21 // class NexGenSigi;
+  22 // class BanData;
+  23 // class NavCovariancePropagator48States;
+  24 // class GeodeticModel;
+  25 // 
+  26 // /*
+  27 // **---------------------------------------------------------------
+  28 // **
+  29 // **   @class BanCovMgr
+  30 // **
+  31 // **   @author Steve Connet
+  32 // **   @brief	 BAN COV Manager
+  33 // **
+  34 // **     This class instantiates BAN and COV. It also provides a method
+  35 // **     to start the BAN and COV callbacks. The intention is this
+  36 // **     occurs only on CPU B for C2. On C1, the flight sequencer
+  37 // **     performed this action. On C2, the flight sequencer is not
+  38 // **     needed on CPU B. So we took BAN and COV functionality out of
+  39 // **     the flight sequencer on CPU A and put it in this class for use
+  40 // **     on CPU B.
+  41 // **
+  42 // **
+  43 // **---------------------------------------------------------------
+  44 // */
+  45 // class BanCovMgr
+  46 // {
+  47 //     SINGLETON_SPEC(BanCovMgr);
+  48 // 
+  49 // public:
+  50 // 
+  51 //    /**
+  52 //     **---------------------------------------------------------------
+  53 //     **
+  54 //     **   @fn	    start()
+  55 //     **
+  56 //     **   @param	    NONE
+  57 //     **   @return	NONE
+  58 //     **   @brief     Turns on the BAN and COV callbacks to be executed
+  59 //     **              in the context of the scheduler task on CPU B.
+  60 //     **
+  61 //     **---------------------------------------------------------------
+  62 //     */
+  63 //     void start();
+  64 // 
+  65 // private:
+  66 // 
+  67 //     /*
+  68 //      * Disable copy constructor and assignment operator
+  69 //      */
+  70 //     BanCovMgr(const BanCovMgr&);
+  71 //     BanCovMgr& operator=(const BanCovMgr&);
+  72 // 
+  73 //     NexGenSigi *NavigatorObj;
+  74 //     BanData *BAN;
+  75 //     NavCovariancePropagator48States *COV;
+  76 //     GeodeticModel *geodeticModel;
+  77 // 
+  78 // // #if ( NRTSIM )
+  79 // //     oscINT32 simOutput;
+  80 // //     double covOutputDt;
+  81 // //     double banOutputDt;
+  82 // // #endif
+  83 // 
+  84 // };
+  85 // 
+  86 // #endif // CPU_B
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 41, end_line: 55, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/CleTxMessageFactory.hh" }
+  41 // #ifdef NRTSIM
+  42 //     /*
+  43 //     ***********************************************************************
+  44 //     *   @fn     clear (void)
+  45 //     *
+  46 //     *   @param  void
+  47 //     *
+  48 //     *   @return void
+  49 //     *
+  50 //     *   @brief  Destroys all the message queues created in init
+  51 //     *
+  52 //     ***********************************************************************
+  53 //     */
+  54 //     void clear();
+  55 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 65, end_line: 71, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/ObvState.hh" }
+  65 // #ifdef NRTSIM
+  66 // 
+  67 //         COMM_PLAN_ORDER   = BIT_12,
+  68 //         COMM_PLAN_STORE   = BIT_13,
+  69 //         IFICS_ORDER       = BIT_14,
+  70 //         IFICS_STORE       = BIT_15
+  71 // #endif // NRTSIM
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 83, end_line: 86, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/ObvState.hh" }
+  83 // #ifdef NRTSIM
+  84 //         MDL_COMM_MSG     = BIT_6,
+  85 //         MDL_IFICS_MSG    = BIT_7,
+  86 // #endif // NRTSIM
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 26, end_line: 36, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/SimVxWorks.hh" }
+  26 // #ifdef NRTSIM
+  27 // 
+  28 // #include <stdio.h>
+  29 // 
+  30 // #define OK 0
+  31 // #define ERROR -1
+  32 // #define VX_FP_TASK 0
+  33 // #define logMsg(warningString, a,b,c,d,e,f) // Define this later
+  34 // 
+  35 // 
+  36 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 129, end_line: 134, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc" }
+ 129 // #if (NRTSIM || RTCLSIM)
+ 130 //         printf( "ERROR: Duplicate record name **\n" );
+ 131 //         printf( "Record name (%s) already exits\n",
+ 132 //                 dbRecordInterfacePtr->getRecordName() );
+ 133 //         exit( -1 );
+ 134 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 226, end_line: 230, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc" }
+ 226 // #if (NRTSIM || RTCLSIM)
+ 227 //         printf( "ERROR: Database record (%s) not found **\n",
+ 228 //                 dbRecordInterfacePtr->getRecordName() );
+ 229 //         exit( -1 );
+ 230 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 311, end_line: 314, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc" }
+ 311 // #if (NRTSIM || RTCLSIM)
+ 312 //         printf( "ERROR: Database record not found **\n" );
+ 313 //         printf( "Record name (%s)\n", name );
+ 314 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 850, end_line: 854, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc" }
+ 850 // #if (NRTSIM || RTCLSIM)
+ 851 //         printf( "ERROR: Database not found **\n" );
+ 852 //         printf( "Database number (%d) does not exit\n", database_num );
+ 853 //         exit( -1 );
+ 854 // #endif
+
+Mark { conditional: "#if ( NRTSIM )", start_line: 43, end_line: 53, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc" }
+  43 // #if ( NRTSIM )
+  44 // 
+  45 // int main( void )
+  46 // {
+  47 //     int retVal = 0;
+  48 // 
+  49 //     retVal = database_test();
+  50 //     exit (retVal);
+  51 // }
+  52 // 
+  53 // #endif /* ( NRTSIM ) */
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 226, end_line: 234, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc" }
+ 226 // #ifdef NRTSIM
+ 227 //     /*
+ 228 //     ** Test DataBase getTable method
+ 229 //     */
+ 230 //     printf ("Test DataBase getTable method\n");
+ 231 //     Table &tableDataPtr = dataBase1.getTable("TABLE DATA");
+ 232 //     cout << "Table Value = " << tableDataPtr.getValue();
+ 233 //     cout << endl;
+ 234 // #endif
+
+Mark { conditional: "#ifdef NRTSIM", start_line: 685, end_line: 687, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc" }
+ 685 // #ifdef NRTSIM
+ 686 //     delete &table1Obj;
+ 687 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 17, end_line: 19, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+  17 // #if (NRTSIM || RTCLSIM)
+  18 // #include <stdio.h>
+  19 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 267, end_line: 271, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+ 267 // #if (NRTSIM || RTCLSIM)
+ 268 //         printf("ERROR: Filter class\n");
+ 269 //         printf("    Invalid filter initialization method selected.\n");
+ 270 //         exit(-1);
+ 271 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 291, end_line: 296, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+ 291 // #if (NRTSIM || RTCLSIM)
+ 292 //         printf("ERROR: Filter class\n");
+ 293 //         printf("    Initialization Sample Count (m=%d): m must be 0<m<=%d.\n",
+ 294 //                     samples, FILTER_BUFFER_SIZE );
+ 295 //         exit(-1);
+ 296 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 355, end_line: 368, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+ 355 // #if (NRTSIM || RTCLSIM)
+ 356 //         printf("ERROR: Filter class\n");
+ 357 //         if ( ABS( FILTER_MAX_SS_GAIN*aSum ) <= ABS( bSum ) )
+ 358 //         {
+ 359 //             printf("    Can not initialize a filter with infinite gain to\n");
+ 360 //             printf("    a steady state condition.\n");
+ 361 //         }
+ 362 //         else
+ 363 //         {
+ 364 //             printf("    The sum of the denominator coefficients is < 0,\n");
+ 365 //             printf("    indicating a potentially unstable filter.\n");
+ 366 //         }
+ 367 //         exit(-1);
+ 368 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 556, end_line: 566, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+ 556 // #if (NRTSIM || RTCLSIM)
+ 557 //     /*
+ 558 //     ** Perform some checking to ensure that the coeff table
+ 559 //     ** is NULL when the user passes their own constant filter coeffs.
+ 560 //     */
+ 561 //     if ( NULL != coeffTable )
+ 562 //     {
+ 563 //         printf("WARNING: Filter class\n");
+ 564 //         printf("    Setting const coeffs while coeffTable is not NULL\n");
+ 565 //     }
+ 566 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 630, end_line: 641, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+ 630 // #if (NRTSIM || RTCLSIM)
+ 631 //         /*
+ 632 //         ** Check that the table size is appropriate for a filter (odd)
+ 633 //         */
+ 634 //         if ( (vectorSize & 1) == 0 )
+ 635 //         {
+ 636 //             printf("ERROR: Filter class - Table array size not odd.\n");
+ 637 //             printf("   Table getVector size = %d\n", vectorSize );
+ 638 //             printf("   Table getVector size != (2*FiltOrder + 1)\n");
+ 639 //             exit(-1);
+ 640 //         }
+ 641 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 678, end_line: 703, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+ 678 // #if (NRTSIM || RTCLSIM)
+ 679 // 
+ 680 //     /*
+ 681 //     ** Zero the coefficients that are not used. This is done primarily to
+ 682 //     ** ensure that simulation outputs (states) for num and den represent
+ 683 //     ** the current filters coefficients.
+ 684 //     */
+ 685 //     for ( oscUINT32 i = filterOrder+1; i <= MAX_FILTER_ORDER; i++ )
+ 686 //     {
+ 687 //         aCoef[i] = 0.0;
+ 688 //         bCoef[i] = 0.0;
+ 689 //     }
+ 690 // 
+ 691 //     /*
+ 692 //     ** Make sure the filter order is less than the maximum filter order.
+ 693 //     */
+ 694 //     if ( filterOrder > MAX_FILTER_ORDER )
+ 695 //     {
+ 696 //         printf("ERROR: Filter class - Exceeds maximum filter order.\n");
+ 697 //         printf("   Filter order = %d\n", filterOrder);
+ 698 //         printf("   Maximum filter order = %d\n", MAX_FILTER_ORDER);
+ 699 //         printf("   Filter order > Maximum filter order.\n");
+ 700 //         exit(-1);
+ 701 //     }
+ 702 // 
+ 703 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 23, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc" }
+  21 // #if (NRTSIM || RTCLSIM)
+  22 // #include <stdlib.h>
+  23 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 71, end_line: 78, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc" }
+  71 // #if (NRTSIM || RTCLSIM)
+  72 //     if (firstValue <= 0.0 || lastValue <= 0.0) {
+  73 //         printf("ERROR: "
+  74 //                "GenArray::GenLogArray: firstValue and lastValue must "
+  75 //                "be >= 0.0 ... Exiting\n");
+  76 //         exit(-1);
+  77 //     }
+  78 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 35, end_line: 39, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matrix.cc" }
+  35 // #if (NRTSIM || RTCLSIM)
+  36 //           printf("ERROR: Matrix must be square to compute "
+  37 //           "determinant");
+  38 //           exit(-1);
+  39 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 69, end_line: 81, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc" }
+  69 // #if (NRTSIM || RTCLSIM)
+  70 //     if (i != n) {
+  71 //         printf("ERROR: "
+  72 //                "MatrixLUDecomp: A not a square matrix ... Exiting\n");
+  73 //         exit(-1);
+  74 //     }
+  75 // 
+  76 //     if (j != n) {
+  77 //         printf("ERROR: "
+  78 //                "MatrixLUDecomp: P not size consistent with A ... Exiting\n");
+  79 //         exit(-1);
+  80 //     }
+  81 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 159, end_line: 182, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc" }
+ 159 // #if (NRTSIM || RTCLSIM)
+ 160 //     if (i != n) {
+ 161 //         printf("ERROR: MatrixBacksub: A not a square matrix ... Exiting\n");
+ 162 //         exit(-1);
+ 163 //     }
+ 164 // 
+ 165 //     if (j != n) {
+ 166 //         printf("ERROR: "
+ 167 //                "MatrixBacksub: B not size consistent with A ... Exiting\n");
+ 168 //         exit(-1);
+ 169 //     }
+ 170 // 
+ 171 //     if (k != n) {
+ 172 //         printf("ERROR: "
+ 173 //                "MatrixBacksub: X not size consistent with A ... Exiting\n");
+ 174 //         exit(-1);
+ 175 //     }
+ 176 // 
+ 177 //     if (l != n) {
+ 178 //         printf("ERROR: "
+ 179 //                "MatrixBacksub: P not size consistent with A ... Exiting\n");
+ 180 //         exit(-1);
+ 181 //     }
+ 182 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 346, end_line: 352, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/quaternion.cc" }
+ 346 // #if (NRTSIM || RTCLSIM)
+ 347 //         printf( "ERROR: "
+ 348 //                 "Invalid quaternion approximation order: %d\n", order );
+ 349 //         printf( "File: %s, Line No: %d\n", __FILE__, __LINE__ );
+ 350 //         printf( "Exiting...\n" );
+ 351 //         exit( -1 );
+ 352 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 366, end_line: 372, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/quaternion.cc" }
+ 366 // #if (NRTSIM || RTCLSIM)
+ 367 //         printf( "ERROR: "
+ 368 //                 "Invalid quaternion index: %d\n", index );
+ 369 //         printf( "File: %s, Line No: %d\n", __FILE__, __LINE__ );
+ 370 //         printf( "Exiting...\n" );
+ 371 //         exit( -1 );
+ 372 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 47, end_line: 83, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/rqlsqfit.cc" }
+  47 // #if (NRTSIM || RTCLSIM)
+  48 // 
+  49 //     /*
+  50 //     ** Check for valid npoints
+  51 //     */
+  52 //     if (npoints < 3) {
+  53 //         printf("ERROR: "
+  54 //                "RecursiveQuadLSQFit: number of points requested (%d) is less\n"
+  55 //                "than the minimum allowable of 3\n",npoints);
+  56 //         exit(-1);
+  57 //     }
+  58 //     if (npoints > MAX_DATA_POINTS) {
+  59 //         printf("ERROR: "
+  60 //                "RecursiveQuadLSQFit: number of points requested (%d) exceed\n"
+  61 //                "maximum allowable point (%d)\n",npoints,MAX_DATA_POINTS);
+  62 //         exit(-1);
+  63 //     }
+  64 // 
+  65 //     /*
+  66 //     ** Check for valid stepSize
+  67 //     */
+  68 //     if ( fabs( stepSize ) < MIN_STEP_SIZE )
+  69 //     {
+  70 //         printf("ERROR: "
+  71 //                "RecursiveQuadLSQFit: absolute value of step size (%e) must\n"
+  72 //                "be larger than %e\n", stepSize, MIN_STEP_SIZE );
+  73 //         exit( -1 );
+  74 //     }
+  75 //     if ( fabs( stepSize ) > MAX_STEP_SIZE )
+  76 //     {
+  77 //         printf("ERROR: "
+  78 //                "RecursiveQuadLSQFit: absolute value of step size (%e) must\n"
+  79 //                "be smaller than %e\n", stepSize, MAX_STEP_SIZE );
+  80 //         exit( -1 );
+  81 //     }
+  82 // 
+  83 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 279, end_line: 284, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform.cc" }
+ 279 // #if (NRTSIM || RTCLSIM)
+ 280 //     printf("ERROR: "
+ 281 //            "Transform::setEulerAngles: Cannot set Euler Angles for "
+ 282 //            "the base class Transform.\n");
+ 283 //     exit(-1);
+ 284 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 93, end_line: 100, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform1.cc" }
+  93 // #if (NRTSIM || RTCLSIM)
+  94 //         printf("ERROR: "
+  95 //                "Trying to extract a single Euler angle from a DCM in "
+  96 //                "Transform1.getEulerAngles.\n  This is not permitted since "
+  97 //                "a minimum of three Euler Angles are required to specify "
+  98 //                "orientation.\n ... Exiting\n");
+  99 //         exit(-1);
+ 100 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 93, end_line: 100, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform2.cc" }
+  93 // #if (NRTSIM || RTCLSIM)
+  94 //         printf("ERROR: "
+  95 //                "Trying to extract a single Euler angle from a DCM in "
+  96 //                "Transform2.getEulerAngles.\n  This is not permitted since "
+  97 //                "a minimum of three Euler Angles are required to specify "
+  98 //                "orientation.\n ... Exiting\n");
+  99 //         exit(-1);
+ 100 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 97, end_line: 104, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform23.cc" }
+  97 // #if (NRTSIM || RTCLSIM)
+  98 //         printf("ERROR: "
+  99 //                "Trying to extract a single Euler angle from a DCM in "
+ 100 //                "Transform23.getEulerAngles.\n  This is not permitted since "
+ 101 //                "a minimum of three Euler Angles are required to specify "
+ 102 //                "orientation.\n ... Exiting\n");
+ 103 //         exit(-1);
+ 104 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 93, end_line: 100, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform3.cc" }
+  93 // #if (NRTSIM || RTCLSIM)
+  94 //         printf("ERROR: "
+  95 //                "Trying to extract a single Euler angle from a DCM in "
+  96 //                "Transform3.getEulerAngles.\n  This is not permitted since "
+  97 //                "a minimum of three Euler Angles are required to specify "
+  98 //                "orientation.\n ... Exiting\n");
+  99 //         exit(-1);
+ 100 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 97, end_line: 104, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform32.cc" }
+  97 // #if (NRTSIM || RTCLSIM)
+  98 //         printf("ERROR: "
+  99 //                "Trying to extract a single Euler angle from a DCM in "
+ 100 //                "Transform32.getEulerAngles.\n  This is not permitted since "
+ 101 //                "a minimum of three Euler Angles are required to specify "
+ 102 //                "orientation.\n ... Exiting\n");
+ 103 //         exit(-1);
+ 104 // #endif
+
+Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 23, end_line: 31, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/test/Matrix3/src/Matrix3_test.cc" }
+  23 // #if ( NRTSIM || RTCLSIM )
+  24 // 
+  25 // int main( void )
+  26 // {
+  27 //     Exec();
+  28 //     return (0);
+  29 // }
+  30 // 
+  31 // #endif /* ( NRTSIM || RTCLSIM ) */
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 358, end_line: 368, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cNav/src/navtools.cc" }
+ 358 // #if (NRTSIM || RTCLSIM)
+ 359 // void NavTools::CheckExpansionOrder( const INT4 &order )
+ 360 // {
+ 361 //     if( order >= MAX_EXPANSION_ORDER ) {
+ 362 //         printf( "ERROR: Invalid DCM update expansion order: %d\n", order );
+ 363 //         printf( "File: %s, Line No: %d\n", __FILE__, __LINE__ );
+ 364 //         printf( "Exiting...\n" );
+ 365 //         exit( -1 );
+ 366 //     }
+ 367 // }
+ 368 // #else // !NRTSIM/RTCLSIM
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 20, end_line: 917, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simoutput.cc" }
+  20 // #if (NRTSIM || RTCLSIM)
+  21 // #include <stdlib.h>
+  22 // #include <unistd.h>
+  23 // #include <stdio.h>
+  24 // #include <string.h>
+  25 // #include <sys/types.h>
+  26 // #include <sys/stat.h>
+  27 // #include <fcntl.h>
+  28 // 
+  29 // #include "simoutput.hh"
+  30 // #include "scheduler.hh"
+  31 // 
+  32 // /*
+  33 // ** Declare static data
+  34 // */
+  35 // List <OutputProducer *> OutputProducer::activeList;
+  36 // List <OutputProducer *> OutputProducer::inactiveList;
+  37 // HashTable<OutputProducerNameStruct *>
+  38 //      OutputProducer::hashTableOPNames( NAME_HASH_TABLE_SIZE );
+  39 // 
+  40 // UINT2 OutputProducer::nextHeaderID;
+  41 // OutputFile *OutputProducer::outputFile = NULL;
+  42 // BYTE OutputProducer::outputBuffer[OUTBUFSIZE];
+  43 // BYTE *OutputProducer::outputBufferPtr = OutputProducer::outputBuffer;
+  44 // ITIME_T OutputProducer::nextDueTime = _ITIME_MAX;
+  45 // BOOLEAN OutputProducer::forceOutputFlag = FALSE;
+  46 // BOOLEAN OutputProducer::forceOutputEnableFlag = TRUE;
+  47 // 
+  48 // /*
+  49 // ** Define Methods or OutputProducer
+  50 // */
+  51 // 
+  52 // /*
+  53 // ;-----------------------------------------------------------------------
+  54 // ;
+  55 // ;   Unit:      OutputProducer
+  56 // ;
+  57 // ;   Function:  Default Constructor.
+  58 // ;
+  59 // ;-----------------------------------------------------------------------
+  60 // */
+  61 // OutputProducer::OutputProducer( ) : producerName(NULL),
+  62 //     lenProducerName(0), headerID(0), verbose(FALSE), active(FALSE),
+  63 //     activated(FALSE), setOutputName(FALSE), priorTimeStep(0),
+  64 //     timeStep(0), dueTime(0), variableHashTable( NAME_HASH_TABLE_SIZE )
+  65 // {
+  66 // 
+  67 //     /*
+  68 //     ** Add to the inactive list
+  69 //     */
+  70 //     inactiveList.Add(this);
+  71 // }
+  72 // 
+  73 // /*
+  74 // ;-----------------------------------------------------------------------
+  75 // ;
+  76 // ;   Unit:      OutputProducer
+  77 // ;
+  78 // ;   Function:  Constructor.  Takes producer name as argument.
+  79 // ;
+  80 // ;-----------------------------------------------------------------------
+  81 // */
+  82 // OutputProducer::OutputProducer(const BYTE *name) :
+  83 //     headerID(0), verbose(FALSE), active(FALSE), activated(FALSE),
+  84 //     setOutputName(FALSE), priorTimeStep(0), timeStep(0), dueTime(0),
+  85 //     variableHashTable( NAME_HASH_TABLE_SIZE )
+  86 // {
+  87 //     setOutputProducerName(name);
+  88 // 
+  89 //     /*
+  90 //     ** Add to the inactive list
+  91 //     */
+  92 //     inactiveList.Add(this);
+  93 // }
+  94 // 
+  95 // /*
+  96 // ;-----------------------------------------------------------------------
+  97 // ;
+  98 // ;   Unit:      ~OutputProducer
+  99 // ;
+ 100 // ;   Function:  Destructor.
+ 101 // ;
+ 102 // ;-----------------------------------------------------------------------
+ 103 // */
+ 104 // OutputProducer::~OutputProducer()
+ 105 // {
+ 106 //     OutputVariable *outputVariable;
+ 107 // 
+ 108 //     /*
+ 109 //     ** Delete this OutputProducer's name struct on hashTableOPNames
+ 110 //     */
+ 111 //     if ( TRUE == setOutputName )
+ 112 //     {
+ 113 //         OutputProducerNameStruct *op = new OutputProducerNameStruct;
+ 114 //         INT4 nameLen = strlen( producerName ) + 1;
+ 115 //         op->pOutputProducer = NULL;
+ 116 //         op->name = new BYTE[nameLen];
+ 117 //         strcpy( op->name, producerName );
+ 118 //         if ( hashTableOPNames.Search( op ) )
+ 119 //         {
+ 120 //             delete [] hashTableOPNames.getItem()->name;
+ 121 //             delete hashTableOPNames.getItem();
+ 122 //             hashTableOPNames.RemoveCurrent();
+ 123 //         }
+ 124 //         delete [] op->name;
+ 125 //         delete op;
+ 126 //     }
+ 127 // 
+ 128 //     delete[] producerName;
+ 129 // 
+ 130 //     /*
+ 131 //     ** remove from the active or inactive list
+ 132 //     */
+ 133 //     if (active)
+ 134 //     {
+ 135 //         activeList.Remove(this);
+ 136 // 
+ 137 //         /*
+ 138 //         ** If this is the last active producer, write data and sync file.
+ 139 //         */
+ 140 //         if (activeList.getLength() == 0)
+ 141 //         {
+ 142 //             nextDueTime = _ITIME_MAX;
+ 143 //             syncOutputData();
+ 144 //         }
+ 145 //     } else {
+ 146 //         inactiveList.Remove(this);
+ 147 //     }
+ 148 // 
+ 149 //     /*
+ 150 //     ** Delete all objects on the variableList
+ 151 //     */
+ 152 //     variableList.setAtHead();
+ 153 //     while ( variableList.notAtEndBegin() )
+ 154 //     {
+ 155 //         outputVariable = variableList.getNext();
+ 156 //         variableList.Remove(outputVariable);
+ 157 //         variableHashTable.Remove(outputVariable);
+ 158 //         delete outputVariable;
+ 159 //     }
+ 160 // 
+ 161 //     /*
+ 162 //     ** Delete all objects on the variableListVerbose
+ 163 //     */
+ 164 //     variableListVerbose.setAtHead();
+ 165 //     while ( variableListVerbose.notAtEndBegin() )
+ 166 //     {
+ 167 //         outputVariable = variableListVerbose.getNext();
+ 168 //         variableListVerbose.Remove(outputVariable);
+ 169 //         variableHashTable.Remove(outputVariable);
+ 170 //         delete outputVariable;
+ 171 //     }
+ 172 // }
+ 173 // 
+ 174 // /*
+ 175 // ;-----------------------------------------------------------------------
+ 176 // ;
+ 177 // ;    Function: hashFunction (OutputProducerNameStruct Specialization)
+ 178 // ;
+ 179 // ;    Description: Specific hashFunction routine which computes
+ 180 // ;                 hashing value for OutputProducerNameStruct hash table lookups.
+ 181 // ;
+ 182 // ;-----------------------------------------------------------------------
+ 183 // */
+ 184 // template <> INT4 HashTable<OutputProducerNameStruct *>::hashFunction(
+ 185 //                                         OutputProducerNameStruct * const &arg )
+ 186 // {
+ 187 //     /*
+ 188 //     ** Simple hashing strategy of adding bytes of the command
+ 189 //     ** and taking modulo with tableSize. For this hash function
+ 190 //     ** to be effective, tableSize should be a prime number.
+ 191 //     */
+ 192 //     INT4 sum = 0;
+ 193 //     const BYTE * strName = arg->name;
+ 194 //     if ( strName != NULL )
+ 195 //     {
+ 196 //         INT4 len = strlen(strName);
+ 197 //         for( INT4 i = 0; i < len; i++ )
+ 198 //         {
+ 199 //             sum += strName[i];
+ 200 //         }
+ 201 //     }
+ 202 //     return (sum % tableSize);
+ 203 // }
+ 204 // 
+ 205 // /*
+ 206 // ;-----------------------------------------------------------------------
+ 207 // ;
+ 208 // ;    Function: Compare (OutputProducerNameStruct Specialization)
+ 209 // ;
+ 210 // ;    Description: Specific Compare routine which is used to identify
+ 211 // ;                 OutputProducerNameStruct elements in the hash table.
+ 212 // ;
+ 213 // ;-----------------------------------------------------------------------
+ 214 // */
+ 215 // template <> BOOLEAN HashTable<OutputProducerNameStruct *>::Compare(
+ 216 //                                       OutputProducerNameStruct * const &arg1,
+ 217 //                                       OutputProducerNameStruct * const &arg2 )
+ 218 // {
+ 219 //     /*
+ 220 //     ** For OutputProducerNameStruct, we are looking to match name
+ 221 //     ** for two distinct OutputProducer objects
+ 222 //     */
+ 223 //     if ( arg1 != NULL && arg1->name != NULL &&
+ 224 //          arg2 != NULL && arg2->name != NULL &&
+ 225 //          arg1->pOutputProducer != arg2->pOutputProducer &&
+ 226 //          strcmp( arg1->name, arg2->name ) == 0 )
+ 227 //     {
+ 228 //         return ( TRUE );
+ 229 //     }
+ 230 //     else
+ 231 //     {
+ 232 //         return ( FALSE );
+ 233 //     }
+ 234 // }
+ 235 // 
+ 236 // /*
+ 237 // ;-----------------------------------------------------------------------
+ 238 // ;
+ 239 // ;   Unit:      setOutputProducerName
+ 240 // ;
+ 241 // ;   Function:  Method to set the OutputProducer's name.
+ 242 // ;
+ 243 // ;-----------------------------------------------------------------------
+ 244 // */
+ 245 // void OutputProducer::setOutputProducerName(const BYTE *name)
+ 246 // {
+ 247 //     /*
+ 248 //     ** Check if a different OutputProducer with this name already registered
+ 249 //     */
+ 250 //     OutputProducerNameStruct *op = new OutputProducerNameStruct;
+ 251 //     INT4 nameLen = strlen( name ) + 1;
+ 252 //     op->pOutputProducer = this;
+ 253 //     op->name = new BYTE[nameLen];
+ 254 //     strcpy( op->name, name );
+ 255 // 
+ 256 //     if ( hashTableOPNames.Search( op ) )
+ 257 //     {
+ 258 //         printf( "ERROR: OutputProducer: (%s) "
+ 259 //                 "already registered for output\n", name );
+ 260 //         exit( -1 );
+ 261 //     }
+ 262 //     else
+ 263 //     {
+ 264 //         BOOLEAN firstTimeOrNewName = FALSE;
+ 265 //         if ( FALSE == setOutputName )    /* first time setting name for this obj */
+ 266 //         {
+ 267 //             setOutputName = TRUE;
+ 268 //             firstTimeOrNewName = TRUE;
+ 269 //         }
+ 270 //         else  /* This OutputProducer was already registered before */
+ 271 //         {
+ 272 //             /*
+ 273 //             ** Check if new name is different from old name. If so,
+ 274 //             ** delete that entry from hashTableOPNames, so that
+ 275 //             ** other OutputProducer's can use the old name.
+ 276 //             ** First create null-terminated strings to pass to
+ 277 //             ** strcmp (for safe comparison).
+ 278 //             */
+ 279 //             nameLen = strlen( producerName ) + 1;
+ 280 //             BYTE *pProdName = new BYTE[nameLen];
+ 281 //             strcpy( pProdName, producerName );
+ 282 //             nameLen = strlen( name ) + 1;
+ 283 //             BYTE *pName = new BYTE[nameLen];
+ 284 //             strcpy( pName, name );
+ 285 // 
+ 286 //             if ( strcmp( pProdName, pName ) != 0 )
+ 287 //             {
+ 288 //                 firstTimeOrNewName = TRUE;
+ 289 //                 OutputProducerNameStruct *opTmp = new OutputProducerNameStruct;
+ 290 //                 opTmp->pOutputProducer = NULL;
+ 291 //                 nameLen = strlen( producerName ) + 1;
+ 292 //                 opTmp->name = new BYTE[nameLen];
+ 293 //                 strcpy( opTmp->name, producerName );
+ 294 // 
+ 295 //                 if ( hashTableOPNames.Search( opTmp ) )
+ 296 //                 {
+ 297 //                     delete [] hashTableOPNames.getItem()->name;
+ 298 //                     delete hashTableOPNames.getItem();
+ 299 //                     hashTableOPNames.RemoveCurrent();
+ 300 //                 }
+ 301 // 
+ 302 //                 delete [] opTmp->name;
+ 303 //                 delete opTmp;
+ 304 //             }
+ 305 // 
+ 306 //             delete [] pProdName;
+ 307 //             delete [] pName;
+ 308 //         }
+ 309 // 
+ 310 //         /*
+ 311 //         ** Exclude the case where the new name is same as the old one
+ 312 //         ** used for this OutputProducer in the past
+ 313 //         */
+ 314 //         if ( firstTimeOrNewName )
+ 315 //         {
+ 316 //             /*
+ 317 //             ** The name being used now is either:
+ 318 //             ** (A) new one being used first time for this OutputProducer, or
+ 319 //             ** (B) different than the one used for this OutputProducer in the past.
+ 320 //             ** We are ready to handle Case (A). We are also ready to handle Case (B)
+ 321 //             ** because the old name has been removed from hashTableOPNames.
+ 322 //             */
+ 323 //             lenProducerName = strlen(name)+1;
+ 324 // 
+ 325 //             producerName = new BYTE[lenProducerName];
+ 326 //             memcpy(producerName, name, lenProducerName);
+ 327 //             hashTableOPNames.Add(op);
+ 328 //         }
+ 329 //     }
+ 330 // }
+ 331 // 
+ 332 // /*
+ 333 // ;-----------------------------------------------------------------------
+ 334 // ;
+ 335 // ;   Unit:      setOutputTimeStep
+ 336 // ;
+ 337 // ;   Function:  Sets output time step.
+ 338 // ;              Note that the output time step must be an integer
+ 339 // ;              multiple of Scheduler::timeStep. duetime specifies
+ 340 // ;              the next time the output will be dumped. Setting
+ 341 // ;              duetime to the current Scheduler time (default)
+ 342 // ;              will cause output to be dumped on the next Scheduler
+ 343 // ;              cycle.
+ 344 // ;
+ 345 // ;-----------------------------------------------------------------------
+ 346 // */
+ 347 // void OutputProducer::setOutputTimeStep(double dt, double duetime)
+ 348 // {
+ 349 //     /*
+ 350 //     ** If this is the first call to set the timeStep of this object
+ 351 //     ** priorTimeStep is set to the same value at timeStep to prevent
+ 352 //     ** future calls to restorePriorOutputTimeStep from setting timeStep to
+ 353 //     ** a value of 0.  For all subsequent calls to this function, assign
+ 354 //     ** the current value of timeStep to priorTimeStep so that it can
+ 355 //     ** be restored later by calling restorePriorOutputTimeStep.
+ 356 //     */
+ 357 //     if ( 0 == timeStep )
+ 358 //     {
+ 359 //         timeStep = Scheduler::double2itime(dt);
+ 360 //         priorTimeStep = timeStep;
+ 361 //     }
+ 362 //     else
+ 363 //     {
+ 364 //         priorTimeStep = timeStep;
+ 365 //         timeStep = Scheduler::double2itime(dt);
+ 366 //     }
+ 367 // 
+ 368 //     if ( timeStep%Scheduler::getiTimeStep() != 0 )
+ 369 //     {
+ 370 //         printf("ERROR: "
+ 371 //                "OutputProducer::setOutputTimeStep(%s): timeStep (%f) must "
+ 372 //                "be an integer multiple of Scheduler::TimeStep(%f)\n",
+ 373 //                producerName,dt,Scheduler::getTimeStep());
+ 374 //         exit(-1);
+ 375 //     }
+ 376 //     dueTime = Scheduler::double2itime(duetime);
+ 377 // 
+ 378 //     /*
+ 379 //     ** Modify nextDueTime if this dueTime is smaller.
+ 380 //     ** Only modify nextDueTime if this OutputProducer is active.
+ 381 //     */
+ 382 //     if (active && dueTime < nextDueTime)
+ 383 //     {
+ 384 //         nextDueTime = dueTime;
+ 385 //     }
+ 386 // }
+ 387 // 
+ 388 // /*
+ 389 // ;-----------------------------------------------------------------------
+ 390 // ;
+ 391 // ;   Unit:      setOutputTimeStepAllActive
+ 392 // ;
+ 393 // ;   Function:  Calls setOutputTimeStep for each active output producer
+ 394 // ;
+ 395 // ;
+ 396 // ;-----------------------------------------------------------------------
+ 397 // */
+ 398 // void OutputProducer::setOutputTimeStepAllActive(double AllActiveDt,
+ 399 //                                                 double duetime)
+ 400 // {
+ 401 //     OutputProducer *producer;
+ 402 // 
+ 403 //     /*
+ 404 //     ** Set the time output time step for each active output producer
+ 405 //     */
+ 406 //     activeList.setAtHead();
+ 407 //     while ( activeList.notAtEndBegin() )
+ 408 //     {
+ 409 //         producer = activeList.getNext();
+ 410 //         producer->setOutputTimeStep(AllActiveDt, duetime);
+ 411 //     }
+ 412 // }
+ 413 // 
+ 414 // /*
+ 415 // ;-----------------------------------------------------------------------
+ 416 // ;
+ 417 // ;   Unit:      openOutputFile
+ 418 // ;
+ 419 // ;   Function:  Sets and opens ouput file for all simOutputProducers.
+ 420 // ;              Note that only one output file can be open at a time.
+ 421 // ;
+ 422 // ;-----------------------------------------------------------------------
+ 423 // */
+ 424 // void OutputProducer::openOutputFile(const BYTE *fname)
+ 425 // {
+ 426 //     INT4 endian = SIMOUTPUT_ENDIAN_FLAG;
+ 427 // 
+ 428 //     /*
+ 429 //     ** Check to see if already open.
+ 430 //     */
+ 431 //     if ( outputFile != NULL )
+ 432 //     {
+ 433 //         printf( "ERROR: OutputProducer::openOutputFile: "
+ 434 //                 "Trying to open file (%s).\n "
+ 435 //                 "Output file (%s) already open.\n"
+ 436 //                 "Only one output file can be open at a time \n",
+ 437 //                 fname,outputFile->getFileName());
+ 438 //         exit(-1);
+ 439 //     }
+ 440 // 
+ 441 //     /*
+ 442 //     ** Copy in file name and open file.
+ 443 //     */
+ 444 //     outputFile = new OutputFile(fname);
+ 445 // 
+ 446 //     /*
+ 447 //     ** Register exit function.
+ 448 //     */
+ 449 //     ::atexit(::OutputProducerAtExit);
+ 450 // 
+ 451 //     /*
+ 452 //     ** set outputBufferPtr to point at base of outputBuffer.
+ 453 //     */
+ 454 //     outputBufferPtr = outputBuffer;
+ 455 // 
+ 456 //     /*
+ 457 //     ** Initialize variables
+ 458 //     */
+ 459 //     nextHeaderID = 0x0002;
+ 460 //     nextDueTime = _ITIME_MAX;
+ 461 // 
+ 462 //     /*
+ 463 //     ** Write out byte pattern to specify big or little endian
+ 464 //     */
+ 465 //     memcpy(outputBufferPtr,(char *)&endian,sizeof(INT4));
+ 466 //     outputBufferPtr += sizeof(INT4);
+ 467 // }
+ 468 // 
+ 469 // /*
+ 470 // ;-----------------------------------------------------------------------
+ 471 // ;
+ 472 // ;   Unit:      closeOutputFile
+ 473 // ;
+ 474 // ;   Function:  Closes ouput file for all simOutputProducers.
+ 475 // ;
+ 476 // ;-----------------------------------------------------------------------
+ 477 // */
+ 478 // void OutputProducer::closeOutputFile(void) {
+ 479 //     OutputProducer *producer;
+ 480 // 
+ 481 //     /*
+ 482 //     ** Check to see if file is really open. If not, simply return.
+ 483 //     */
+ 484 //     if ( outputFile == NULL )
+ 485 //     {
+ 486 //         printf( "ERROR: "
+ 487 //                 "OutputProducer::closeOutputFile: No file open.\n");
+ 488 //         exit(-1);
+ 489 //     }
+ 490 // 
+ 491 //     /*
+ 492 //     ** Flush output buffer to the output file
+ 493 //     */
+ 494 //     syncOutputData();
+ 495 // 
+ 496 //     /*
+ 497 //     ** Delete outputFile.
+ 498 //     */
+ 499 //     delete outputFile;
+ 500 //     outputFile = NULL;
+ 501 // 
+ 502 //     /*
+ 503 //     ** Deactivate all active producers
+ 504 //     */
+ 505 //     activeList.setAtHead();
+ 506 //     while ( activeList.notAtEndBegin() )
+ 507 //     {
+ 508 //         producer = activeList.getNext();
+ 509 //         activeList.Remove(producer);
+ 510 //         inactiveList.Add(producer);
+ 511 //     }
+ 512 // 
+ 513 //     /*
+ 514 //     ** Run through inactiveList and reset flags
+ 515 //     */
+ 516 //     inactiveList.setAtHead();
+ 517 //     while ( inactiveList.notAtEndBegin() )
+ 518 //     {
+ 519 //         producer = inactiveList.getNext();
+ 520 //         producer->active = FALSE;
+ 521 //         producer->activated = FALSE;
+ 522 //         producer->verbose = FALSE;
+ 523 //     }
+ 524 // }
+ 525 // 
+ 526 // /*
+ 527 // ;-----------------------------------------------------------------------
+ 528 // ;
+ 529 // ;   Unit:      writeOutputData
+ 530 // ;
+ 531 // ;   Function:  Dumps the output data this producer to the outputBuffer.
+ 532 // ;              outputBufferPtr is updated to reflect the data which was
+ 533 // ;              transfered into the outputBuffer.
+ 534 // ;
+ 535 // ;-----------------------------------------------------------------------
+ 536 // */
+ 537 // void OutputProducer::writeOutputData(void)
+ 538 // {
+ 539 //     OutputVariable *outputVariable;
+ 540 // 
+ 541 //     /*
+ 542 //     ** Write out headerID identifier for the data
+ 543 //     */
+ 544 //     writeOutputHeaderID(outputBufferPtr,headerID);
+ 545 // 
+ 546 //     /*
+ 547 //     ** Dump regular list
+ 548 //     */
+ 549 //     variableList.setAtHead();
+ 550 //     while ( variableList.notAtEndBegin() )
+ 551 //     {
+ 552 //         outputVariable = variableList.getNext();
+ 553 //         outputVariable->dumpData(outputBufferPtr);
+ 554 //     }
+ 555 // 
+ 556 //     /*
+ 557 //     ** Dump verbose list if required
+ 558 //     */
+ 559 //     if ( verbose )
+ 560 //     {
+ 561 // 
+ 562 //         /*
+ 563 //         ** Dump verbose list
+ 564 //         */
+ 565 //         variableListVerbose.setAtHead();
+ 566 //         while ( variableListVerbose.notAtEndBegin() )
+ 567 //         {
+ 568 //             outputVariable = variableListVerbose.getNext();
+ 569 //             outputVariable->dumpData(outputBufferPtr);
+ 570 //         }
+ 571 //     }
+ 572 // }
+ 573 // 
+ 574 // /*
+ 575 // ;-----------------------------------------------------------------------
+ 576 // ;
+ 577 // ;   Unit:      writeOutputHeader
+ 578 // ;
+ 579 // ;   Function:  Dumps the output header for this producer to the
+ 580 // ;              outputBuffer.
+ 581 // ;              outputBufferPtr is updated to reflect the data which was
+ 582 // ;              transfered into the outputBuffer.
+ 583 // ;
+ 584 // ;-----------------------------------------------------------------------
+ 585 // */
+ 586 // void OutputProducer::writeOutputHeader(void)
+ 587 // {
+ 588 //     OutputVariable *outputVariable;
+ 589 // 
+ 590 //     /*
+ 591 //     ** Write out header information.
+ 592 //     ** Start by getting a headerID number.
+ 593 //     */
+ 594 //     headerID = nextHeaderID++;
+ 595 // 
+ 596 //     /*
+ 597 //     ** Write out 0xFFFF signifying this is a header
+ 598 //     */
+ 599 //     writeOutputHeaderID(outputBufferPtr,0xffff);
+ 600 // 
+ 601 //     /*
+ 602 //     ** Write out headerID corresponding to this object
+ 603 //     */
+ 604 //     writeOutputHeaderID(outputBufferPtr,headerID);
+ 605 // 
+ 606 //     /*
+ 607 //     ** write out header, keeping a temporary index to write
+ 608 //     ** out record size.
+ 609 //     */
+ 610 //     BYTE *temp = outputBufferPtr;
+ 611 //     outputBufferPtr += 4;
+ 612 // 
+ 613 //     /*
+ 614 //     ** Write out SimOuputProducer object name
+ 615 //     */
+ 616 //     memcpy(outputBufferPtr,producerName,lenProducerName);
+ 617 //     outputBufferPtr += lenProducerName;
+ 618 // 
+ 619 //     /*
+ 620 //     ** Write out the rest of the headers in the list
+ 621 //     */
+ 622 //     variableList.setAtHead();
+ 623 //     while ( variableList.notAtEndBegin() )
+ 624 //     {
+ 625 //         outputVariable = variableList.getNext();
+ 626 //         outputVariable->dumpHeader(outputBufferPtr);
+ 627 //     }
+ 628 // 
+ 629 //     /*
+ 630 //     ** If in vebose mode, also wrtie out verbose part of the header
+ 631 //     */
+ 632 //     if (verbose)
+ 633 //     {
+ 634 //         variableListVerbose.setAtHead();
+ 635 //         while ( variableListVerbose.notAtEndBegin() )
+ 636 //         {
+ 637 //             outputVariable = variableListVerbose.getNext();
+ 638 //             outputVariable->dumpHeader(outputBufferPtr);
+ 639 //         }
+ 640 //     }
+ 641 // 
+ 642 //     /*
+ 643 //     ** Write out the number of bytes
+ 644 //     */
+ 645 //     INT4 len = outputBufferPtr - temp - 4;
+ 646 //     memcpy(temp,&len,4);
+ 647 // }
+ 648 // 
+ 649 // /*
+ 650 // ;-----------------------------------------------------------------------
+ 651 // ;
+ 652 // ;   Unit:      writeOutputTimeStamp
+ 653 // ;
+ 654 // ;   Function:  Dumps the time stamp specified by the calling argument
+ 655 // ;              to the outputBuffer.
+ 656 // ;              outputBufferPtr is updated to reflect the data which was
+ 657 // ;              transfered into the outputBuffer.
+ 658 // ;
+ 659 // ;-----------------------------------------------------------------------
+ 660 // */
+ 661 // void OutputProducer::writeOutputTimeStamp(double timestamp)
+ 662 // {
+ 663 //     writeOutputHeaderID(outputBufferPtr,0x0001);
+ 664 //     memcpy(outputBufferPtr,&timestamp,sizeof(double));
+ 665 //     outputBufferPtr += sizeof(double);
+ 666 // }
+ 667 // 
+ 668 // /*
+ 669 // ;-----------------------------------------------------------------------
+ 670 // ;
+ 671 // ;   Unit:      activateOutput
+ 672 // ;
+ 673 // ;   Function:  Causes the output of this producer to be dumped with
+ 674 // ;              a time step of dt and a first due time of duetime.
+ 675 // ;
+ 676 // ;-----------------------------------------------------------------------
+ 677 // */
+ 678 // void OutputProducer::activateOutput(double dt, double duetime)
+ 679 // {
+ 680 //     if (active == FALSE)
+ 681 //     {
+ 682 //         active = TRUE;
+ 683 // 
+ 684 //         /*
+ 685 //         ** If Producer Name not set, error out.
+ 686 //         */
+ 687 //         if (producerName == NULL)
+ 688 //         {
+ 689 //             printf("ERROR: "
+ 690 //                    "OutputProducer::activateOutput(): Cannot "
+ 691 //                    "activate output because producer name not set.\n"
+ 692 //                    "Need to call OutputProducer::setOutputProducerName "
+ 693 //                    "before activation.\n");
+ 694 //             exit(-1);
+ 695 //         }
+ 696 // 
+ 697 //         /*
+ 698 //         ** If Output file not open, error out.
+ 699 //         */
+ 700 //         if (outputFile == NULL)
+ 701 //         {
+ 702 //             printf("ERROR: "
+ 703 //                    "OutputProducer::activateOutput(%s): Cannot "
+ 704 //                    "activate output because output file is not open.\n"
+ 705 //                    "Need to call OutputProducer::openOutputFile "
+ 706 //                    "before activation.\n",producerName);
+ 707 //             exit(-1);
+ 708 //         }
+ 709 // 
+ 710 //         /*
+ 711 //         ** Remove from the inactive list and add to the active list.
+ 712 //         ** Set time step and due time.
+ 713 //         */
+ 714 //         inactiveList.Remove(this);
+ 715 //         activeList.Add(this);
+ 716 //         setOutputTimeStep(dt,duetime);
+ 717 // 
+ 718 //         /*
+ 719 //         ** If this object has never been activated, write out the
+ 720 //         ** objects frame header.
+ 721 //         */
+ 722 //         if (activated == FALSE)
+ 723 //         {
+ 724 //             activated = TRUE;
+ 725 //             writeOutputHeader();
+ 726 //         }
+ 727 //     }
+ 728 // }
+ 729 // 
+ 730 // /*
+ 731 // ;-----------------------------------------------------------------------
+ 732 // ;
+ 733 // ;   Unit:      restorePriorOutputTimeStepAllActive
+ 734 // ;
+ 735 // ;   Function:  Restores the output rate of all active OutputProducers to
+ 736 // ;              the time step value defined in each OutputProducer object's
+ 737 // ;              priorTimeStep member variable.
+ 738 // ;
+ 739 // ;-----------------------------------------------------------------------
+ 740 // */
+ 741 // void OutputProducer::restorePriorOutputTimeStepAllActive(void)
+ 742 // {
+ 743 //     OutputProducer *producer;
+ 744 // 
+ 745 //     /*
+ 746 //     ** Restores the initial output time step for each active output producer
+ 747 //     */
+ 748 //     activeList.setAtHead();
+ 749 //     while ( activeList.notAtEndBegin() )
+ 750 //     {
+ 751 //         producer = activeList.getNext();
+ 752 //         producer->restorePriorOutputTimeStep();
+ 753 //     }
+ 754 // }
+ 755 // 
+ 756 // /*
+ 757 // ;-----------------------------------------------------------------------
+ 758 // ;
+ 759 // ;   Unit:      setOutputVerbose
+ 760 // ;
+ 761 // ;   Function:  Changes mode to verbose. In this mode, all regular
+ 762 // ;              and verbose output will be dumped.
+ 763 // ;
+ 764 // ;-----------------------------------------------------------------------
+ 765 // */
+ 766 // void OutputProducer::setOutputVerbose(void)
+ 767 // {
+ 768 //     /*
+ 769 //     ** If this OutputProducer has already been activated,
+ 770 //     ** it cannot be switch to verbose mode. Flag that error.
+ 771 //     */
+ 772 //     if (activated == TRUE)
+ 773 //     {
+ 774 //         printf("ERROR: "
+ 775 //                "OutputProducer::setOutputVerbose(%s): Cannot set "
+ 776 //                "output to verbose mode once output has been activated.\n"
+ 777 //                "This call must be made BEFORE activateOutput.\n",
+ 778 //                producerName);
+ 779 //         exit(-1);
+ 780 //     }
+ 781 //     verbose = TRUE;
+ 782 // }
+ 783 // 
+ 784 // /*
+ 785 // ;-----------------------------------------------------------------------
+ 786 // ;
+ 787 // ;   Unit:      deactivateOutput
+ 788 // ;
+ 789 // ;   Function:  Causes the regular and verbose ouput from this producer
+ 790 // ;              to stop being dumped.
+ 791 // ;
+ 792 // ;-----------------------------------------------------------------------
+ 793 // */
+ 794 // void OutputProducer::deactivateOutput(void)
+ 795 // {
+ 796 //     if (active)
+ 797 //     {
+ 798 // 
+ 799 //         /*
+ 800 //         ** Remove this object from the activeList.
+ 801 //         ** Add it to the inactive list.
+ 802 //         ** Reset the appropriate variables.
+ 803 //         */
+ 804 //         activeList.Remove(this);
+ 805 //         inactiveList.Add(this);
+ 806 //         active = FALSE;
+ 807 //         timeStep = 0;
+ 808 //         dueTime = 0;
+ 809 // 
+ 810 //         /*
+ 811 //         ** If this was the last active OutputProduce, set the
+ 812 //         ** nextDueTime to _ITIME_MAX to preclude erroneous calls
+ 813 //         ** to dumpOutput from the Scheduler. Also flush buffer.
+ 814 //         */
+ 815 //         if (activeList.getLength() == 0)
+ 816 //         {
+ 817 //             nextDueTime = _ITIME_MAX;
+ 818 //             syncOutputData();
+ 819 //         }
+ 820 //     }
+ 821 // }
+ 822 // 
+ 823 // /*
+ 824 // ;-----------------------------------------------------------------------
+ 825 // ;
+ 826 // ;   Unit:      dumpOutput
+ 827 // ;
+ 828 // ;   Function:  Static method called by the scheduler to dump the
+ 829 // ;              output from all the SimOuputProduces at their due time.
+ 830 // ;
+ 831 // ;-----------------------------------------------------------------------
+ 832 // */
+ 833 // void OutputProducer::dumpOutput(void)
+ 834 // {
+ 835 //     /*
+ 836 //     ** Check to see if an output dump is due. If so, do the dump.
+ 837 //     ** If the forceOutputFlag is TRUE dump data from all active
+ 838 //     ** producers.
+ 839 //     */
+ 840 //     ITIME_T currentiTime = Scheduler::getiTime();
+ 841 // 
+ 842 //     if (currentiTime >= nextDueTime || forceOutputFlag)
+ 843 //     {
+ 844 // 
+ 845 //         nextDueTime = _ITIME_MAX;
+ 846 //         OutputProducer *producer;
+ 847 // 
+ 848 //         /*
+ 849 //         ** Write time. Time has the special reserved headerID of 0x0001.
+ 850 //         */
+ 851 //         writeOutputTimeStamp(Scheduler::getTime());
+ 852 // 
+ 853 //         /*
+ 854 //         ** Traverse the active list of producers.
+ 855 //         ** For each producer whose dueTime has arrived,
+ 856 //         ** write it's output data. If the forceOutputFlag
+ 857 //         ** is set, output from all active producers.
+ 858 //         */
+ 859 //         activeList.setAtHead();
+ 860 //         while ( activeList.notAtEndBegin() )
+ 861 //         {
+ 862 //             producer = activeList.getNext();
+ 863 //             BOOLEAN producerDue = currentiTime >= producer->dueTime;
+ 864 //             if (producerDue || forceOutputFlag)
+ 865 //             {
+ 866 // 
+ 867 //                 /*
+ 868 //                 ** Write out the producer data. Set next due time if
+ 869 //                 ** producer was due.
+ 870 //                 */
+ 871 //                 producer->writeOutputData();
+ 872 //                 if (producerDue)
+ 873 //                 {
+ 874 //                     producer->dueTime += producer->timeStep;
+ 875 //                 }
+ 876 //             }
+ 877 // 
+ 878 //             /*
+ 879 //             ** nextDueTime is set to the minimum active producer dueTime.
+ 880 //             */
+ 881 //             if (producer->dueTime < nextDueTime)
+ 882 //             {
+ 883 //                 nextDueTime = producer->dueTime;
+ 884 //             }
+ 885 //         }
+ 886 // 
+ 887 //         /*
+ 888 //         ** Flush buffer to the output file.
+ 889 //         */
+ 890 //         commitOutputData();
+ 891 // 
+ 892 //         /*
+ 893 //         ** Reset the forceOutputFlag to FALSE for the next cycle
+ 894 //         */
+ 895 //         forceOutputFlag = FALSE;
+ 896 //     }
+ 897 // }
+ 898 // 
+ 899 // 
+ 900 // /*
+ 901 // ;-----------------------------------------------------------------------
+ 902 // ;
+ 903 // ;   Unit:      OutputProducerAtExit
+ 904 // ;
+ 905 // ;   Function:  Function which is registered with atexit to cause to
+ 906 // ;              output data to be written to disk upon program exit.
+ 907 // ;
+ 908 // ;-----------------------------------------------------------------------
+ 909 // */
+ 910 // void OutputProducerAtExit(void)
+ 911 // {
+ 912 //     if (OutputProducer::outputFile != NULL)
+ 913 //     {
+ 914 //         OutputProducer::syncOutputData();
+ 915 //     }
+ 916 // }
+ 917 // #endif /* NRTSIM || RTCLSIM */
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 52, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simouttypes.cc" }
+  21 // #if (NRTSIM || RTCLSIM)
+  22 // #include "simouttypes.hh"
+  23 // #include "hash.hh"
+  24 // 
+  25 // /*
+  26 // ** Instantiate static class data
+  27 // */
+  28 // OutputTypeBase **OutputTypeBase::typeArray = NULL;
+  29 // BOOLEAN OutputTypeBase::factoryTypesCreated = FALSE;
+  30 // 
+  31 // 
+  32 // #ifdef __PPC604__
+  33 // /*
+  34 // ** These resolve "undefined symbol" errors that show up while
+  35 // ** loading the Quad Card software.
+  36 // */
+  37 // INT2 OutputType<Quaternion, double>::dataType             = TYPE_UNDEFINED ;
+  38 // INT2 OutputType<SparseMatrix, double>::dataType           = TYPE_UNDEFINED ;
+  39 // INT2 OutputType<Angle, double>::dataType                  = TYPE_UNDEFINED ;
+  40 // INT2 OutputType<Matrix3, double>::dataType                = TYPE_UNDEFINED ;
+  41 // INT2 OutputType<Vector3, double>::dataType                = TYPE_UNDEFINED ;
+  42 // INT2 OutputType<Transform, double>::dataType              = TYPE_UNDEFINED ;
+  43 // INT2 OutputType<unsigned char, unsigned char>::dataType   = TYPE_UNDEFINED ;
+  44 // INT2 OutputType<unsigned int, unsigned int>::dataType     = TYPE_UNDEFINED ;
+  45 // INT2 OutputType<unsigned short, unsigned short>::dataType = TYPE_UNDEFINED ;
+  46 // INT2 OutputType<char, char>::dataType                     = TYPE_UNDEFINED ;
+  47 // INT2 OutputType<double, double>::dataType                 = TYPE_UNDEFINED ;
+  48 // INT2 OutputType<float, float>::dataType                   = TYPE_UNDEFINED ;
+  49 // INT2 OutputType<int, int>::dataType                       = TYPE_UNDEFINED ;
+  50 // INT2 OutputType<short, short>::dataType                   = TYPE_UNDEFINED ;
+  51 // INT2 OutputType<bool, oscUINT8>::dataType                 = TYPE_UNDEFINED ;
+  52 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 20, end_line: 23, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+  20 // #if (NRTSIM || RTCLSIM)
+  21 // #include <stdio.h>
+  22 // #include <stdlib.h>
+  23 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 221, end_line: 226, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+ 221 // #if (NRTSIM || RTCLSIM)
+ 222 //     if ( false == flag )
+ 223 //     {
+ 224 //         printf("WARNING: Table %s Set to Not Exit on Exceed\n", tableName);
+ 225 //     }
+ 226 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 241, end_line: 246, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+ 241 // #if (NRTSIM || RTCLSIM)
+ 242 //     if ( false == flag )
+ 243 //     {
+ 244 //         printf("WARNING: All Tables Set to Not Exit on Exceed\n");
+ 245 //     }
+ 246 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2070, end_line: 2094, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2070 // #if (NRTSIM || RTCLSIM)
+2071 //     if ( (false == exitOnExceed) || (false == globalExitOnExceed) )
+2072 //     {
+2073 //         if ( false == exitReported )
+2074 //         {
+2075 //             printf("WARNING: Table Search Out of Range **\n");
+2076 //             printf("         Table Name: %s\n",tableName);
+2077 //             printf("         Value: %f\n",x);
+2078 //             printf("         Domain Min: %f\n",min);
+2079 //             printf("         Domain Max: %f\n",max);
+2080 //             printf("         ...Continuing\n");
+2081 //             exitReported = true;
+2082 //         }
+2083 //     }
+2084 //     else
+2085 //     {
+2086 //         printf("ERROR: Table Search Out of Range **\n");
+2087 //         printf("       Table Name: %s\n",tableName);
+2088 //         printf("       Value: %f\n",x);
+2089 //         printf("       Domain Min: %f\n",min);
+2090 //         printf("       Domain Max: %f\n",max);
+2091 //         printf("       ...Exiting\n");
+2092 //         exit(-11);
+2093 //     }
+2094 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2109, end_line: 2115, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2109 // #if (NRTSIM || RTCLSIM)
+2110 //     printf("ERROR: Independent table (%s) values not monotonic\n",
+2111 //            string);
+2112 //     printf("       Table Name: %s\n",tableName);
+2113 //     printf("       ... Exiting\n");
+2114 //     exit(-11);
+2115 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2131, end_line: 2139, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2131 // #if (NRTSIM || RTCLSIM)
+2132 //         printf( "ERROR: Independent and Dependent Arrays Are Different"
+2133 //                 " in Length\n");
+2134 //         printf( "       Table Name: %s\n",tableName);
+2135 //         printf( "       Independent Array Size: %d\n",nx);
+2136 //         printf( "       Dependent Array Size:   %d\n",ny);
+2137 //         printf("        ... Exiting\n");
+2138 //         exit(-11);
+2139 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2155, end_line: 2162, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2155 // #if (NRTSIM || RTCLSIM)
+2156 //         printf ("ERROR: Invalid Dependent Array index\n");
+2157 //         printf ("       Table Name: %s\n",tableName);
+2158 //         printf ("       No of Dependent Arrays : %d\n",nYArrays);
+2159 //         printf ("       Specified Index : %d\n",nyarray);
+2160 //         printf("        ... Exiting\n");
+2161 //         exit(-11);
+2162 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2178, end_line: 2184, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2178 // #if (NRTSIM || RTCLSIM)
+2179 //         printf ("ERROR: Invalid No of Dependent Arrays\n");
+2180 //         printf ("       Table Name: %s\n",tableName);
+2181 //         printf ("       No of Dependent Arrays : %d\n",nyarrays);
+2182 //         printf("        ... Exiting\n");
+2183 //         exit(-11);
+2184 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2201, end_line: 2207, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2201 // #if (NRTSIM || RTCLSIM)
+2202 //         printf ("ERROR: Invalid function pointer\n");
+2203 //         printf ("       Table Name: %s\n",tableName);
+2204 //         printf ("       Function pointer : %p\n",xfptr);
+2205 //         printf( "       ...Exiting\n" );
+2206 //         exit(-11);
+2207 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 2223, end_line: 2227, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
+2223 // #if (NRTSIM || RTCLSIM)
+2224 //     printf( "ERROR: In Table %s **\n", getTableName() );
+2225 //     printf( "       %s\n", string );
+2226 //     exit(-11);
+2227 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 241, end_line: 244, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/TableList.cc" }
+ 241 // #if (NRTSIM || RTCLSIM || _DEBUG)
+ 242 //     printf( "ERROR: in Table %s **\n", getTableName() );
+ 243 //     printf( "    %s\n", string );
+ 244 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 245, end_line: 247, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/TableList.cc" }
+ 245 // #if (NRTSIM || RTCLSIM)
+ 246 //     exit(-11);
+ 247 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 95, end_line: 100, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/gvector.hh" }
+  95 // #if (NRTSIM || RTCLSIM)
+  96 //             printf("ERROR: "
+  97 //                    "Could not allocate memory for gvector ... Exiting\n");
+  98 //             perror("GVector::allocateMemory");
+  99 //             exit(-1);
+ 100 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 110, end_line: 113, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/gvector.hh" }
+ 110 // #if (NRTSIM || RTCLSIM)
+ 111 //             printf("WARNING: "
+ 112 //                    "Could not deallocate memory for gvector ... Continuing\n");
+ 113 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 219, end_line: 224, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh" }
+ 219 // #if (NRTSIM || RTCLSIM)
+ 220 //         else
+ 221 //         {
+ 222 //             reportError();
+ 223 //         }
+ 224 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 241, end_line: 246, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh" }
+ 241 // #if (NRTSIM || RTCLSIM)
+ 242 //         else
+ 243 //         {
+ 244 //             reportError();
+ 245 //         }
+ 246 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 362, end_line: 372, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh" }
+ 362 // #if (NRTSIM || RTCLSIM || _DEBUG)
+ 363 //         /*
+ 364 //         ** Search list to see if the user is trying to add a duplicate
+ 365 //         */
+ 366 //         if ( len && Search( rhs ) == TRUE )
+ 367 //         {
+ 368 //             printf("WARNING: Attempting to add duplicate member to list."
+ 369 //                    " Element not added to the list.\n");
+ 370 //             return FALSE;
+ 371 //         }
+ 372 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 541, end_line: 552, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh" }
+ 541 // #if (NRTSIM || RTCLSIM || _DEBUG)
+ 542 //         /*
+ 543 //         ** Search list to see if the user is trying to add a duplicate
+ 544 //         */
+ 545 //         if ( Search( rhs ) == TRUE )
+ 546 //         {
+ 547 //             printf("WARNING: Attempting to add duplicate member to list.\n");
+ 548 //             flag = FALSE;
+ 549 //             delete pNode;
+ 550 //         }
+ 551 //         else
+ 552 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 639, end_line: 643, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh" }
+ 639 // #if (NRTSIM || RTCLSIM)
+ 640 //     printf( "ERROR: Attempting to access data past the list " );
+ 641 //     printf( "items\n" );
+ 642 //     exit( -1 );
+ 643 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 202, end_line: 208, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/Mask.hh" }
+ 202 // #if (NRTSIM || RTCLSIM)
+ 203 //             for ( oscINT32 i = 0; i < msize; i++ )
+ 204 //             {
+ 205 //                 printf( " %d", mask[i]);
+ 206 //             }
+ 207 //             printf( "\n");
+ 208 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 257, end_line: 266, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MaskedMatrix.hh" }
+ 257 // #if (NRTSIM || RTCLSIM)
+ 258 //             for ( oscINT32 i=0; i < getMSize(); i++ )
+ 259 //             {
+ 260 //                 for ( oscINT32 j=0; j < getNSize(); j++ )
+ 261 //                 {
+ 262 //                     printf( " %f", (*this)[i][j]);
+ 263 //                 }
+ 264 //                 printf( "\n");
+ 265 //             }
+ 266 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 242, end_line: 248, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MaskedVector.hh" }
+ 242 // #if (NRTSIM || RTCLSIM)
+ 243 //             for ( INT4 i = 0; i < getSize(); i++ )
+ 244 //             {
+ 245 //                 printf( " %f", this->operator[](i));
+ 246 //             }
+ 247 //             printf( "\n");
+ 248 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 252, end_line: 261, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix.hh" }
+ 252 // #if (NRTSIM || RTCLSIM)
+ 253 //         for ( oscINT32 i=0; i < getMSize(); i++ )
+ 254 //         {
+ 255 //             for ( oscINT32 j=0; j < getNSize(); j++ )
+ 256 //             {
+ 257 //                 printf( " %f", (*this)[i][j]);
+ 258 //             }
+ 259 //             printf( "\n");
+ 260 //         }
+ 261 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 197, end_line: 204, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix3.hh" }
+ 197 // #if (NRTSIM || RTCLSIM)
+ 198 //         if (i < 0 || i > 2) {
+ 199 //             printf("ERROR: "
+ 200 //                    "Matrix3: operator[]: Index ( %d ) is out of bounds. "
+ 201 //                    "Exiting ...\n",i);
+ 202 //             exit(-1);
+ 203 //         }
+ 204 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 214, end_line: 221, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix3.hh" }
+ 214 // #if (NRTSIM || RTCLSIM)
+ 215 //         if (i < 0 || i > 2) {
+ 216 //             printf("ERROR: "
+ 217 //                    "Matrix3: operator[]: Index ( %d ) is out of bounds. "
+ 218 //                    "Exiting ...\n",i);
+ 219 //             exit(-1);
+ 220 //         }
+ 221 // #endif
+
+Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 25, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MatrixOperations.hh" }
+  25 // #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+  26 // #define MATRIX_INDEX_CHECK( mindex, nindex ) \
+  27 //     if( mindex < 0 || mindex >= getMSize() || \
+  28 //         nindex < 0 || nindex > getNSize() ) { \
+  29 //         printf( "ERROR: Invalid matrix indices (Matrix Object):(%d,%d)\n" \
+  30 //                 "File: %s, Line No: %d\n" \
+  31 //                 "Exiting...\n", mindex, nindex, __FILE__, __LINE__ ); \
+  32 //         exit( -1 ); }
+  33 // #define MATRIX_OPERATION_CHECK( msize1, nsize1, msize2, nsize2 ) \
+  34 //     if( msize1 != msize2 || nsize1 != nsize2 ) { \
+  35 //         printf( "ERROR: Invalid matrix operation (Matrix Object): " \
+  36 //                 "sizes (%d,%d) , (%d,%d)\n" \
+  37 //                 "File: %s, Line No: %d\n Exiting...\n", \
+  38 //                 msize1, nsize1, msize2, nsize2, __FILE__, __LINE__ ); \
+  39 //         exit( -1 ); }
+  40 // #undef NDEBUG
+  41 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 29, end_line: 36, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
+  29 // #if (NRTSIM || RTCLSIM || _DEBUG)
+  30 // 
+  31 // /*
+  32 // ** Conditional System Includes
+  33 // */
+  34 // #include <stdio.h>
+  35 // 
+  36 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 119, end_line: 128, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
+ 119 // #if (NRTSIM || RTCLSIM || _DEBUG)
+ 120 // 
+ 121 //                 /*
+ 122 //                 ** Warn the user that OscMemory::MemoryMove is more appropriate
+ 123 //                 ** in this instance.
+ 124 //                 */
+ 125 //                 printf( "WARNING: Memory segments overlap.\n"
+ 126 //                         "         Use OscMemory::MemoryMove instead.\n" );
+ 127 // 
+ 128 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 298, end_line: 302, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
+ 298 // #if (NRTSIM || RTCLSIM)
+ 299 // 
+ 300 //             exit( 1 );
+ 301 // 
+ 302 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 288, end_line: 306, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
+ 288 // #if (NRTSIM || RTCLSIM || _DEBUG)
+ 289 // 
+ 290 //         /*
+ 291 //         ** Memory Overflow Detected
+ 292 //         */
+ 293 //         if ( false == result )
+ 294 //         {
+ 295 //             printf( "ERROR: Execution halted in OscMemory::BoundsCheck\n"
+ 296 //                     "       Memory overflow detected\n" );
+ 297 // 
+ 298 // // #if (NRTSIM || RTCLSIM)
+ 299 // // 
+ 300 // //             exit( 1 );
+ 301 // // 
+ 302 // // #endif
+ 303 // 
+ 304 //         }
+ 305 // 
+ 306 // #endif // (NRTSIM || RTCLSIM || _DEBUG)
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 24, end_line: 26, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/output.hh" }
+  24 // #if (NRTSIM || RTCLSIM)
+  25 // #include "simoutput.hh"
+  26 // #else
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 122, end_line: 124, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh" }
+ 122 // #if (NRTSIM || RTCLSIM)
+ 123 //         CheckApproximationOrder( order );
+ 124 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 151, end_line: 153, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh" }
+ 151 // #if (NRTSIM || RTCLSIM)
+ 152 //         CheckApproximationOrder( order );
+ 153 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 191, end_line: 193, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh" }
+ 191 // #if (NRTSIM || RTCLSIM)
+ 192 //         IndexCheck( index );
+ 193 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 200, end_line: 202, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh" }
+ 200 // #if (NRTSIM || RTCLSIM)
+ 201 //         IndexCheck( index );
+ 202 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 232, end_line: 234, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh" }
+ 232 // #if (NRTSIM || RTCLSIM)
+ 233 //         printf( "Vector: %f %f %f ; Scalar: %f\n", q[0], q[1], q[2], q[3] );
+ 234 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 266, end_line: 272, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector.hh" }
+ 266 // #if (NRTSIM || RTCLSIM)
+ 267 //         for ( oscINT32 i = 0; i < getSize(); i++ )
+ 268 //         {
+ 269 //             printf( " %f", this->operator[](i));
+ 270 //         }
+ 271 //         printf( "\n");
+ 272 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 53, end_line: 59, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh" }
+  53 // #if (NRTSIM || RTCLSIM)
+  54 //     if(vin.getSize() != 3) {
+  55 //       printf("ERROR: "
+  56 //              "Operator= assignment: rhs is not of size 3 ... Exiting\n");
+  57 //       exit(-1);
+  58 //     }
+  59 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 83, end_line: 89, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh" }
+  83 // #if (NRTSIM || RTCLSIM)
+  84 //     if(vin.getSize() != 3) {
+  85 //       printf("ERROR: "
+  86 //              "Operator= assignment: rhs is not of size 3 ... Exiting\n");
+  87 //       exit(-1);
+  88 //     }
+  89 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 132, end_line: 139, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh" }
+ 132 // #if (NRTSIM || RTCLSIM)
+ 133 //     if (index < 0 || index > 2) {
+ 134 //       printf("ERROR: "
+ 135 //              "Vector3d::operator[] : index [%d] out of range ... Exiting\n",
+ 136 //              index);
+ 137 //       exit(-1);
+ 138 //     }
+ 139 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 147, end_line: 154, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh" }
+ 147 // #if (NRTSIM || RTCLSIM)
+ 148 //     if (index < 0 || index > 2) {
+ 149 //       printf("ERROR: "
+ 150 //              "Vector3d::operator[] : index [%d] out of range ... Exiting\n",
+ 151 //              index);
+ 152 //       exit(-1);
+ 153 //     }
+ 154 // #endif
+
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 354, end_line: 368, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh" }
+ 354 // #if (NRTSIM || RTCLSIM)
+ 355 //     if (fabs(1.0 - magnitude()) > _FLOATING_POINT_TOLERENCE)
+ 356 //     {
+ 357 //         printf("ERROR: Vector3::limitUnitVectorToACone\n");
+ 358 //         printf("    Input vector not unity.  Exiting ...\n");
+ 359 //         exit(-1);
+ 360 //     }
+ 361 // 
+ 362 //     if (fabs(1.0 - refConeAxis.magnitude()) > _FLOATING_POINT_TOLERENCE)
+ 363 //     {
+ 364 //         printf("ERROR: Vector3::limitUnitVectorToACone\n");
+ 365 //         printf("    Reference vector not unity.  Exiting ...\n");
+ 366 //         exit(-1);
+ 367 //     }
+ 368 // #endif
+
+Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 24, end_line: 40, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh" }
+  24 // #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+  25 // #define VECTOR_INDEX_CHECK( index ) \
+  26 //     if ( index < 0 || index >= getSize() ) { \
+  27 //         printf( "ERROR: " \
+  28 //                 "Invalid vector index (Vector Object): %d\n" \
+  29 //                 "File: %s, Line No: %d\n" \
+  30 //                 "Exiting...\n",index,__FILE__,__LINE__); \
+  31 //         exit( -1 ); }
+  32 // #define VECTOR_OPERATION_CHECK( size1, size2 ) \
+  33 //     if ( size1 != size2 ) { \
+  34 //         printf( "ERROR: " \
+  35 //                 "Invalid vector operation (Vector Object): sizes = %d , %d\n" \
+  36 //                 "File: %s, Line No: %d\n" \
+  37 //                 "Exiting...\n", size1, size2, __FILE__, __LINE__ ); \
+  38 //         exit( -1 ); }
+  39 // #undef NDEBUG
+  40 // #else
+
+
+Summary Results
+  Total files:      933
+  Affected files:    72
+  Blocks removed:   169
+  Lines removed:   4611

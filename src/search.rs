@@ -3,6 +3,7 @@ use std::collections::HashSet;
 use std::fmt;
 
 use lib::*;
+use metrics::Metrics;
 
 pub struct Search<'a> {
     pub targets: HashSet<&'a str>,
@@ -49,32 +50,98 @@ impl<'a> Search<'a> {
     }
 
     // find nested affirmative targets
-    pub fn get_nested_affirmative_target(&self, ss: &Vec<String>, file: &String) -> Nested {
+    pub fn get_nested_affirmative_target(&self, ss: &Vec<String>) -> Mark {
         let mut target_line = false;
-        let mut nested: Nested = Default::default();
+        let mut mark: Mark = Default::default();
         for (i, s) in ss.into_iter().enumerate() {
             let s = s.trim();
             if target_line {
                 if is_start(s) || s.starts_with("#ifndef") {
-                    nested.conditional = s.clone().to_string();
-                    nested.start_line = i + 1;
-                    nested.file = file.clone();
+                    mark.conditional = s.clone().to_string();
+                    mark.start_line = i + 1;
                 }
 
                 if s.starts_with("#endif") {
-                    if nested.start_line > 0 {
-                        nested.end_line = i + 1;
-                        return nested;
+                    if mark.start_line > 0 {
+                        mark.end_line = i + 1;
+                        return mark;
                     }
                     target_line = false;
                 }
             }
 
-            if is_start(s) && is_affirmative(s) && self.contains_target_usage(s) {
+            if is_start(s) && is_affirmative(s) && self.contains_target_usage(s)
+                && s.starts_with("#else")
+            {
                 target_line = true;
             }
         }
-        nested
+        mark
+    }
+
+    pub fn process_nested_affirmatives(
+        &self,
+        ss: &mut Vec<String>,
+        file: &str,
+        detail_print: bool,
+    ) {
+        for _i in 0..10 {
+            let mut mark = self.get_nested_affirmative_target(&ss);
+            if mark.start_line > 0 {
+                mark.conditional = "nested conditional".to_string();
+                mark.file = file.to_string();
+                comment_lines(ss, &mark);
+                print_commented_lines(&ss, &mark, detail_print);
+            } else {
+                break;
+            }
+        }
+    }
+
+    pub fn process_affirmative(
+        &self,
+        ss: &mut Vec<String>,
+        metrics: &mut Metrics,
+        file: &str,
+        detail_print: bool,
+    ) {
+        const MARKER: &'static str =
+    "=========================================================================================\n";
+        for _i in 0..10 {
+            let mut target_line = false;
+            let mut conditional = "".to_string();
+            let mut mark: Mark = Default::default();
+            for (i, s) in ss.clone().into_iter().enumerate() {
+                let s = s.trim();
+                if is_start(s) {
+                    if is_affirmative(s) && self.contains_target_usage(s) {
+                        conditional = s.to_string();
+                        mark.start_line = i + 1;
+                        target_line = true;
+                        metrics.affected_files.insert(file.to_string().clone());
+                        metrics.removed_blocks += 1;
+                        metrics.removed_lines.push(file.to_string().clone());
+                    }
+                }
+
+                if target_line {
+                    metrics.removed_lines.push(s.clone().to_string());
+                    if is_end(s) {
+                        metrics.removed_lines.push(MARKER.to_string());
+                        mark.end_line = i + 1;
+                        break;
+                    }
+                }
+            }
+            if mark.start_line > 0 {
+                mark.conditional = conditional.to_string();
+                mark.file = file.to_string();
+                comment_lines(ss, &mark);
+                print_commented_lines(&ss, &mark, detail_print);
+            } else {
+                break;
+            }
+        }
     }
 }
 
