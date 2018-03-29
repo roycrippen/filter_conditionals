@@ -1,20 +1,20 @@
 Target identifiers: 
   [ 
-    RTCLSIM
     NRTSIM
+    RTCLSIM
   ]
 
 Specific target usages: 
   [ 
-    #if (defined NRTSIM)
-    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
-    #if ( NRTSIM || RTCLSIM )
-    #if ( NRTSIM )
-    #if (defined CPU_B) || (defined NRTSIM)
     #ifdef NRTSIM
     #if (NRTSIM || RTCLSIM || _DEBUG)
-    #if (NRTSIM)
+    #if ( NRTSIM || RTCLSIM )
+    #if ( NRTSIM )
     #if (NRTSIM || RTCLSIM)
+    #if (defined NRTSIM)
+    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+    #if (NRTSIM)
+    #if (defined CPU_B) || (defined NRTSIM)
   ]
 
 affirmative if: #if ( NRTSIM )                                    
@@ -48,7 +48,11 @@ not affirmative if: #if (defined WINDVIEW_DEBUG) && (!defined NRTSIM)
 not affirmative if: #ifndef NRTSIM                                    
 not affirmative if: #ifndef RTCLSIM                                   
 
-Mark { conditional: "#ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */", start_line: 46, end_line: 55, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
+Mark { conditional: "nested conditional", start_line: 55, end_line: 59, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
+Mark { conditional: "nested conditional", start_line: 217, end_line: 219, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
+Mark { conditional: "nested conditional", start_line: 224, end_line: 320, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
+Mark { conditional: "nested conditional", start_line: 322, end_line: 324, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
+Mark { conditional: "#ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */", start_line: 46, end_line: 326, file: "/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h" }
   46 // #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
   47 // 
   48 // #include "systypes.h"
@@ -58,161 +62,281 @@ Mark { conditional: "#ifdef NRTSIM /* If on desktop, redefine types to match new
   52 // #define UINT32 oscUINT32
   53 // #define UINT   oscUINT8
   54 // 
-  55 // #else
-
-Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 57, end_line: 207, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AcsAutopilot_test/src/AcsAutopilot_test.cc" }
-  57 // #if ( NRTSIM || RTCLSIM )
-  58 // void help(char*);
-  59 // 
-  60 // /*
-  61 // ************************************************************************
-  62 // *
-  63 // *   Unit:     acsAutopilot_test
-  64 // *
-  65 // *   @brief    This program will validate the ACS Autopilot GN&C
-  66 // *             Algorithms.
-  67 // *
-  68 // ************************************************************************
-  69 // */
-  70 // int main (int argc, char *argv[])
-  71 // {
-  72 // 
-  73 // /*--------------------------[ Local Data]------------------------------*/
-  74 // 
-  75 //     int   cmdLineOpt;
-  76 //     int   status = -1;
-  77 //     char *pInFilename  = NULL;
-  78 //     char *pOutFilename = NULL;
-  79 //     char *pCfgFilename = NULL;
-  80 // 
-  81 // /*--------------------------[ Code Section ]---------------------------*/
-  82 // 
-  83 //     while ((cmdLineOpt = getopt (argc, argv, "c:i:o:h")) != EOF)
-  84 //     {
-  85 //         switch (cmdLineOpt)
-  86 //         {
-  87 //             case 'c':
-  88 //             {
-  89 //                 pCfgFilename = optarg;
-  90 //                 if (NULL == pCfgFilename)
-  91 //                 {
-  92 //                     help("Missing mandatory arguments for config file!\n");
-  93 //                 }
-  94 //             }
-  95 //             break;
-  96 //             case 'i':
-  97 //             {
-  98 //                 pInFilename = optarg;
-  99 //                 if (NULL == pInFilename)
- 100 //                 {
- 101 //                     help("Missing mandatory arguments for input file!\n");
- 102 //                 }
- 103 //             }
- 104 //             break;
- 105 //             case 'o':
- 106 //             {
- 107 //                 pOutFilename = optarg;
- 108 //                 if (NULL == pOutFilename)
- 109 //                 {
- 110 //                     help("Missing mandatory arguments for output file!\n");
- 111 //                 }
- 112 //             }
- 113 //             break;
- 114 //             case 'h':
- 115 //             {
- 116 //                 help(NULL);
- 117 //             }
- 118 //             break;
- 119 //             default:
- 120 //             {
- 121 //                 help("Unrecognized option!");
- 122 //             }
- 123 //         }
- 124 //     }
- 125 // 
- 126 //     status = acsAutopilot_test(pInFilename, pCfgFilename, pOutFilename);
- 127 // 
- 128 //     exit (status);
- 129 // }
+  55 // // #else
+  56 // // 
+  57 // // #include <vxWorks.h>
+  58 // // 
+  59 // // #endif
+  60 // 
+  61 // /*
+  62 //  * These defined may be redundant with entries in FPGA.h, check that file as
+  63 //  * well for any changes to the FPGA memory map.
+  64 //  */
+  65 // #define CTLR_INT_PEND_ADDRESS       0xF0000030
+  66 // #define CTLR_INT_MASK_ADDRESS       0xF0000038
+  67 // #define CTLR_FPGA_REV_ADDRESS       0xF0000000
+  68 // #define CTRL_FLASH_CTL_ADDRESS      0xF0000008
+  69 // #define SIO_FPGA_REV_ADDRESS        0x28000000
+  70 // #define SIO_MEM_CTL_ADDRESS         0x28000004
+  71 // #define SIO_INTPEND_ADDRESS         0x28000008
+  72 // #define SIO_INTMASK_ADDRESS         0x2800000C
+  73 // #define SIO_OPTO_INTPEND_ADDRESS    0x28000010
+  74 // #define SIO_OPTO_INTMASK_ADDRESS    0x28000014
+  75 // #define SIO_OPTO_DATA_ADDRESS       0x2800001C
+  76 // #define SIO_SP_INTPEND_ADDRESS      0x28000020
+  77 // #define SIO_STATUS_INTPEND_ADDRESS  0x28000050
+  78 // #define SIO_RT1_STAT_ADDRESS        0x28000068
+  79 // #define SIO_RT2_STAT_ADDRESS        0x28000080
+  80 // #define SIO_RT1_CNTRS_ADDRESS       0x28000094
+  81 // #define SIO_RT2_CNTRS_ADDRESS       0x28000098
+  82 // #define SIO_TLM_CNTL_ADDRESS        0x28000058
+  83 // 
+  84 // #define PTS_ANALOG_1_MGS_CNT        0x288020B8
+  85 // 
+  86 // #define M1553_MESSAGE_NONE   (0)
+  87 // #define M1553_MESSAGE_ONE    (1)
+  88 // #define M1553_MESSAGE_MANY   (2)
+  89 // 
+  90 // 
+  91 // enum TIMER_ID
+  92 // {
+  93 //     T0,
+  94 //     T1,
+  95 //     T2,
+  96 //     T3,
+  97 //     TIMER_COUNT
+  98 // };
+  99 // 
+ 100 // enum TIMER_MODE
+ 101 // {
+ 102 //     T_PERIODIC,
+ 103 //     T_ONE_SHOT
+ 104 // };
+ 105 // 
+ 106 // #define MAX_1553_MSG_SIZE  (32)
+ 107 // 
+ 108 // struct Full1553MsgType
+ 109 // {
+ 110 //     UINT16 data[MAX_1553_MSG_SIZE];
+ 111 //     UINT16 wordCount;
+ 112 //     UINT16 subAddress;
+ 113 //     UINT16 bus;
+ 114 //     UINT16 status;
+ 115 // };
+ 116 // 
+ 117 // enum MS1553_BUS_ID
+ 118 // {
+ 119 //     ms1553BusA,
+ 120 //     ms1553BusB
+ 121 // };
+ 122 // 
+ 123 // /* ioctl operations for ms1553 driver */
+ 124 // 
+ 125 // #define MS1553_CLEANUP     (0)
+ 126 // #define MS1553_STATS_FETCH (1)
+ 127 // #define MS1553_SIGI_MODE   (2)
+ 128 // 
+ 129 // /* Number of statistic samples to collect with MS1553_STATS_FETCH */
  130 // 
- 131 // /*
- 132 // ************************************************************************
- 133 // *
- 134 // *   @fn       help
- 135 // *
- 136 // *   @param    errorString - Additional clarification of error that
- 137 // *             was encountered.
- 138 // *
- 139 // *   @brief    This routine displays to standard out the detailed
- 140 // *             usage of the ACS autopilot test driver.
- 141 // *
- 142 // ************************************************************************
- 143 // */
- 144 // void help(char* errorString)
- 145 // {
- 146 // 
- 147 // /*--------------------------[ Local Data]------------------------------*/
+ 131 // #define MS1553_STAT_COUNT  (5)
+ 132 // 
+ 133 // /* Error statistics, derived from (but not equal) to 1553 status word */
+ 134 // 
+ 135 // typedef struct _ms1553errStat
+ 136 // {
+ 137 //     UINT TX         : 1;     /* 1 = TX,  0 = RX */
+ 138 // 
+ 139 //     UINT SPARE1     : 3;     /* Unused: OK, busn, brdcast  */
+ 140 // 
+ 141 //     UINT lpbkerrb   : 1;     /* Error bits, see 1553 doc */
+ 142 //     UINT linkera    : 1;
+ 143 //     UINT illegalCmd : 1;
+ 144 //     UINT memIfErr   : 1;
+ 145 //     UINT manErr     : 1;
+ 146 //     UINT parErr     : 1;
+ 147 //     UINT wcntErr    : 1;
  148 // 
- 149 //    int errorCode = 0;
- 150 // 
- 151 // /*--------------------------[ Code Section ]---------------------------*/
- 152 // 
- 153 //    printf("Description: The Attitude Control System (ACS) Autopilot test\n");
- 154 //    printf("             driver is used to verify the following methods in:\n");
- 155 //    printf("             the ParabolicRCS class\n");
- 156 //    printf("               - computeAngularAccel,\n");
- 157 //    printf("               - rollSwitchingLine,\n");
- 158 //    printf("               - pitchYawSwitchingLine, and\n");
- 159 //    printf("               - transformBodyCmds2ThrusterCmds\n");
- 160 //    printf("\n");
- 161 //    printf("Synopsis:\n");
- 162 //    printf("\n");
- 163 // 
- 164 //    printf("ACS Autopilot test is as follows:\n");
- 165 //    printf("    AcsAutopilot_test -i <input filename> -c <config filename>\n");
- 166 //    printf("                      [-o <output filename>]\n");
- 167 //    printf("\n");
- 168 //    printf(" General Parameters:\n");
- 169 //    printf("   input filename  - The path and name of the input data file to be used.\n");
- 170 //    printf("   config filename - The path and name of the configuration data file.\n");
- 171 //    printf("   output filename - The path and name of the results file to use (optional).\n");
- 172 //    printf("                     If none is given then stdout is used.\n\n");
- 173 // 
- 174 //    if ( NULL != errorString )
- 175 //    {
- 176 //       printf("Invalid arguments: %s\n", errorString);
- 177 //       errorCode = -1;
- 178 //    }
- 179 // 
- 180 //    exit (errorCode);
- 181 // }
- 182 // 
- 183 // /*
- 184 // ************************************************************************
- 185 // *
- 186 // *   @fn       ntopzero
- 187 // *
- 188 // *   @brief    This routine converts negative to positive zero.  The sign
- 189 // *             bit of real number could remain set on the desktop test
- 190 // *             environment when a value is zero.  This is used for
- 191 // *             displaying data.
- 192 // *
- 193 // ************************************************************************
- 194 // */
- 195 // static inline double ntopzero(double x)
- 196 // {
- 197 //     if ( x != 0.0 )
- 198 //     {
- 199 //         return(x);
- 200 //     }
- 201 //     else
- 202 //     {
- 203 //         return(fabs(x));
- 204 //     }
- 205 // }
- 206 // 
- 207 // #else
+ 149 //     UINT SA         : 5;     /* Put SA here in lieu of word count */
+ 150 // } ms1553ErrStat;
+ 151 // 
+ 152 // typedef union _stat1553
+ 153 // {
+ 154 //     UINT16         statWord;
+ 155 //     ms1553ErrStat  statStruct;
+ 156 // } stat1553;
+ 157 // 
+ 158 // typedef struct _ms1553stats
+ 159 // {
+ 160 //     UINT32    txOkCount;
+ 161 //     UINT32    txErrCount;
+ 162 //     UINT32    rxOkCount;
+ 163 //     UINT32    rxErrCount;
+ 164 //     stat1553  err[MS1553_STAT_COUNT];
+ 165 // } ms1553Stats;
+ 166 // 
+ 167 // 
+ 168 // /* Possible return values from read() request */
+ 169 // 
+ 170 // struct INTERRUPT_STATISTICS
+ 171 // {
+ 172 //     UINT32 intCntTotal;     /* Total interrupts of all kinds - good and bad */
+ 173 //     UINT32 intCntUnhandled; /* Interrupts which have not ben intConnect()ed */
+ 174 //     UINT32 intCntSpurious;  /* Undecodable interrupt */
+ 175 //     UINT32 intCntValid;     /* Valid interrupt count */
+ 176 //     UINT32 intCntMultiple;  /* Multiple int bits set when ISR entered count */
+ 177 // 
+ 178 //     UINT32 intCntWdt;       /* Watchdog timer interrupt count */
+ 179 //     UINT32 intCntTimer[TIMER_COUNT]; /* Timer 1 interrupt count */
+ 180 //     UINT32 intCntUart;      /* UART interrupt count */
+ 181 //     UINT32 intCntMbox;      /* Mailbox interrupt count */
+ 182 //     UINT32 intCntGT0;       /* SIO: GT0 interrupt count */
+ 183 //     UINT32 intCntMb;        /* SIO: Motherboard serial interrupt count */
+ 184 //     UINT32 intCntBc;        /* SIO: Booster Controller serial interrupt count */
+ 185 //     UINT32 intCntSpare;     /* SIO: spare serial interrupt count */
+ 186 //     UINT32 intCntTlm;       /* SIO: Telemetry interrupt count */
+ 187 //     UINT32 intCnt1553Rt1;   /* SIO: SIGI 1553 interface interrupt count */
+ 188 //     UINT32 intCnt1553Rt2;   /* SIO: CLE/KV 1553 interface interrupt count */
+ 189 //     UINT32 intUnhandledReg; /* Image of CTLR_INT_PEND for unhandled ints */
+ 190 // };
+ 191 // 
+ 192 // struct UART_STATISTICS
+ 193 // {
+ 194 //     UINT32 uartDevInitCount;
+ 195 //     UINT32 uartDevInit2Count;
+ 196 //     UINT32 uartChanInitCount;
+ 197 //     UINT32 uartIntTxNearEmptyCount;
+ 198 //     UINT32 uartIntRxDataReadCount;
+ 199 //     UINT32 uartRxParityErrorCount;
+ 200 //     UINT32 uartRxFramingErrorCount;
+ 201 //     UINT32 uartRxFifoOverflowErrorCount;
+ 202 //     UINT32 uartPollInputCount;
+ 203 //     UINT32 uartPollOutputCount;
+ 204 //     UINT32 uartTxStartupCount;
+ 205 //     UINT32 uartCallbackInstallCount;
+ 206 //     UINT32 uartIoctAvailModesGetCount;
+ 207 //     UINT32 uartIoctModeSetCount;
+ 208 //     UINT32 uartIoctModeGetCount;
+ 209 //     UINT32 uartIoctBaudSetCount;
+ 210 //     UINT32 uartIoctBaudGetCount;
+ 211 //     UINT32 uartIoctlOpenCount;
+ 212 //     UINT32 uartIoctlDefaultCount;
+ 213 //     UINT32 uartModeSetCount;
+ 214 //     UINT32 uartModeGetCount;
+ 215 // };
+ 216 // 
+ 217 // // #ifdef __cplusplus
+ 218 // // extern "C" {
+ 219 // // #endif
+ 220 // 
+ 221 // void    orbTlmFrameAssemblyImageLoad  (void);
+ 222 // void    orbTlmMajorFrameSend(void);
+ 223 // 
+ 224 // // #ifndef NRTSIM
+ 225 // // 
+ 226 // // int     Watchdog_Start           (void);
+ 227 // // void    Watchdog_Kill            (void);
+ 228 // // int     Watchdog_Retrigger       (void);
+ 229 // // BOOL    Watchdog_ReadBootStatus  (void);
+ 230 // // int     isWatchdogOn             (void);
+ 231 // // 
+ 232 // // void   orbLEDset (UINT32 value);
+ 233 // // UINT32 sysDecrementerRateGet (void);
+ 234 // // 
+ 235 // // void   orbSioInit   (void);
+ 236 // // 
+ 237 // // STATUS timerInstall (enum TIMER_ID id, FUNCPTR timerIsr);
+ 238 // // STATUS timerSet     (enum TIMER_ID id, enum TIMER_MODE mode, UINT32 timeVal);
+ 239 // // STATUS timerStart   (enum TIMER_ID id);
+ 240 // // STATUS timerStop    (enum TIMER_ID id);
+ 241 // // 
+ 242 // // STATUS mboxInstall  (VOIDFUNCPTR timerIsr);
+ 243 // // void   mboxEnable   (void);
+ 244 // // 
+ 245 // // STATUS  bootImageErase           (void);
+ 246 // // STATUS  bootHeaderErase          (void);
+ 247 // // STATUS  bootHeaderDataFlash      (UINT8 * pData, UINT32 size);
+ 248 // // STATUS  bootImageDataFlash       (UINT8 * pData, UINT32 size);
+ 249 // // void    bootHeaderFlashRead      (UINT8 * pData, UINT32 size);
+ 250 // // UINT8 * bootImageFlashAddrFetch  (void);
+ 251 // // UINT8 * bootHeaderFlashAddrFetch (void);
+ 252 // // STATUS  bootImageChecksumFetch   (UINT32 * checksum);
+ 253 // // 
+ 254 // // STATUS  tlmImageErase            (void);
+ 255 // // STATUS  tlmHeaderErase           (void);
+ 256 // // STATUS  tlmHeaderDataFlash       (UINT8 * pData, UINT32 size);
+ 257 // // STATUS  tlmImageDataFlash        (UINT8 * pData, UINT32 size);
+ 258 // // void    tlmHeaderFlashRead       (UINT8 * pData, UINT32 size);
+ 259 // // UINT8 * tlmImageFlashAddrFetch   (void);
+ 260 // // UINT8 * tlmHeaderFlashAddrFetch  (void);
+ 261 // // 
+ 262 // // void    flashPowerOff            (void);
+ 263 // // 
+ 264 // // void    powerFlashAllOff         (void);
+ 265 // // void    powerFlashAllOn          (void);
+ 266 // // BOOL    isFlashPowerAllOn        (void);
+ 267 // // BOOL    isFlashPowerAllOff       (void);
+ 268 // // 
+ 269 // // void    consoleUartDisable       (void);
+ 270 // // void    consoleUartRestore       (void);
+ 271 // // 
+ 272 // // #define AUXCLK_TIMER_ID                 (T3)
+ 273 // // #define AUXCLK_DEFAULT_TICKS_PER_SECOND (1000)
+ 274 // // 
+ 275 // // #define MAX_DEV_NAME_SIZE               (20)
+ 276 // // 
+ 277 // // /* Macro to assert mailbox interrupt on opposite processor */
+ 278 // // 
+ 279 // // extern void mboxInterruptAssert(UINT32);
+ 280 // // #define MBOX_INTERRUPT_ASSERT ::mboxInterruptAssert(1);
+ 281 // // 
+ 282 // // /* Remote CPU start of RAM address offset */
+ 283 // // 
+ 284 // // #define MASTER_A_SRAM_ADRS      (0x20000000)
+ 285 // // #define MASTER_B_SRAM_ADRS      (0x22000000)
+ 286 // // 
+ 287 // // /*
+ 288 // //  * Location and size of the sync patter memory used during startup
+ 289 // //  * (one int before the MAILBOX register at the end of RAM)
+ 290 // //  */
+ 291 // // #define SYNC_ADRS               (0x007ffff8)
+ 292 // // #define SYNC_SIZE               (4)
+ 293 // // 
+ 294 // // 
+ 295 // // INT32 hdlcDrvInstall
+ 296 // //     (
+ 297 // //     char *mbDevName,
+ 298 // //     char *bcDevName
+ 299 // //     );
+ 300 // // 
+ 301 // // INT32 ms1553DrvInstall
+ 302 // //     (
+ 303 // //     char *  sigiDevName,
+ 304 // //     VOIDFUNCPTR sigiIsr2,
+ 305 // //     char *      clekvDevName,
+ 306 // //     VOIDFUNCPTR cleKvIsr2
+ 307 // //     );
+ 308 // // 
+ 309 // // 
+ 310 // // void   intStatsClearAll    (void);
+ 311 // // void   intStatsFetch       (struct INTERRUPT_STATISTICS * intStats);
+ 312 // // 
+ 313 // // UINT32 sysTBRticksToUsec   (UINT32 ticks);
+ 314 // // double sysTimeBaseRead     (void);
+ 315 // // 
+ 316 // // void gt0Install            (VOIDFUNCPTR);
+ 317 // // BOOL isLaunchEnableSet     (void);
+ 318 // // void gt0Disable            (void);
+ 319 // // 
+ 320 // // #endif /* !NRTSIM */
+ 321 // 
+ 322 // // #ifdef __cplusplus
+ 323 // // }
+ 324 // // #endif
+ 325 // 
+ 326 // #endif /* _BSP_API_H_ */
 
+Mark { conditional: "nested conditional", start_line: 207, end_line: 214, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AcsAutopilot_test/src/AcsAutopilot_test.cc" }
+Mark { conditional: "nested conditional", start_line: 341, end_line: 343, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AcsAutopilot_test/src/AcsAutopilot_test.cc" }
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 135, end_line: 214, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AlphaLoop_test/src/AlphaLoop_test.cc" }
  135 // #if (NRTSIM || RTCLSIM)
  136 // void printHelp()
@@ -295,6 +419,9 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 135, end_line: 214, f
  213 // }
  214 // #endif // (NRTSIM || RTCLSIM)
 
+Mark { conditional: "nested conditional", start_line: 769, end_line: 771, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
+Mark { conditional: "nested conditional", start_line: 1046, end_line: 1048, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
+Mark { conditional: "nested conditional", start_line: 1122, end_line: 1177, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
 Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 79, end_line: 184, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
   79 // #if ( NRTSIM || RTCLSIM )
   80 // 
@@ -402,11 +529,6 @@ Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 79, end_line: 184, 
  182 // }
  183 // 
  184 // #endif /* ( NRTSIM || RTCLSIM ) */
-
-Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 767, end_line: 769, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc" }
- 767 // #if ( NRTSIM || RTCLSIM )
- 768 //     MyActuator &myActuator = *(new MyActuator("/dev/null"));
- 769 // #else
 
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 92, end_line: 94, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc" }
   92 // #if (NRTSIM || RTCLSIM)
@@ -892,6 +1014,15 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 526, end_line: 532, file: "/hom
  531 //         exit(-1);
  532 // #endif
 
+Mark { conditional: "nested conditional", start_line: 206, end_line: 210, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 352, end_line: 358, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 400, end_line: 402, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 427, end_line: 429, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 666, end_line: 669, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 663, end_line: 907, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 1035, end_line: 1037, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 1049, end_line: 1062, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
+Mark { conditional: "nested conditional", start_line: 1066, end_line: 1098, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
 Mark { conditional: "#if (NRTSIM)", start_line: 23, end_line: 25, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
   23 // #if (NRTSIM)
   24 // #include "cmdlineargs.hh"
@@ -1032,263 +1163,34 @@ Mark { conditional: "#if (NRTSIM)", start_line: 47, end_line: 179, file: "/home/
  178 // 
  179 // #endif /* (NRTSIM) */
 
-Mark { conditional: "#if (NRTSIM)", start_line: 200, end_line: 206, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
- 200 // #if (NRTSIM)
- 201 // oscINT32 LambertGuideTestChild::LambertGuidance_test(oscUINT32 scrubStrategy,
- 202 //                                                      oscUINT32 initScrubMode,
- 203 //                                                      oscUINT32 failureMode,
- 204 //                                                      oscUINT32 offNomMode,
- 205 //                                                      oscUINT32 setPend)
- 206 // #else
-
-Mark { conditional: "#if (NRTSIM)", start_line: 427, end_line: 429, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
- 427 // #if (NRTSIM)
- 428 //     OsTask::setInitEntryFunction(LambertGuideTestChild::Start,OSTASK_MIN_PRIORITY);
- 429 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 455, end_line: 666, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
- 455 // #if (NRTSIM)
- 456 //     switch (failureMode)
- 457 //     {
- 458 //         /*
- 459 //         ** Do not execute any failure modes
- 460 //         */
- 461 //         case 0:
- 462 //             break;
- 463 // 
- 464 //         /*
- 465 //         ** Call setGuidanceMode with mode = UNINITIALIZED
- 466 //         */    
- 467 //         case 1:
- 468 //             TestMode = LambertScrubGuide::UNINITIALIZED;
- 469 //             lambertGuideObj->setGuidanceMode(TestMode);
- 470 //             break;
- 471 // 
- 472 //         /*
- 473 //         ** Call initErrorCheck with guidanceMode not equal to UNINITIALIZED
- 474 //         */
- 475 //         case 2:
- 476 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
- 477 //             lambertGuideObj->setGuidanceMode(TestMode);
- 478 // 
- 479 //             /*
- 480 //             ** setGuidanceIterationLimit calls private method initErrorCheck
- 481 //             */
- 482 //             lambertGuideObj->setGuidanceIterationLimit(10);
- 483 //             break;
- 484 // 
- 485 //         /*
- 486 //         ** Force every convergence failure statement for each guidanceMode in
- 487 //         ** taskFunc
- 488 //         */
- 489 //         case 3:
- 490 //             lambertGuideObj->setScrubStrategy(
- 491 //                                 (LambertEnergyScrubStrategy)scrubStrategy);
- 492 //             navigatorPtr->setNavVelocitySync(TRUE);
- 493 //             lambertGuideObj->setGuidanceIterationLimit(0);
- 494 //             lambertGuideObj->start();
- 495 // 
- 496 //             /*
- 497 //             ** Run taskFunc for INIT_GUIDANCE_FIXED_IGNITION_TIME
- 498 //             */
- 499 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
- 500 //             lambertGuideObj->setGuidanceMode(TestMode);
- 501 //             SystemState::updateSchedTime();
- 502 //             cbList.procCallbackList(SystemState::getSchedTime());
- 503 //             OsTask::execRunQueue();
- 504 // 
- 505 //             /*
- 506 //             ** Run taskFunc for INIT_GUIDANCE_VARIABLE_IGNITION_TIME
- 507 //             */
- 508 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
- 509 // 
- 510 //             lambertGuideObj->resetGuidance(
- 511 //                                 LambertScrubGuide::MAINTAIN_SETTINGS);
- 512 // 
- 513 //             /*
- 514 //             ** The following method is only called to increse code coverage
- 515 //             */
- 516 //             lambertGuideObj->setIgnitionIterationLimit(0);
- 517 // 
- 518 //             lambertGuideObj->setGuidanceMode(TestMode);
- 519 //             SystemState::updateSchedTime();
- 520 //             cbList.procCallbackList(SystemState::getSchedTime());
- 521 //             OsTask::execRunQueue();
- 522 // 
- 523 //             /*
- 524 //             ** Run taskFunc for RECOMPUTE_IGNITION_TIME
- 525 //             */
- 526 //             TestMode = LambertScrubGuide::RECOMPUTE_IGNITION_TIME;
- 527 //             lambertGuideObj->setGuidanceMode(TestMode);
- 528 //             SystemState::updateSchedTime();
- 529 //             cbList.procCallbackList(SystemState::getSchedTime());
- 530 //             OsTask::execRunQueue();
- 531 // 
- 532 //             /*
- 533 //             ** Run taskFunc for RUN_GUIDANCE
- 534 //             */
- 535 //             TestMode = LambertScrubGuide::RUN_GUIDANCE;
- 536 //             lambertGuideObj->setGuidanceMode(TestMode);
- 537 //             SystemState::updateSchedTime();
- 538 //             cbList.procCallbackList(SystemState::getSchedTime());
- 539 //             OsTask::execRunQueue();
- 540 // 
- 541 //             /*
- 542 //             ** Reset guidance and run taskFunc in UNINITIALIZED state
- 543 //             */
- 544 //             lambertGuideObj->resetGuidance(
- 545 //                                 LambertScrubGuide::MAINTAIN_SETTINGS);
- 546 //             SystemState::updateSchedTime();
- 547 //             cbList.procCallbackList(SystemState::getSchedTime());
- 548 //             OsTask::execRunQueue();
- 549 // 
- 550 //             /*
- 551 //             ** Exit, since none of these failure cases end program execution
- 552 //             */
- 553 //             exit(1);
- 554 //             break;
- 555 // 
- 556 //         /*
- 557 //         ** Failure case 1 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
- 558 //         ** setGuidanceMode
- 559 //         */
- 560 //         case 4:
- 561 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
- 562 //             lambertGuideObj->setScrubStrategy(
- 563 //                         LambertScrubGuide::COMBINED_PLANE_TRANSLATION_GUIDANCE);
- 564 //             lambertGuideObj->setGuidanceMode(TestMode);
- 565 //             break;
- 566 // 
- 567 //         /*
- 568 //         ** Failure case 2 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
- 569 //         ** setGuidanceMode
- 570 //         */
- 571 //         case 5:
- 572 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
- 573 //             lambertGuideObj->setGuidanceMode(TestMode);
- 574 //             break;
- 575 // 
- 576 //         /*
- 577 //         ** Failure case 3 with INIT_GUIDANCE_FIXED_IGNITION_TIME in
- 578 //         ** setGuidanceMode
- 579 //         */
- 580 //         case 6:
- 581 //             lambertGuideObj->setScrubStrategy(
- 582 //                                 (LambertEnergyScrubStrategy)scrubStrategy);
- 583 //             navigatorPtr->setNavVelocitySync(TRUE);
- 584 //             lambertGuideObj->start();
- 585 // 
- 586 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_FIXED_IGNITION_TIME;
- 587 //             lambertGuideObj->setGuidanceMode(TestMode);
- 588 //             SystemState::updateSchedTime();
- 589 //             cbList.procCallbackList(SystemState::getSchedTime());
- 590 //             OsTask::execRunQueue();
- 591 // 
- 592 //             lambertGuideObj->setGuidanceMode(TestMode);
- 593 //             break;
- 594 // 
- 595 //         /*
- 596 //         ** Failure case 1 with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in
- 597 //         ** setGuidanceMode
- 598 //         */
- 599 //         case 7:
- 600 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
- 601 //             lambertGuideObj->setGuidanceMode(TestMode);
- 602 //             break;
- 603 // 
- 604 //         /*
- 605 //         ** Failure case 1 with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in
- 606 //         ** setGuidanceMode
- 607 //         */
- 608 //         case 8:
- 609 //             lambertGuideObj->setScrubStrategy(
- 610 //                                 (LambertEnergyScrubStrategy)scrubStrategy);
- 611 //             navigatorPtr->setNavVelocitySync(TRUE);
- 612 //             lambertGuideObj->start();
- 613 // 
- 614 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
- 615 //             lambertGuideObj->setGuidanceMode(TestMode);
- 616 //             SystemState::updateSchedTime();
- 617 //             cbList.procCallbackList(SystemState::getSchedTime());
- 618 //             OsTask::execRunQueue();
- 619 // 
- 620 //             lambertGuideObj->setGuidanceMode(TestMode);
- 621 //             break;
- 622 // 
- 623 //         /*
- 624 //         ** Warning with INIT_GUIDANCE_VARIABLE_IGNITION_TIME in setGuidanceMode
- 625 //         ** and failure by calling setGuidanceMode again with mode = STANDBY
- 626 //         */
- 627 //         case 9:
- 628 //             lambertGuideObj->setScrubStrategy(
- 629 //                                 LambertScrubGuide::IN_PLANE_TURN_DOWN_THEN_UP);
- 630 //             
- 631 //             TestMode = LambertScrubGuide::INIT_GUIDANCE_VARIABLE_IGNITION_TIME;
- 632 //             lambertGuideObj->setGuidanceMode(TestMode);
- 633 //             
- 634 //             TestMode = LambertScrubGuide::STANDBY;
- 635 //             lambertGuideObj->setGuidanceMode(TestMode);
- 636 //             break;
- 637 // 
- 638 //         /*
- 639 //         ** Failure case 1 with RECOMPUTE_IGNITION_TIME in setGuidanceMode
- 640 //         */
- 641 //         case 10:
- 642 //             /*
- 643 //             ** Do a COMPLETE_RESET with resetGuidance
- 644 //             */
- 645 //             lambertGuideObj->resetGuidance(LambertScrubGuide::COMPLETE_RESET);
- 646 // 
- 647 //             /*
- 648 //             ** Call every set function again, except for
- 649 //             ** setIntermediateTargetPosition so lambertInitStatus will not be
- 650 //             ** equal to GOOD_STATUS
- 651 //             */
- 652 //             lambertGuideObj->setGuidanceClock(LmbGt0Clock);
- 653 //             lambertGuideObj->setDVCapacity(lambDrvtransVelCapacity);
- 654 //             lambertGuideObj->setTranslationTableAlong(&transPosAlongTable);
- 655 //             lambertGuideObj->setTranslationTableCross(&transPosCrossTable);
- 656 //             lambertGuideObj->setTranslationFactorTable(&transFactorTable);
- 657 //             lambertGuideObj->setTargetPosition(lambPosZEM1,lambPosZEM2,
- 658 //                                                lambPosZEM3,
- 659 //                                                lambTimeZEM + lambGt0AtLaunch);
- 660 //             lambertGuideObj->setTSolution(lambDrvTSolution);
- 661 // 
- 662 // 
- 663 // #ifdef VEH2STAGE
- 664 //             lambertGuideObj->setTIgnition(lambDrvStage2IgnitionTime +
- 665 //                                           lambGt0AtLaunch,5.00);
- 666 // #else
-
-Mark { conditional: "#if (NRTSIM)", start_line: 1035, end_line: 1037, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
-1035 // #if (NRTSIM)
-1036 //         OsTask::execRunQueue();
-1037 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 1049, end_line: 1062, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc" }
-1049 // #if (NRTSIM)
-1050 //             if ( 2 == setPend ) // run for pend case
-1051 //             {
-1052 //                 while ( lambertGuideObj->getGuidanceMode() != LambertScrubGuide::RUN_GUIDANCE &&
-1053 //                         lambertGuideObj->getGuidanceMode() != LambertScrubGuide::STANDBY)
-1054 //                 {
-1055 // 
-1056 //                     SystemState::updateSchedTime();
-1057 //                     cbList.procCallbackList(SystemState::getSchedTime());
-1058 // 
-1059 //                     OsTask::execRunQueue();
-1060 //                 }
-1061 //             }
-1062 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 59, end_line: 65, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.hh" }
+Mark { conditional: "nested conditional", start_line: 65, end_line: 69, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.hh" }
+Mark { conditional: "#if (NRTSIM)", start_line: 59, end_line: 84, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.hh" }
   59 // #if (NRTSIM)
   60 //     static int LambertGuidance_test(oscUINT32 scrubStrategy,
   61 //                                     oscUINT32 initScrubMode,
   62 //                                     oscUINT32 failureMode,
   63 //                                     oscUINT32 offNomMode,
   64 //                                     oscUINT32 setPend);
-  65 // #else
+  65 // // #else
+  66 // //     static int LambertGuidance_test(oscUINT32 scrubStrategy,
+  67 // //                                     oscUINT32 initScrubMode,
+  68 // //                                     oscUINT32 setPend);
+  69 // // #endif
+  70 // 
+  71 //     /*
+  72 //     ** This is an empty method that is used as the initial entry function for
+  73 //     ** the OsTask class
+  74 //     */
+  75 //     static void Start(void);
+  76 // 
+  77 //   private:
+  78 //     /*
+  79 //     ** Method to print the contents of a Matrix3 object
+  80 //     */
+  81 //     static void Matrix3Print(const oscChar* name,const Matrix3& m);
+  82 // };
+  83 // 
+  84 // #endif
 
 Mark { conditional: "#if ( NRTSIM )", start_line: 91, end_line: 194, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/VelocitySteering_test/src/VelocitySteering_test.cc" }
   91 // #if ( NRTSIM )
@@ -1443,12 +1345,18 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 106, end_line: 111, f
  110 //             }
  111 // #endif
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 26, end_line: 28, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/hwdevice.hh" }
+Mark { conditional: "nested conditional", start_line: 28, end_line: 30, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/hwdevice.hh" }
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 26, end_line: 32, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/hwdevice.hh" }
   26 // #if (NRTSIM || RTCLSIM)
   27 // #include "simhwdevice.hh"
-  28 // #else
+  28 // // #else
+  29 // // #include "flthwdevice.hh"
+  30 // // #endif
+  31 // 
+  32 // #endif /** __hwdevice_hh__ **/
 
-Mark { conditional: "#ifdef NRTSIM", start_line: 512, end_line: 522, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/lambertScrubGuide.hh" }
+Mark { conditional: "nested conditional", start_line: 522, end_line: 524, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/lambertScrubGuide.hh" }
+Mark { conditional: "#ifdef NRTSIM", start_line: 512, end_line: 1192, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/lambertScrubGuide.hh" }
  512 // #ifdef NRTSIM
  513 //     void initErrorCheck(const BYTE *string)
  514 //     {
@@ -1459,7 +1367,677 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 512, end_line: 522, file: "/hom
  519 //             exit(-1);
  520 //         }
  521 //     }
- 522 // #else
+ 522 // // #else
+ 523 // //     #define initErrorCheck(x)
+ 524 // // #endif
+ 525 // 
+ 526 // public:
+ 527 // 
+ 528 //     /*
+ 529 //     ** Override callback to only wake the task upon arrival of EO29
+ 530 //     */
+ 531 //     virtual void executeCallback(void);
+ 532 // 
+ 533 //     /*
+ 534 //     ** Populate the OsTask class interface virtual method.
+ 535 //     */
+ 536 //     void taskFunc( INT4, INT4, INT4, INT4, INT4,
+ 537 //                    INT4, INT4, INT4, INT4 );
+ 538 // 
+ 539 //     /*
+ 540 //     ** setGuidanceMode sets the mode for the guidance. This routine
+ 541 //     ** state transition restrictions and adjusts data as necessary
+ 542 //     ** when transitioning from one state to another. TRUE is
+ 543 //     ** returned if successful, FALSE is returned if unsuccessful.
+ 544 //     */
+ 545 //     BOOLEAN setGuidanceMode(LambertScrubGuidanceMode mode);
+ 546 // 
+ 547 //     /*
+ 548 //     ** resetGuidance resets the guidance back to UNINITIALIZED mode.
+ 549 //     ** If called with MAINTAIN_SETTINGS, the guidance will only reset
+ 550 //     ** the internal working variable and maintain all of the user set
+ 551 //     ** parameters. If called with COMPLETE_RESET, all parameters are
+ 552 //     ** reset. All mandatory data must be respecified by the user before
+ 553 //     ** guidance can be reinitialized.
+ 554 //     */
+ 555 //     void resetGuidance(LambertScrubGuidanceResetMode mode)
+ 556 //     {
+ 557 //         setGuidanceModeInternal(UNINITIALIZED);
+ 558 //         initData(mode);
+ 559 //     }
+ 560 // 
+ 561 //     /*
+ 562 //     ** setScrubStrategy sets the scrubbing strategy. This can only be
+ 563 //     ** set while the guidance is in an uninitialized state. TRUE is
+ 564 //     ** returned if successful, FALSE is returned if unsuccessful.
+ 565 //     */
+ 566 //     BOOLEAN setScrubStrategy(LambertEnergyScrubStrategy strategy);
+ 567 // 
+ 568 //     /*
+ 569 //     ** setGuidanceClock passes a clock reference to the guidance. All
+ 570 //     ** Earth fixed to inertial coordinate transformations use the
+ 571 //     ** time base provided by this clock.
+ 572 //     */
+ 573 //     void setGuidanceClock(Clock &clock)
+ 574 //     {
+ 575 //         initErrorCheck("LambertScrubGuide::setGuidanceClock");
+ 576 //         guidanceClock = &clock;
+ 577 //         lambertInitStatus |= GUIDANCECLOCK_STATUS;
+ 578 //     }
+ 579 // 
+ 580 //     /*
+ 581 //     ** Methods used by the Mission Sequencer to specify parameters
+ 582 //     ** directly related to the target trajectory.
+ 583 //     **
+ 584 //     ** Method to set the target point. This method sets the target point
+ 585 //     ** from an ECI position vector and a corresponding time.
+ 586 //     */
+ 587 //     void setTargetPosition(Vector3 &tgtpos, double targetTime)
+ 588 //     {
+ 589 //         initErrorCheck("LambertScrubGuide::setTargetPositionECI");
+ 590 // 
+ 591 //         /*
+ 592 //         ** Compute the target position in the LLA frame
+ 593 //         ** to consistently populate member data variables
+ 594 //         */
+ 595 //         timeOnTarget      = targetTime;
+ 596 //         Geocentric2Geodetic(tgtLongitude, tgtLatitude, tgtAltitude, tgtpos);
+ 597 //         tgtLongitude=tgtLongitude - EARTH.RATE * targetTime;
+ 598 // 
+ 599 //         /*
+ 600 //         ** Compensate with the center of attraction offset and
+ 601 //         ** compute target radius.
+ 602 //         */
+ 603 //         tgtPosECI = tgtpos - coaOffset;
+ 604 //         lambertInitStatus |= TARGETINIT_STATUS;
+ 605 //     }
+ 606 // 
+ 607 //     /*
+ 608 //     ** Method to set the target point. This method sets the target point
+ 609 //     ** from longitude, latitude, altitude and a corresponding time.
+ 610 //     */
+ 611 //     void setTargetPosition( double _longitude,
+ 612 //                             double _latitude,
+ 613 //                             double _altitude,
+ 614 //                             double _targetTime)
+ 615 //     {
+ 616 //         initErrorCheck("LambertScrubGuide::setTargetPositionLLA");
+ 617 // 
+ 618 //         /*
+ 619 //         ** Copy the targeting parameters into member data.
+ 620 //         */
+ 621 //         tgtLatitude  = _latitude;
+ 622 //         tgtLongitude = _longitude;
+ 623 //         tgtAltitude  = _altitude;
+ 624 //         timeOnTarget = _targetTime;
+ 625 // 
+ 626 //         /*
+ 627 //         ** Compute the target position in the ECI frame
+ 628 //         */
+ 629 //         Vector3 tgtpos;
+ 630 //         Angle iLongitude(tgtLongitude + EARTH.RATE * _targetTime);
+ 631 //         Geodetic2Geocentric(tgtpos,iLongitude,tgtLatitude,
+ 632 //                             tgtAltitude);
+ 633 // 
+ 634 //         /*
+ 635 //         ** Compensate with the center of attraction offset and
+ 636 //         ** compute target radius.
+ 637 //         */
+ 638 //         tgtPosECI = tgtpos - coaOffset;
+ 639 //         lambertInitStatus |= TARGETINIT_STATUS;
+ 640 //     }
+ 641 // 
+ 642 //     /*
+ 643 //     ** Method to set the intermediate target point. This method sets
+ 644 //     ** the intermediate target point from an ECI position vector and
+ 645 //     ** a corresponding time.
+ 646 //     */
+ 647 //     void setIntermediateTargetPosition(Vector3 &tgtpos, double targetTime)
+ 648 //     {
+ 649 //         initErrorCheck("LambertScrubGuide::setIntermediateTargetPositionECI");
+ 650 // 
+ 651 //         /*
+ 652 //         ** Compute the intermediate target position in the LLA frame
+ 653 //         ** to consistently populate member data variables
+ 654 //         */
+ 655 //         iTgtTime      = targetTime;
+ 656 //         Geocentric2Geodetic(iTgtLongitude, iTgtLatitude, iTgtAltitude, tgtpos);
+ 657 //         iTgtLongitude=iTgtLongitude - EARTH.RATE * iTgtTime;
+ 658 // 
+ 659 //         /*
+ 660 //         ** Compensate with the center of attraction offset and
+ 661 //         ** compute target radius.
+ 662 //         */
+ 663 //         iTgtPosECI = tgtpos - coaOffset;
+ 664 //         lambertInitStatus |= ITARGETINIT_STATUS;
+ 665 //     }
+ 666 // 
+ 667 //     /*
+ 668 //     ** Method to set the intermediate target point. This method sets
+ 669 //     ** the intermediate target point from longitude, latitude, altitude
+ 670 //     ** and a corresponding time.
+ 671 //     */
+ 672 //     void setIntermediateTargetPosition( double _longitude,
+ 673 //                                         double _latitude,
+ 674 //                                         double _altitude,
+ 675 //                                         double _targetTime)
+ 676 //     {
+ 677 //         initErrorCheck("LambertScrubGuide::setIntermediateTargetPositionLLA");
+ 678 // 
+ 679 //         /*
+ 680 //         ** Copy the targeting parameters into member data.
+ 681 //         */
+ 682 //         iTgtLatitude  = _latitude;
+ 683 //         iTgtLongitude = _longitude;
+ 684 //         iTgtAltitude  = _altitude;
+ 685 // 
+ 686 //         /*
+ 687 //         ** Compute the target position in the ECI frame
+ 688 //         */
+ 689 //         Vector3 tgtpos;
+ 690 //         Angle iLongitude(iTgtLongitude + EARTH.RATE * _targetTime);
+ 691 //         Geodetic2Geocentric(tgtpos,iLongitude,iTgtLatitude,
+ 692 //                             iTgtAltitude);
+ 693 // 
+ 694 //         /*
+ 695 //         ** Compensate with the center of attraction offset and
+ 696 //         ** compute target radius.
+ 697 //         */
+ 698 //         iTgtPosECI = tgtpos - coaOffset;
+ 699 //         lambertInitStatus |= ITARGETINIT_STATUS;
+ 700 //     }
+ 701 // 
+ 702 //     /*
+ 703 //     ** setCenterOfAttractionOffsetModel is used to define a center
+ 704 //     ** of attraction model to account for Earth's oblateness.  This
+ 705 //     ** offset model is used in the kepler and lambert calculations.
+ 706 //     */
+ 707 //     void setCenterOfAttractionOffsetModel( const Vector3 &coa , double mu)
+ 708 //     {
+ 709 //         initErrorCheck("LambertScrubGuide::setCenterOfAttractionOffsetModel");
+ 710 // 
+ 711 //         /*
+ 712 //         ** Apply the offset to the target position. Do this by
+ 713 //         ** adding old offset and subtracting new offset.
+ 714 //         ** Also compute new target radius.
+ 715 //         */
+ 716 //         Vector3 dcoa = coaOffset - coa;
+ 717 //         tgtPosECI += dcoa;
+ 718 //         iTgtPosECI += dcoa;
+ 719 // 
+ 720 //         /*
+ 721 //         ** Copy center of attraction model into member data.
+ 722 //         */
+ 723 //         coaOffset = coa;
+ 724 //         muOffset = mu;
+ 725 //     }
+ 726 // 
+ 727 //     /*
+ 728 //     ** setTimeOfFlightConvergence sets the allowable time of flight errors
+ 729 //     ** for the kepler and lambert routines.
+ 730 //     */
+ 731 //     void setTimeOfFlightConvergence( double timeOfFltConv )
+ 732 //     {
+ 733 //         initErrorCheck("LambertScrubGuide::setTimeOfFlightConvergence");
+ 734 //         teps = timeOfFltConv;
+ 735 //     }
+ 736 // 
+ 737 //     /*
+ 738 //     ** setLambertIterationLimit sets the total number of iteration
+ 739 //     ** allowable in the lambert routine.
+ 740 //     */
+ 741 //     void setLambertIterationLimit( INT4 limit )
+ 742 //     {
+ 743 //         initErrorCheck("LambertScrubGuide::setLambertIterationLimit");
+ 744 //         lambertIterationLimit = limit;
+ 745 //     }
+ 746 // 
+ 747 //     /*
+ 748 //     ** setKeplerIterationLimit sets the total number of iteration
+ 749 //     ** allowable in the kepler routine.
+ 750 //     */
+ 751 //     void setKeplerIterationLimit( INT4 limit )
+ 752 //     {
+ 753 //         initErrorCheck("LambertScrubGuide::setKeplerIterationLimit");
+ 754 //         keplerIterationLimit = limit;
+ 755 //     }
+ 756 // 
+ 757 //     /*
+ 758 //     ** setGuidanceHoldThreshold sets the velocity remaining at which
+ 759 //     ** the guidance commands will be held. This parameter is used in
+ 760 //     ** the late scrub only.
+ 761 //     */
+ 762 //     void setGuidanceHoldThreshold( double threshold )
+ 763 //     {
+ 764 //         initErrorCheck("LambertScrubGuide::setGuidanceHoldThreshold");
+ 765 //         guidanceHoldThreshold = threshold;
+ 766 //     }
+ 767 // 
+ 768 //     /*
+ 769 //     ** setDVCapacity sets the total velocity capacity the guidance
+ 770 //     ** will allocate to the current stage.
+ 771 //     */
+ 772 //     void setDVCapacity(double capacity)
+ 773 //     {
+ 774 //         initErrorCheck("LambertScrubGuide::setDVCapacity");
+ 775 //         dvCapacity = capacity;
+ 776 //         lambertInitStatus |= DVCAPACITY_STATUS;
+ 777 //     }
+ 778 // 
+ 779 //     /*
+ 780 //     ** setTSolution sets the solution time for the guidance relative
+ 781 //     ** to the ignition of the stage to be guided. This value should
+ 782 //     ** be set slightly beyond the longest possible motor burn time.
+ 783 //     */
+ 784 //     void setTSolution(double tsol)
+ 785 //     {
+ 786 //         initErrorCheck("LambertScrubGuide::setTSolution");
+ 787 //         tSolRel = tsol;
+ 788 //         tSolution = tSolRel + tIgnition;
+ 789 //         lambertInitStatus |= TSOLUTION_STATUS;
+ 790 //     }
+ 791 // 
+ 792 //     /*
+ 793 //     ** setTIgnition sets the ignition time to a fixed value when the
+ 794 //     ** guidance is run in fixed ignition time mode and sets the ignition
+ 795 //     ** time to an initial guess when guidance is run in variable ignition
+ 796 //     ** time mode. When guidance is run in variable time mode to minimize
+ 797 //     ** intermediate target point translation errors along the delta
+ 798 //     ** velocity vector, the second parameter of this function sets the
+ 799 //     ** allowable variation to the ignition time (+/- tvar). Note that
+ 800 //     ** tvar sets the min and max allowable ignition times. These min and
+ 801 //     ** max times do not change when the ignition time is calculated by
+ 802 //     ** the guidance.
+ 803 //     */
+ 804 //     void setTIgnition(double tign, double tvar = 0.0)
+ 805 //     {
+ 806 //         initErrorCheck("LambertScrubGuide::setTIgnition");
+ 807 //         tIgnition = tign;
+ 808 //         tIgnitionMax = tIgnition + tvar;
+ 809 //         tIgnitionMin = tIgnition - tvar;
+ 810 //         tSolution = tIgnition + tSolRel;
+ 811 //         lambertInitStatus |= TIGNITION_STATUS;
+ 812 //     }
+ 813 // 
+ 814 //     /*
+ 815 //     ** setTranslationTableAlong sets the table which contains the
+ 816 //     ** translation of the vehicle along the desired velocity direction
+ 817 //     ** due to motor burn only (no gravity) as a function of remaining
+ 818 //     ** velocity capacity and scrub percent.
+ 819 //     */
+ 820 //     void setTranslationTableAlong(Table *tab)
+ 821 //     {
+ 822 //         initErrorCheck("LambertScrubGuide::setTranslationTableAlong");
+ 823 //         translationTableAlong = tab;
+ 824 //         lambertInitStatus |= TRANSLATIONALONG_STATUS;
+ 825 //     }
+ 826 // 
+ 827 //     /*
+ 828 //     ** setTranslationTableCross sets the table which contains the
+ 829 //     ** translation of the vehicle perpendicular to the desired velocity
+ 830 //     ** direction due to motor burn only (no gravity) as a function of
+ 831 //     ** remaining velocity capacity and scrub percent.
+ 832 //     */
+ 833 //     void setTranslationTableCross(Table *tab)
+ 834 //     {
+ 835 //         initErrorCheck("LambertScrubGuide::setTranslationTableCross");
+ 836 //         translationTableCross = tab;
+ 837 //         lambertInitStatus |= TRANSLATIONCROSS_STATUS;
+ 838 //     }
+ 839 // 
+ 840 //     /*
+ 841 //     ** setTranslationFactorTable sets the table which contains the
+ 842 //     ** early vs late scrub ratio as a function of the fraction
+ 843 //     ** of total perpendicular translation achievable from the stage.
+ 844 //     */
+ 845 //     void setTranslationFactorTable(Table *tab)
+ 846 //     {
+ 847 //         initErrorCheck("LambertScrubGuide::setTranslationFactorTable");
+ 848 //         translationFactorTable = tab;
+ 849 //         lambertInitStatus |= TRANSLATIONFACTOR_STATUS;
+ 850 //     }
+ 851 // 
+ 852 //     /*
+ 853 //     ** setGuidanceIterationLimit sets the limit for the number of
+ 854 //     ** iterations the guidance is allowed to compute (main guidance
+ 855 //     ** iteration loop) for a single call to executeGuidance. If this
+ 856 //     ** citeria is met, the state of the guidance will be CONVERGE_FAILED.
+ 857 //     */
+ 858 //     void setGuidanceIterationLimit(INT4 limit)
+ 859 //     {
+ 860 //         initErrorCheck("LambertScrubGuide::setGuidanceIterationLimit");
+ 861 //         guidanceIterationLimit = limit;
+ 862 //     }
+ 863 // 
+ 864 //     /*
+ 865 //     ** setGuidanceConvergenceSpeed sets the speed criteria for guidance
+ 866 //     ** convergence. The magnitude of the change of the lambert velocity
+ 867 //     ** residual at the solution point needs to converge to below this
+ 868 //     ** convergence speed before iteration stops (assuming the number of
+ 869 //     ** iteration stay below guidanceIterationLimit).
+ 870 //     */
+ 871 //     void setGuidanceConvergenceSpeed(double spderr)
+ 872 //     {
+ 873 //         initErrorCheck("LambertScrubGuide::setGuidanceConvergenceSpeed");
+ 874 //         guidanceConvergenceSpeed = spderr;
+ 875 //     }
+ 876 // 
+ 877 //     /*
+ 878 //     ** setGuidanceRelaxationFactor sets the relaxation factor which
+ 879 //     ** enhances guidance convergence. A value of 1 will attempt to
+ 880 //     ** take out all error in a single iteration. This typically results
+ 881 //     ** in oscillatory behavior. A value less than 1 (like 0.75)
+ 882 //     ** elliminates the oscillation and actually improves guidance
+ 883 //     ** convergence performance.
+ 884 //     */
+ 885 //     void setGuidanceRelaxationFactor(double factor)
+ 886 //     {
+ 887 //         initErrorCheck("LambertScrubGuide::setGuidanceRelaxationFactor");
+ 888 //         guidanceRelaxationFactor = factor;
+ 889 //     }
+ 890 // 
+ 891 //     /*
+ 892 //     ** setGuidanceInitIterationLimit sets the guidanceIterationLimit
+ 893 //     ** parameter for the guidance initialization algorithms. This limit
+ 894 //     ** should be set higher than guidanceIterationLimit, since perturbations
+ 895 //     ** to the guidance during initialization will cause the guidance
+ 896 //     ** to have a higher number of iterations for convergence.
+ 897 //     */
+ 898 //     void setGuidanceInitIterationLimit(INT4 limit)
+ 899 //     {
+ 900 //         initErrorCheck("LambertScrubGuide::setGuidanceInitIterationLimit");
+ 901 //         guidanceInitIterationLimit = limit;
+ 902 //     }
+ 903 // 
+ 904 //     /*
+ 905 //     ** setIgnitionConvergenceTime sets the convergence parameter
+ 906 //     ** for ignition time when guidance is run in variable ignition
+ 907 //     ** timing mode. The ignition timing is varied to minimize
+ 908 //     ** guidance along axis translational errors at the intermediate
+ 909 //     ** target point. The iteration is considered to be converged
+ 910 //     ** when subsequent iterations reult in changes to ignition
+ 911 //     ** timing which are below the specified convergence criteria
+ 912 //     ** (assuming the ignition time is within the allowable tolerance
+ 913 //     ** and assuming the number of iteration are below
+ 914 //     ** ignitionConvergenceLimit).
+ 915 //     */
+ 916 //     void setIgnitionConvergenceTime(double dtconvergence)
+ 917 //     {
+ 918 //         initErrorCheck("LambertScrubGuide::setIgnitionConvergenceTime");
+ 919 //         ignitionConvergenceTime = dtconvergence;
+ 920 //     }
+ 921 // 
+ 922 //     /*
+ 923 //     ** setIgnitionIterationLimit sets the maximum number of iterations
+ 924 //     ** the ignition time calculation will be allowed to compute before
+ 925 //     ** giving up. If this citeria is met, the state of the guidance
+ 926 //     ** will be CONVERGE_FAILED.
+ 927 //     */
+ 928 //     void setIgnitionIterationLimit(INT4 limit)
+ 929 //     {
+ 930 //         initErrorCheck("LambertScrubGuide::setIgnitionIterationLimit");
+ 931 //         ignitionIterationlimit = limit;
+ 932 //     }
+ 933 // 
+ 934 //     /*
+ 935 //     ** setAllowInitGuidancePends sets the allowInitGuidancePends member.
+ 936 //     ** If TRUE, this will force a pend after each call to executeGuidance.
+ 937 //     */
+ 938 //     void setAllowInitGuidancePends(BOOLEAN allow)
+ 939 //     {
+ 940 //         initErrorCheck("LambertScrubGuide::setInitGuidancePendDT");
+ 941 //         allowInitGuidancePends = allow;
+ 942 //     }
+ 943 // 
+ 944 //     /*
+ 945 //     ** setScrubLoThreshold sets the velocity threshold at which scrubbing
+ 946 //     ** stops occuring. When the velocity required is within this tolerance
+ 947 //     ** of the velocity capacity remaining in the stage, scrubbing stops.
+ 948 //     */
+ 949 //     void setScrubLoThreshold(double thresh)
+ 950 //     {
+ 951 //         initErrorCheck("LambertScrubGuide::setScrubLoThreshold");
+ 952 //         scrubLoThreshold = thresh;
+ 953 //     }
+ 954 // 
+ 955 //     /*
+ 956 //     ** setScrubHiThreshold sets the velocity threshold at which scrubbing
+ 957 //     ** will resume after it has stopped due to meeting the scrub low
+ 958 //     ** threshold criteria. This provides hysteresis so the guidance does
+ 959 //     ** not chatter between scrubbing and no scrubbing.
+ 960 //     */
+ 961 //     void setScrubHiThreshold(double thresh)
+ 962 //     {
+ 963 //         initErrorCheck("LambertScrubGuide::setScrubHiThreshold");
+ 964 //         scrubHiThreshold = thresh;
+ 965 //     }
+ 966 // 
+ 967 //     /*
+ 968 //     ** setScrubDecayRate sets the decay rate mutiplier to bleed off the
+ 969 //     ** scrub angle after scrubbing is disabled.  This number must be
+ 970 //     ** less than 1 to get the proper decay behavior. Each time guidance
+ 971 //     ** is executed, the residual scrub angle is multiplied by this
+ 972 //     ** rate constant to produce a decaying effect.
+ 973 //     */
+ 974 //     void setScrubDecayRate(double rate)
+ 975 //     {
+ 976 //         initErrorCheck("LambertScrubGuide::setScrubLoThreshold");
+ 977 //         scrubDecayRate = rate;
+ 978 //     }
+ 979 // 
+ 980 //     /*
+ 981 //     ** setMaxScrubTranslationFactor set the maximum translational
+ 982 //     ** capability to correct intermediate target point errors in
+ 983 //     ** the direction normal to the along direction. Making this number
+ 984 //     ** larger increases the ability of the guidance to take out
+ 985 //     ** translation errors at the intermediate target point at the expense
+ 986 //     ** of having large angular rates during the early scrub phase.
+ 987 //     ** Factor should be limited between 0.0 and 1.0.
+ 988 //     */
+ 989 //     void setMaxScrubTranslationFactor(double factor)
+ 990 //     {
+ 991 //         initErrorCheck("LambertScrubGuide::setMaxScrubTranslationFactor");
+ 992 //         if (factor > 1.0) factor = 1.0;
+ 993 //         if (factor < 0.0) factor = 0.0;
+ 994 //         maxScrubTranslationFactor = factor;
+ 995 //     }
+ 996 // 
+ 997 //     /*
+ 998 //     ** setLateScrubTransitionThreshold set the threshold at which the
+ 999 //     ** guidance begins to transition from early to late scrub mode. The
+1000 //     ** threshold represents the remaining velocity during early scrub. When
+1001 //     ** the amount a velocity to be added during the early scrub falls
+1002 //     ** below the specified threshold, the transition to late scrub will
+1003 //     ** begin. For example, if the threshold is set to 300, the late scrub
+1004 //     ** transition will begin while there is still 300 ft/sec of velocity
+1005 //     ** yet to be added during the early scrub. Making the number bigger
+1006 //     ** results in an earlier transition.
+1007 //     */
+1008 //     void setLateScrubTransitionThreshold(double threshold)
+1009 //     {
+1010 //         initErrorCheck("LambertScrubGuide::setLateScrubTransitionThreshold");
+1011 //         lateScrubTransitionThreshold = threshold;
+1012 //     }
+1013 // 
+1014 //     /*
+1015 //     ** setNominalDeltaVCount sets the nominal count for the number of
+1016 //     ** deltaV updates are expected from the navigator between guidance
+1017 //     ** updates.
+1018 //     */
+1019 //     void setNominalDeltaVCount(INT4 count)
+1020 //     {
+1021 //         initErrorCheck("LambertScrubGuide::setNominalDeltaVCount");
+1022 //         nominalDeltaVCount = count;
+1023 //         deltaVResidualGrowthFactor =
+1024 //             ((double)(count))/((double(count-1))) - 1.0;
+1025 //         deltaVResidualShrinkFactor =
+1026 //             1.0 - ((double)(count))/((double(count+1)));
+1027 //     }
+1028 // 
+1029 //     /*
+1030 //     ** setResidualDeltaVDecayRate sets the decay rate multipier to decay
+1031 //     ** the residual deltaV which is added or subtracted to account for
+1032 //     ** a different (from nominal) number of deltaV updates which occur
+1033 //     ** between guidance updates. The residual deltaV is decayed by
+1034 //     ** multiplying it with the specified multiplier on cycles where
+1035 //     ** the nominal number of deltaV updates occur. Therefore, the
+1036 //     ** multiplier MUST be a value less than 1.
+1037 //     */
+1038 //     void setDeltaVResidualDecayRate(double rate)
+1039 //     {
+1040 //         initErrorCheck("LambertScrubGuide::setDeltaVResidualDecayRate");
+1041 //         deltaVResidualDecayRate = rate;
+1042 //     }
+1043 // 
+1044 //     /*
+1045 //     ** Family of access methods
+1046 //     */
+1047 //     const double &getDvRemaining(void) { return dvRemaining; }
+1048 //     const double &getDvCapacity(void) { return dvCapacity; }
+1049 //     const double &getScrubPercent(void) { return scrubPercent; }
+1050 //     double getTIgnition(void)
+1051 //     { 
+1052 //         dataLock->take(WAIT_FOREVER);
+1053 //         double time = tIgnitionOut;
+1054 //         dataLock->give();
+1055 //         return time;
+1056 //     }
+1057 //     const double &getScrubTranslationFactor(void)
+1058 //     {
+1059 //         return scrubTranslationFactor;
+1060 //     }
+1061 // 
+1062 //     LambertEnergyScrubStrategy getScrubStrategy(void)
+1063 //     {
+1064 //         return scrubStrategy;
+1065 //     }
+1066 // 
+1067 //     LambertScrubGuidanceMode getGuidanceMode(void)
+1068 //     {
+1069 //         dataLock->take(WAIT_FOREVER);
+1070 //         LambertScrubGuidanceMode mode = guidanceMode;
+1071 //         dataLock->give();
+1072 //         return mode;
+1073 //     }
+1074 // 
+1075 //     LambertScrubGuidanceState getGuidanceState(void)
+1076 //     {
+1077 //         dataLock->take(WAIT_FOREVER);
+1078 //         LambertScrubGuidanceState state = guidanceState;
+1079 //         dataLock->give();
+1080 //         return state;
+1081 //     }
+1082 // 
+1083 //     /**
+1084 //     ** Override base virtual method to retrieve computed guidance
+1085 //     ** command output
+1086 //     */
+1087 //     virtual Transform getGuidanceCmd(void) const;
+1088 // 
+1089 //     /*
+1090 //     ** Method to obtain the command euler angles
+1091 //     */
+1092 //     Vector3 getCmdEulerAngles( void ) const
+1093 //     {
+1094 //         return Vector3( azimuth.getAngle(), elevation.getAngle(), 0.0 );
+1095 //     }
+1096 // 
+1097 //     /**
+1098 //     ** Get the solution point position as predicted by the
+1099 //     ** guidance algoritm.
+1100 //     */
+1101 //     void getSolutionPosition(Angle &lon, Angle &lat, double &alt, double &t)
+1102 //     {
+1103 //         /*
+1104 //         ** Compensate with the center of attraction offset and
+1105 //         ** compute long, lat, alt. Compensate longitude for
+1106 //         ** Earth's rotation.
+1107 //         */
+1108 //         Geocentric2Geodetic(lon, lat, alt, (solPosECI + coaOffset));
+1109 //         lon -= EARTH.RATE * tSolution;
+1110 //         t = tSolution;
+1111 //     }
+1112 // 
+1113 //     /**
+1114 //     ** calcIntermediatePoint computes the predicted position and
+1115 //     ** velocity after stage burnout at the specified time, t, which
+1116 //     ** is an absolute mission time. Vectors representing the ECI
+1117 //     ** position, pos, and the ECI inertial velocity, vel, are computed.
+1118 //     ** The ECI frame is coincides to the ECEF frame when guidance time
+1119 //     ** is zero.
+1120 //     **
+1121 //     ** @param pos   Predicted postion at time t.
+1122 //     ** @param vel   Predicted velocity at time t.
+1123 //     ** @param t     Input intermediate time.
+1124 //     */
+1125 //     void calcIntermediatePoint( Vector3 &pos, Vector3 &vel, double t )
+1126 //     {
+1127 //         Kepler::KeplerT(pos, vel, solPosECI, solVelECI,
+1128 //                         (t-tSolution), keplerIterations, muOffset,
+1129 //                         keplerIterationLimit, teps);
+1130 //         iTgtTime = t;
+1131 //         iTgtPosECI = pos;
+1132 //         iTgtVelECI = vel;
+1133 //         pos += coaOffset;
+1134 //     }
+1135 // 
+1136 //     /**
+1137 //     ** calcIntermediatePoint computes the predicted position and
+1138 //     ** velocity after stage burnout at the specified time, t, which is
+1139 //     ** an absolute guidance time. Longitude, latitude, altitude and
+1140 //     ** Earth relative NED velocity are computed.
+1141 //     **
+1142 //     ** @param lon    Predicted longitude at t.
+1143 //     ** @param lat    Predicted latitude at t.
+1144 //     ** @param alt    Predicted altitude at t.
+1145 //     ** @param vned   Predicted earth relative velocity at t.
+1146 //     ** @param t      Input intermediate time.
+1147 //     */
+1148 //     void calcIntermediatePoint( Angle &lon, Angle &lat, double &alt,
+1149 //                                 Vector3 &vned, double t )
+1150 //     {
+1151 //         Vector3 pos;
+1152 //         Vector3 vel;
+1153 //         calcIntermediatePoint(pos, vel, t);
+1154 //         Geocentric2Geodetic(lon, lat, alt, pos);
+1155 //         vel[0] += EARTH.RATE * pos[1];
+1156 //         vel[1] -= EARTH.RATE * pos[0];
+1157 //         vned = calcECEF2NED(lon,lat) * vel;
+1158 //         lon -= EARTH.RATE * t;
+1159 //     }
+1160 // 
+1161 //     /**
+1162 //     ** Overload the TlmIf Base Class definition.
+1163 //     ** (Implemented in the MISSION directory -- idents.cc)
+1164 //     */
+1165 //     void getTlmData( UBYTE * );
+1166 //     void registerTlm( void )   { Tlm::registerApTlm( this ); }
+1167 //     void unregisterTlm( void ) { Tlm::unregisterApTlm( this ); }
+1168 // 
+1169 //     /*
+1170 //     ** Disable the default constructor. This is done by supplying
+1171 //     ** no corresponding method for this prototype.
+1172 //     */
+1173 //     LambertScrubGuide();
+1174 // 
+1175 //     /**
+1176 //     ** Constructor.
+1177 //     ** @param navptr      Pointer to an instance of a navigator.
+1178 //     ** @param transform   Pointer to the Euler command sequence.
+1179 //     */
+1180 //     LambertScrubGuide( Navigator *navptr, Transform *transform );
+1181 // 
+1182 //     /**
+1183 //     ** Destructor.
+1184 //     */
+1185 //     virtual ~LambertScrubGuide( void )
+1186 //     {
+1187 //         unregisterTlm();
+1188 //         delete dataLock;
+1189 //     }
+1190 // };
+1191 // 
+1192 // #endif  /** __lambertScrubGuide_hh__ **/
 
 Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 313, end_line: 324, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/navdata.hh" }
  313 //             #if ( NRTSIM || RTCLSIM )
@@ -1496,20 +2074,35 @@ Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 378, end_line: 382,
  381 //                     exit(-1);
  382 //                     #endif
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 24, end_line: 26, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/que.hh" }
+Mark { conditional: "nested conditional", start_line: 26, end_line: 28, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/que.hh" }
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 24, end_line: 30, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/que.hh" }
   24 // #if (NRTSIM || RTCLSIM)
   25 // #include "simQue.hh"
-  26 // #else
+  26 // // #else
+  27 // // #include "fltQue.hh"
+  28 // // #endif
+  29 // 
+  30 // #endif  /** __que_hh__ **/
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 23, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/timeBase.hh" }
+Mark { conditional: "nested conditional", start_line: 23, end_line: 25, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/timeBase.hh" }
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 27, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/timeBase.hh" }
   21 // #if (NRTSIM || RTCLSIM)
   22 // #include "simTimeBase.hh"
-  23 // #else
+  23 // // #else
+  24 // // #include "fltTimeBase.hh"
+  25 // // #endif
+  26 // 
+  27 // #endif
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 22, end_line: 24, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/watchdog.hh" }
+Mark { conditional: "nested conditional", start_line: 24, end_line: 26, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/watchdog.hh" }
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 22, end_line: 28, file: "/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/watchdog.hh" }
   22 // #if (NRTSIM || RTCLSIM)
   23 // #include "simwatchdog.hh"
-  24 // #else
+  24 // // #else
+  25 // // #include "fltwatchdog.hh"
+  26 // // #endif
+  27 // 
+  28 // #endif
 
 Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 75, end_line: 171, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc" }
   75 // #if ( NRTSIM || RTCLSIM )
@@ -1617,86 +2210,11 @@ Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 688, end_line: 692,
  691 //     delete &simParkerHwDevice_s3;
  692 // #endif /* ( NRTSIM || RTCLSIM ) */
 
-Mark { conditional: "#if (NRTSIM)", start_line: 38, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
-  38 // #if (NRTSIM)
-  39 // #include "fileparser.hh"
-  40 // #include "cmdlineargs.hh"
-  41 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 93, end_line: 148, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
-  93 // #if (NRTSIM)
-  94 //     simOutput = 0;
-  95 //     FileParser &MissionFile = *(new FileParser("MISSION.DAT"));
-  96 // 
-  97 //     /*
-  98 //     ** Set the simOutput based on the command line argument "so", otherwise,
-  99 //     ** set it based on the value in the MISSION.DAT data file.
- 100 //     */
- 101 //     BOOLEAN simOutputSpecified = CmdLineArgs::getArg("so", simOutput);
- 102 //     if (false == simOutputSpecified)
- 103 //     {
- 104 //         simOutput = (INT4)MissionFile.getDouble("simOutput");
- 105 //     }
- 106 // 
- 107 //     /*
- 108 //     ** Error check the value of the simOutput variable
- 109 //     */
- 110 //     if (simOutput > 2)
- 111 //     {
- 112 //         printf("WARNING: Setting simOutput value (%d) to 1\n",
- 113 //                simOutput);
- 114 //         simOutput = 1;
- 115 //     }
- 116 // 
- 117 //     /*
- 118 //     ** Specify a single output time step for all data
- 119 //     */
- 120 //     double outputDeltaT;
- 121 //     bool dtSpecified = CmdLineArgs::getArg("dt", outputDeltaT);
- 122 //     if (false == dtSpecified)
- 123 //     {
- 124 //         outputDeltaT = MissionFile.getDouble("OutputDeltaT");
- 125 //     }
- 126 // 
- 127 //     if (outputDeltaT < 0.0)
- 128 //     {
- 129 //         printf("WARNING: outputDeltaT < 0.0.  Reset (%f) to 0.0.\n",
- 130 //                outputDeltaT);
- 131 //         outputDeltaT = 0.0;
- 132 //     }
- 133 // 
- 134 //     /*
- 135 //     ** Simulation output time step
- 136 //     */
- 137 //     covOutputDt = outputDeltaT;
- 138 //     banOutputDt = outputDeltaT;
- 139 // 
- 140 //     if (outputDeltaT < _FLOATING_POINT_TOLERANCE)
- 141 //     {
- 142 //         covOutputDt = MissionFile.getDouble("covOutputDt");
- 143 //         banOutputDt = MissionFile.getDouble("banOutputDt");
- 144 //     }
- 145 // 
- 146 //     MissionFile.disableUnreadDataWarnings();
- 147 //     delete &MissionFile;
- 148 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 166, end_line: 168, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
- 166 // #if (NRTSIM)
- 167 //     SET_OUTPUT_PRODUCER_NAME_OBV(COV, "cov", simOutput);
- 168 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 193, end_line: 195, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
- 193 // #if (NRTSIM)
- 194 //     SET_OUTPUT_PRODUCER_NAME_OBV(BAN, "ban", simOutput);
- 195 // #endif
-
-Mark { conditional: "#if (NRTSIM)", start_line: 337, end_line: 340, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
- 337 // #if (NRTSIM)
- 338 //     ACTIVATE_OUTPUT_OBV(COV, covOutputDt, simOutput);
- 339 //     ACTIVATE_OUTPUT_OBV(BAN, banOutputDt, simOutput);
- 340 // #endif
-
+Mark { conditional: "nested conditional", start_line: 38, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+Mark { conditional: "nested conditional", start_line: 93, end_line: 148, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+Mark { conditional: "nested conditional", start_line: 166, end_line: 168, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+Mark { conditional: "nested conditional", start_line: 193, end_line: 195, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
+Mark { conditional: "nested conditional", start_line: 337, end_line: 340, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
 Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 17, end_line: 343, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc" }
   17 // #if (defined CPU_B) || (defined NRTSIM)
   18 // 
@@ -2069,6 +2587,15 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 91, end_line: 131, file: "/home
  130 // 
  131 // #endif
 
+Mark { conditional: "nested conditional", start_line: 157, end_line: 159, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 171, end_line: 173, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 185, end_line: 187, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 199, end_line: 201, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 208, end_line: 281, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 298, end_line: 300, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 325, end_line: 397, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 296, end_line: 398, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
+Mark { conditional: "nested conditional", start_line: 415, end_line: 463, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
 Mark { conditional: "#ifdef NRTSIM", start_line: 34, end_line: 39, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc" }
   34 // #ifdef NRTSIM
   35 // void   orbLEDset (oscUINT32 value)
@@ -2100,14 +2627,118 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 100, end_line: 112, file: "/hom
  111 // }
  112 // #endif
 
-Mark { conditional: "#ifdef NRTSIM", start_line: 30, end_line: 35, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc" }
+Mark { conditional: "nested conditional", start_line: 61, end_line: 66, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc" }
+Mark { conditional: "nested conditional", start_line: 35, end_line: 133, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc" }
+Mark { conditional: "#ifdef NRTSIM", start_line: 30, end_line: 135, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc" }
   30 // #ifdef NRTSIM
   31 // bool dummyLaunchEnable = false;
   32 // bool Discrete::isLaunchEnableActive( void ){return dummyLaunchEnable;};
   33 // void Discrete::enableGT0Processing( void ){};
   34 // void Discrete::disableGT0Processing( void ){};
-  35 // #else
+  35 // // #else
+  36 // // /*
+  37 // // ;-----------------------------------------------------------------------
+  38 // // ;
+  39 // // ;        Name:  gt0Received
+  40 // // ;
+  41 // // ;     Purpose: GT0 interrupt handler called by the BSP. When the GT0
+  42 // // ;              pulse is received by the FC, the I/O-card FPGA detects
+  43 // // ;              the 10+/-1ms pulse on the GT0 discrete input and
+  44 // // ;              asserts the GT0 interrupt in the interrupt controller.
+  45 // // ;
+  46 // // ;      Params:  None.
+  47 // // ;
+  48 // // ;     Returns:  None.
+  49 // // ;
+  50 // // ;       Notes: This ISR disables the GT0 interrupt after receiving it.
+  51 // // ;
+  52 // // ;-----------------------------------------------------------------------
+  53 // // */
+  54 // // extern "C"
+  55 // // void gt0Received(void)
+  56 // // {
+  57 // // /*
+  58 // // ** NRTSIM does not need the bridge to BitState methods as the desktop doesn't
+  59 // // ** simulate BIT or BitState
+  60 // // */
+  61 // // // #if !(NRTSIM || RTCLSIM)
+  62 // // //     TimeBase tbr;
+  63 // // // 
+  64 // // //     BitState::setGt0Rcvd();
+  65 // // //     BitState::setGt0StartTime( tbr.getTime64() );
+  66 // // // #endif
+  67 // // 
+  68 // //     // do not allow GT0 interrupts after we receive the first one
+  69 // //     Discrete::disableGT0Processing();
+  70 // // }
+  71 // // 
+  72 // // /*
+  73 // // ;-----------------------------------------------------------------------
+  74 // // ;
+  75 // // ;        name:  isLaunchEnableActive
+  76 // // ;
+  77 // // ;     purpose:  get the LE status bit
+  78 // // ;
+  79 // // ;      params:  none.
+  80 // // ;
+  81 // // ;     returns:  true if LE is active, false if not
+  82 // // ;
+  83 // // ;       notes:  none.
+  84 // // ;
+  85 // // ;-----------------------------------------------------------------------
+  86 // // */
+  87 // // bool Discrete::isLaunchEnableActive( void )
+  88 // // {
+  89 // //     return (TRUE == isLaunchEnableSet());
+  90 // // }
+  91 // // 
+  92 // // /*
+  93 // // ;-----------------------------------------------------------------------
+  94 // // ;
+  95 // // ;        Name:  enableGT0Processing
+  96 // // ;
+  97 // // ;     Purpose:  Enable GT0 monitoring.
+  98 // // ;
+  99 // // ;      Params:  None.
+ 100 // // ;
+ 101 // // ;     Returns:  None.
+ 102 // // ;
+ 103 // // ;       Notes:  None.
+ 104 // // ;
+ 105 // // ;-----------------------------------------------------------------------
+ 106 // // */
+ 107 // // void Discrete::enableGT0Processing( void )
+ 108 // // {
+ 109 // //     /* register our handler with the BSP */
+ 110 // //     gt0Install((VOIDFUNCPTR)gt0Received);
+ 111 // // }
+ 112 // // 
+ 113 // // /*
+ 114 // // ;-----------------------------------------------------------------------
+ 115 // // ;
+ 116 // // ;        Name:  disableGT0Processing
+ 117 // // ;
+ 118 // // ;     Purpose:  Disable GT0 monitoring.
+ 119 // // ;
+ 120 // // ;      Params:  None.
+ 121 // // ;
+ 122 // // ;     Returns:  None.
+ 123 // // ;
+ 124 // // ;       Notes:  None.
+ 125 // // ;
+ 126 // // ;-----------------------------------------------------------------------
+ 127 // // */
+ 128 // // void Discrete::disableGT0Processing( void )
+ 129 // // {
+ 130 // //     /* disable GT0 interrupt */
+ 131 // //     gt0Disable();
+ 132 // // }
+ 133 // // #endif // !NRTSIM
+ 134 // 
+ 135 // #endif // !CPU_B
 
+Mark { conditional: "nested conditional", start_line: 535, end_line: 540, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
+Mark { conditional: "nested conditional", start_line: 558, end_line: 562, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
 Mark { conditional: "#ifdef NRTSIM", start_line: 338, end_line: 343, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
  338 // #ifdef NRTSIM
  339 //     /*
@@ -2116,7 +2747,7 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 338, end_line: 343, file: "/hom
  342 //     ::free((void *)pLocal);
  343 // #endif
 
-Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 527, end_line: 540, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
+Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 527, end_line: 569, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc" }
  527 // #if (defined CPU_B) || (defined NRTSIM)
  528 // 
  529 //     if( missionMode )
@@ -2125,12 +2756,41 @@ Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 527, 
  532 //     }
  533 // 
  534 //     /* use if and when needed */
- 535 // #if 0
- 536 //     if( minorFrame )
- 537 //     {
- 538 //         // e.g. setMinorFrame( minorFrame );
- 539 //     }
- 540 // #endif
+ 535 // // #if 0
+ 536 // //     if( minorFrame )
+ 537 // //     {
+ 538 // //         // e.g. setMinorFrame( minorFrame );
+ 539 // //     }
+ 540 // // #endif
+ 541 // 
+ 542 //     if( gt0 && gt0.isReceived() )
+ 543 //     {
+ 544 //         BitState::setGt0Rcvd();
+ 545 //     }
+ 546 // 
+ 547 //     if( gt0Time )
+ 548 //     {
+ 549 //         Clock *clock = ObvState::getGT0Clock();
+ 550 //         if( clock != NULL )
+ 551 //         {
+ 552 //             clock->setTime( gt0Time );
+ 553 //         }
+ 554 //     }
+ 555 // 
+ 556 //     if( mdl && mdl.isLoaded() )
+ 557 //     {
+ 558 // // #if (!defined NRTSIM)
+ 559 // //         ObvState::setMdlState( MDL_START );
+ 560 // //         ObvState::setMdlState( MDL_DATA_SAVE );
+ 561 // //         ObvState::setMdlState( MDL_COMPLETE );
+ 562 // // #endif
+ 563 //         /*
+ 564 //          * initialize BAN and COV and start their callbacks (see
+ 565 //          * flightsequencer.cpp)
+ 566 //          */
+ 567 //         BanCovMgr::getSingleton()->start();
+ 568 //     }
+ 569 // #endif // defined CPU_B || defined NRTSIM
 
 Mark { conditional: "#ifdef NRTSIM", start_line: 18, end_line: 20, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc" }
   18 // #ifdef NRTSIM
@@ -2283,11 +2943,16 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 118, end_line: 121, file: "/hom
  120 //     TaskDelay::execRunQueue();
  121 // #endif
 
-Mark { conditional: "#ifdef NRTSIM", start_line: 40, end_line: 42, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
-  40 // #ifdef NRTSIM
-  41 //             reinterpret_cast<oscSizeT>(::malloc((sizeof(UserReservedMemTest) * 2)));
-  42 // #else
-
+Mark { conditional: "nested conditional", start_line: 42, end_line: 45, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 65, end_line: 67, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 63, end_line: 69, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 99, end_line: 106, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 109, end_line: 111, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 119, end_line: 122, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 182, end_line: 184, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 282, end_line: 284, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 365, end_line: 367, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+Mark { conditional: "nested conditional", start_line: 411, end_line: 413, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
 Mark { conditional: "#ifdef NRTSIM", start_line: 47, end_line: 58, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
   47 // #ifdef NRTSIM
   48 //         // No need for separate memory on desktop, just read from the same spot
@@ -2302,21 +2967,406 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 47, end_line: 58, file: "/home/
   57 //     }
   58 // #else
 
-Mark { conditional: "#ifdef NRTSIM", start_line: 99, end_line: 106, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
-  99 // #ifdef NRTSIM
- 100 //         // Clear the queue out if it had been running elsewhere
- 101 //         while (!cleTxQueue.isEmpty())
- 102 //         {
- 103 //             Full1553MsgType temp;
- 104 //             cleTxQueue.get(&temp, sizeof(temp));
- 105 //         }
- 106 // #endif
-
-Mark { conditional: "#ifdef NRTSIM", start_line: 119, end_line: 122, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
- 119 // #ifdef NRTSIM
- 120 //     CleTxMessageFactory::clear();
- 121 //     ::free((void *)start_addr);
- 122 // #endif
+Mark { conditional: "#ifdef NRTSIM", start_line: 40, end_line: 438, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
+  40 // #ifdef NRTSIM
+  41 //             reinterpret_cast<oscSizeT>(::malloc((sizeof(UserReservedMemTest) * 2)));
+  42 // // #else
+  43 // //             reinterpret_cast<oscSizeT>(sysMemTop());
+  44 // //     }
+  45 // // #endif
+  46 // 
+  47 // // #ifdef NRTSIM
+  48 // //         // No need for separate memory on desktop, just read from the same spot
+  49 // //         testMem = (UserReservedMemTest *)start_addr;
+  50 // //         remoteTestMem = (UserReservedMemTest *)(start_addr + sizeof(UserReservedMemTest));
+  51 // //     }
+  52 // //     else
+  53 // //     {
+  54 // //         // No need for separate memory on desktop, just read from the same spot
+  55 // //         remoteTestMem = (UserReservedMemTest *)start_addr;
+  56 // //         testMem = (UserReservedMemTest *)(start_addr + sizeof(UserReservedMemTest));
+  57 // //     }
+  58 // // #else
+  59 //         // point to top/end of managed memory where unmanaged memory
+  60 //         // starts (user reserved mem)
+  61 //         testMem = (UserReservedMemTest *)(start_addr + 824);
+  62 // 
+  63 // // #ifndef CPU_B
+  64 // //         remoteTestMem = (UserReservedMemTest *)((start_addr + 824) | MASTER_B_SRAM_ADRS);
+  65 // // // #else
+  66 // // //         remoteTestMem = (UserReservedMemTest *)((start_addr + 824) | MASTER_A_SRAM_ADRS);
+  67 // // // #endif
+  68 // // 
+  69 // // #endif
+  70 // 
+  71 //     testMem->currentTest = (xTest::CurrentTestType)0;
+  72 //     remoteTestMem->currentTest = (xTest::CurrentTestType)0;
+  73 // 
+  74 //     for (int i = 0; i < NUM_OF_TESTS; i++)
+  75 //     {
+  76 //         testMem->passFailData.run[i] = false;
+  77 //         testMem->passFailData.passed[i] = false;
+  78 //         remoteTestMem->passFailData.run[i] = false;
+  79 //         remoteTestMem->passFailData.passed[i] = false;
+  80 //     }
+  81 // 
+  82 //     /*
+  83 //      * Create queues to read the remote side messages from the callbacks tested
+  84 //      */
+  85 //     // Assign the tx sem to the response to the cle que will take messages
+  86 //     ResponseMessage::setIpcTxSem(&dummyIpcTxSem);
+  87 //     // queue of 1553 outgoing messages
+  88 //     cleTxQueue.setAttrMsgSize(sizeof(Full1553MsgType));
+  89 //     cleTxQueue.setAttrMaxMsg(30);
+  90 //     cleTxQueue.setAttrBlocking(FALSE);
+  91 // 
+  92 //     if (!cleTxQueue.open(CLEKV_TX_QUE))
+  93 //     {
+  94 //         printf("Que open failed!\n");
+  95 //     }
+  96 //     else
+  97 //     {
+  98 //         printf("cleTxQueue is open\n");
+  99 // // #ifdef NRTSIM
+ 100 // //         // Clear the queue out if it had been running elsewhere
+ 101 // //         while (!cleTxQueue.isEmpty())
+ 102 // //         {
+ 103 // //             Full1553MsgType temp;
+ 104 // //             cleTxQueue.get(&temp, sizeof(temp));
+ 105 // //         }
+ 106 // // #endif
+ 107 //     }
+ 108 // 
+ 109 // // #ifndef CPU_B
+ 110 // //     CleTxMessageFactory::init(NULL);
+ 111 // // #endif
+ 112 // 
+ 113 //     instanceCounter++;
+ 114 // }
+ 115 // 
+ 116 // xTest::~xTest()
+ 117 // {
+ 118 //     cleTxQueue.close();
+ 119 // // #ifdef NRTSIM
+ 120 // //     CleTxMessageFactory::clear();
+ 121 // //     ::free((void *)start_addr);
+ 122 // // #endif
+ 123 // }
+ 124 // 
+ 125 // bool xTest::runTest(CurrentTestType test, TestModeType mode)
+ 126 // {
+ 127 //     bool testResult = false;
+ 128 // 
+ 129 //     switch (test)
+ 130 //     {
+ 131 //     case xTest::TestTypeInterruptStats:
+ 132 //     {
+ 133 //         /* arbitrary constants */
+ 134 //         INTERRUPT_STATISTICS testStats = {
+ 135 //             0x11182014, 0x02241971, 0x06251968, 0x11202009, 0x5A5A5A5A, 0xA5A5A5A5, {0xDEADBEEF, 0xDEADC0DE, 0xBABEFACE, 0xC0DECAFE}, 0xDEAFBABE, 0xCAFEFEED, 0xC0DEDADA, 0xCACAC0DE, 0xC0DEACED, 0xBEEFBABE, 0xFEEDBEEF, 0x01FACADE, 0xBEEFED01, 0x1BEDDED1};
+ 136 // 
+ 137 //         printf("TestTypeInterruptStats\n");
+ 138 //         if (READ_TEST == mode)
+ 139 //         {
+ 140 //             testResult = intStatsTest.readTest(tXRAM.interruptStats, testStats);
+ 141 //         }
+ 142 //         else
+ 143 //         {
+ 144 //             testResult = intStatsTest.writeTest(tXRAM.interruptStats, testStats);
+ 145 //         }
+ 146 //     }
+ 147 //     break;
+ 148 // 
+ 149 //     case xTest::TestTypeStartupBit:
+ 150 //     {
+ 151 //         oscUINT16 testValue = BIT_0;
+ 152 // 
+ 153 //         printf("TestTypeStartupBit\n");
+ 154 //         if (mode == READ_TEST)
+ 155 //         {
+ 156 //             testResult = startupBitXramTest.readTest(tXRAM.startupBit, testValue);
+ 157 //         }
+ 158 //         else
+ 159 //         {
+ 160 //             testResult = startupBitXramTest.writeTest(tXRAM.startupBit, testValue);
+ 161 //         }
+ 162 //     }
+ 163 //     break;
+ 164 // 
+ 165 //     case xTest::TestTypeMissionMode:
+ 166 //     {
+ 167 //         MissionModes testMode = SOFTWARE_DOWNLOAD;
+ 168 // 
+ 169 //         printf("TestTypeMissionMode\n");
+ 170 //         if (mode == READ_TEST)
+ 171 //         {
+ 172 // #ifdef CPU_B
+ 173 //             tXRAM.executeCallback();
+ 174 // 
+ 175 //             // Mission Mode makes a call to ObvState::setMissionMode on the
+ 176 //             // read side in the callback
+ 177 //             if (SOFTWARE_DOWNLOAD == ObvState::getMissionMode())
+ 178 //             {
+ 179 //                 testResult = true;
+ 180 //             }
+ 181 // 
+ 182 // // #else
+ 183 // //                 testResult = true; //missionModeXramTest.readTest(tXRAM.missionMode, testMode);
+ 184 // // #endif
+ 185 //         }
+ 186 //         else
+ 187 //         {
+ 188 //             testResult = missionModeXramTest.writeTest(tXRAM.missionMode, testMode);
+ 189 //         }
+ 190 //     }
+ 191 //     break;
+ 192 // 
+ 193 //     case xTest::TestTypeEO11:
+ 194 //     {
+ 195 //         Test1553Type test1553Type;
+ 196 // 
+ 197 //         for (int i = 0; i < MAX_1553_MSG_SIZE; i++)
+ 198 //         {
+ 199 //             test1553Type.data[i] = 1;
+ 200 //         }
+ 201 // 
+ 202 //         test1553Type.wordCount = 2;
+ 203 //         test1553Type.subAddress = 3;
+ 204 //         test1553Type.bus = 4;
+ 205 //         test1553Type.status = 5;
+ 206 // 
+ 207 //         printf("TestTypeEO11\n");
+ 208 //         if (mode == READ_TEST)
+ 209 //         {
+ 210 //             testResult = eo11XramTest.readTest(tXRAM.eo11, test1553Type);
+ 211 //         }
+ 212 //         else
+ 213 //         {
+ 214 //             testResult = eo11XramTest.writeTest(tXRAM.eo11, test1553Type);
+ 215 //         }
+ 216 //     }
+ 217 //     break;
+ 218 // 
+ 219 //     case xTest::TestTypeEO29:
+ 220 //     {
+ 221 //         Test1553Type test1553Type;
+ 222 //         for (int i = 0; i < MAX_1553_MSG_SIZE; i++)
+ 223 //         {
+ 224 //             test1553Type.data[i] = 1;
+ 225 //         }
+ 226 // 
+ 227 //         test1553Type.wordCount = 2;
+ 228 //         test1553Type.subAddress = 3;
+ 229 //         test1553Type.bus = 4;
+ 230 //         test1553Type.status = 5;
+ 231 // 
+ 232 //         printf("TestTypeEO29\n");
+ 233 //         if (mode == READ_TEST)
+ 234 //         {
+ 235 //             testResult = eo29XramTest.readTest(tXRAM.eo29, test1553Type);
+ 236 //         }
+ 237 //         else
+ 238 //         {
+ 239 //             testResult = eo29XramTest.writeTest(tXRAM.eo29, test1553Type);
+ 240 //         }
+ 241 //     }
+ 242 //     break;
+ 243 // 
+ 244 //     case xTest::TestTypePrimaryNav:
+ 245 //     {
+ 246 //         Test1553Type test1553Type;
+ 247 //         for (int i = 0; i < MAX_1553_MSG_SIZE; i++)
+ 248 //         {
+ 249 //             test1553Type.data[i] = 1;
+ 250 //         }
+ 251 // 
+ 252 //         test1553Type.wordCount = 27;
+ 253 //         test1553Type.subAddress = 20;
+ 254 //         test1553Type.data[0] = 0x68C6;
+ 255 // 
+ 256 //         printf("TestTypePrimaryNav\n");
+ 257 //         if (mode == READ_TEST)
+ 258 //         {
+ 259 // #ifndef CPU_B
+ 260 //             tXRAM.executeCallback();
+ 261 // 
+ 262 //             Full1553MsgType msg;
+ 263 // 
+ 264 //             if (!cleTxQueue.isEmpty())
+ 265 //             {
+ 266 //                 cleTxQueue.get(&msg, (int)sizeof(Full1553MsgType));
+ 267 // 
+ 268 //                 Test1553Type temp1;
+ 269 //                 Test1553Type &temp = temp1;
+ 270 // 
+ 271 //                 temp = msg;
+ 272 // 
+ 273 //                 if (temp == test1553Type)
+ 274 //                 {
+ 275 //                     testResult = true;
+ 276 //                 }
+ 277 //             }
+ 278 //             else
+ 279 //             {
+ 280 //                 printf("cleTxQueue is empty!\n");
+ 281 //             }
+ 282 // // #else
+ 283 // //                 testResult = true;
+ 284 // // #endif
+ 285 //         }
+ 286 //         else
+ 287 //         {
+ 288 //             testResult = primaryNavXramTest.writeTest(tXRAM.primaryNav, test1553Type);
+ 289 //         }
+ 290 //     }
+ 291 //     break;
+ 292 // 
+ 293 //     case xTest::TestTypeCovariance:
+ 294 //     {
+ 295 //         TestCovarianceDataSet testCovData;
+ 296 // 
+ 297 //         // These are all private values in
+ 298 //         // NavCovMatrixResponse.hh
+ 299 //         testCovData.msg[0].data[0] = 0x68c9;
+ 300 //         testCovData.msg[0].wordCount = 0x20;
+ 301 //         testCovData.msg[0].subAddress = 0x15;
+ 302 // 
+ 303 //         testCovData.msg[1].data[0] = 0x68cc;
+ 304 //         testCovData.msg[1].wordCount = 0x1e;
+ 305 //         testCovData.msg[1].subAddress = 0x16;
+ 306 // 
+ 307 //         testCovData.msg[2].data[0] = 0x68cf;
+ 308 //         testCovData.msg[2].wordCount = 0x1e;
+ 309 //         testCovData.msg[2].subAddress = 0x17;
+ 310 // 
+ 311 //         testCovData.msg[3].data[0] = 0x68d0;
+ 312 //         testCovData.msg[3].wordCount = 0x1e;
+ 313 //         testCovData.msg[3].subAddress = 0x18;
+ 314 // 
+ 315 //         testCovData.msg[4].data[0] = 0x68d3;
+ 316 //         testCovData.msg[4].wordCount = 0x1e;
+ 317 //         testCovData.msg[4].subAddress = 0x19;
+ 318 // 
+ 319 //         testCovData.msg[5].data[0] = 0x68d6;
+ 320 //         testCovData.msg[5].wordCount = 0x1e;
+ 321 //         testCovData.msg[5].subAddress = 0x1a;
+ 322 // 
+ 323 //         testCovData.msg[6].data[0] = 0x68d9;
+ 324 //         testCovData.msg[6].wordCount = 0xe;
+ 325 //         testCovData.msg[6].subAddress = 0x1b;
+ 326 // 
+ 327 //         for (int j = 0; j < 7; j++)
+ 328 //         {
+ 329 //             for (int i = 1; i < MAX_1553_MSG_SIZE; i++)
+ 330 //             {
+ 331 //                 testCovData.msg[j].data[i] = j + i;
+ 332 //             }
+ 333 //         }
+ 334 // 
+ 335 //         printf("TestTypeCovariance\n");
+ 336 //         if (mode == READ_TEST)
+ 337 //         {
+ 338 // #ifndef CPU_B
+ 339 //             tXRAM.executeCallback();
+ 340 // 
+ 341 //             TestCovarianceDataSet testSet;
+ 342 // 
+ 343 //             if (!cleTxQueue.isEmpty())
+ 344 //             {
+ 345 //                 for (int msgNumber = 0; msgNumber < 7; msgNumber++)
+ 346 //                 {
+ 347 //                     cleTxQueue.get(&testSet.msg[msgNumber],
+ 348 //                                    (int)sizeof(Full1553MsgType));
+ 349 //                 }
+ 350 // 
+ 351 //                 if (testCovData == testSet)
+ 352 //                 {
+ 353 //                     testResult = true;
+ 354 //                     printf("Value read properly\n");
+ 355 //                 }
+ 356 //                 else
+ 357 //                 {
+ 358 //                     printf("ERROR - read does not match expected value\n");
+ 359 //                 }
+ 360 //             }
+ 361 //             else
+ 362 //             {
+ 363 //                 printf("cleTxQueue is empty!\n");
+ 364 //             }
+ 365 // // #else
+ 366 // //                 testResult = true;
+ 367 // // #endif
+ 368 //         }
+ 369 //         else
+ 370 //         {
+ 371 //             testResult = covarianceXramTest.writeTest(tXRAM.covMatrix, testCovData);
+ 372 //         }
+ 373 //     }
+ 374 //     break;
+ 375 // 
+ 376 //     case xTest::TestTypeMinorFrame:
+ 377 //     {
+ 378 //         oscUINT32 testMf = 12;
+ 379 // 
+ 380 //         printf("TestTypeMinorFrame\n");
+ 381 //         if (mode == READ_TEST)
+ 382 //         {
+ 383 //             testResult = minorFrameXramTest.readTest(tXRAM.minorFrame, testMf);
+ 384 //         }
+ 385 //         else
+ 386 //         {
+ 387 //             testResult = minorFrameXramTest.writeTest(tXRAM.minorFrame, testMf);
+ 388 //         }
+ 389 //     }
+ 390 //     break;
+ 391 // 
+ 392 //     case xTest::TestTypeGTZeroTime:
+ 393 //     {
+ 394 //         double testTime = 1.2;
+ 395 //         //            double readValue = 0.0;
+ 396 //         //            bool readed = false;
+ 397 // 
+ 398 //         printf("TestTypeGTZeroTime\n");
+ 399 //         if (mode == READ_TEST)
+ 400 //         {
+ 401 // #ifdef CPU_B
+ 402 //             tXRAM.executeCallback();
+ 403 // 
+ 404 //             Clock *testClock = ObvState::getGT0Clock();
+ 405 //             double tempTime = testClock->getTime();
+ 406 // 
+ 407 //             if ((testTime < tempTime + 0.001) && (testTime > tempTime - 0.001))
+ 408 //             {
+ 409 //                 testResult = true;
+ 410 //             }
+ 411 // // #else
+ 412 // //                 testResult = true;
+ 413 // // #endif
+ 414 //         }
+ 415 //         else
+ 416 //         {
+ 417 //             testResult = gtZeroTimeXramTest.writeTest(tXRAM.gt0Time, testTime);
+ 418 //         }
+ 419 //     }
+ 420 //     break;
+ 421 // 
+ 422 //     case xTest::TestTypeGTZero:
+ 423 //     {
+ 424 //         bool gt0Test = true;
+ 425 //         bool readed = false;
+ 426 //         //            bool readValue;
+ 427 // 
+ 428 //         printf("TestTypeGTZero\n");
+ 429 //         if (mode == READ_TEST)
+ 430 //         {
+ 431 // #ifdef CPU_B
+ 432 //             tXRAM.executeCallback();
+ 433 // 
+ 434 //             if (BitState::isGt0Rcvd())
+ 435 //             {
+ 436 //                 testResult = true;
+ 437 //             }
+ 438 // #else
 
 Mark { conditional: "#ifdef NRTSIM", start_line: 593, end_line: 597, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc" }
  593 // #ifdef NRTSIM
@@ -2346,13 +3396,7 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 63, end_line: 69, file: "/home/
   68 //     }
   69 // #endif
 
-Mark { conditional: "#if ( NRTSIM )", start_line: 78, end_line: 82, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh" }
-  78 // #if ( NRTSIM )
-  79 //     oscINT32 simOutput;
-  80 //     double covOutputDt;
-  81 //     double banOutputDt;
-  82 // #endif
-
+Mark { conditional: "nested conditional", start_line: 78, end_line: 82, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh" }
 Mark { conditional: "#if (defined CPU_B) || (defined NRTSIM)", start_line: 17, end_line: 86, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh" }
   17 // #if (defined CPU_B) || (defined NRTSIM)
   18 // 
@@ -2457,7 +3501,8 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 83, end_line: 86, file: "/home/
   85 //         MDL_IFICS_MSG    = BIT_7,
   86 // #endif // NRTSIM
 
-Mark { conditional: "#ifdef NRTSIM", start_line: 26, end_line: 36, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/SimVxWorks.hh" }
+Mark { conditional: "nested conditional", start_line: 36, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/SimVxWorks.hh" }
+Mark { conditional: "#ifdef NRTSIM", start_line: 26, end_line: 43, file: "/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/SimVxWorks.hh" }
   26 // #ifdef NRTSIM
   27 // 
   28 // #include <stdio.h>
@@ -2468,7 +3513,14 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 26, end_line: 36, file: "/home/
   33 // #define logMsg(warningString, a,b,c,d,e,f) // Define this later
   34 // 
   35 // 
-  36 // #else
+  36 // // #else
+  37 // // 
+  38 // // #include <vxWorks.h>
+  39 // // #include <logLib.h>
+  40 // // 
+  41 // // #endif
+  42 // 
+  43 // #endif /* SIMVXWORKS_HH_ */
 
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 129, end_line: 134, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc" }
  129 // #if (NRTSIM || RTCLSIM)
@@ -2527,96 +3579,16 @@ Mark { conditional: "#ifdef NRTSIM", start_line: 685, end_line: 687, file: "/hom
  686 //     delete &table1Obj;
  687 // #endif
 
+Mark { conditional: "nested conditional", start_line: 271, end_line: 273, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+Mark { conditional: "nested conditional", start_line: 296, end_line: 305, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+Mark { conditional: "nested conditional", start_line: 368, end_line: 370, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+Mark { conditional: "nested conditional", start_line: 556, end_line: 566, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+Mark { conditional: "nested conditional", start_line: 630, end_line: 641, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
+Mark { conditional: "nested conditional", start_line: 678, end_line: 703, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 17, end_line: 19, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
   17 // #if (NRTSIM || RTCLSIM)
   18 // #include <stdio.h>
   19 // #endif
-
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 267, end_line: 271, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
- 267 // #if (NRTSIM || RTCLSIM)
- 268 //         printf("ERROR: Filter class\n");
- 269 //         printf("    Invalid filter initialization method selected.\n");
- 270 //         exit(-1);
- 271 // #else
-
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 291, end_line: 296, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
- 291 // #if (NRTSIM || RTCLSIM)
- 292 //         printf("ERROR: Filter class\n");
- 293 //         printf("    Initialization Sample Count (m=%d): m must be 0<m<=%d.\n",
- 294 //                     samples, FILTER_BUFFER_SIZE );
- 295 //         exit(-1);
- 296 // #else
-
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 355, end_line: 368, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
- 355 // #if (NRTSIM || RTCLSIM)
- 356 //         printf("ERROR: Filter class\n");
- 357 //         if ( ABS( FILTER_MAX_SS_GAIN*aSum ) <= ABS( bSum ) )
- 358 //         {
- 359 //             printf("    Can not initialize a filter with infinite gain to\n");
- 360 //             printf("    a steady state condition.\n");
- 361 //         }
- 362 //         else
- 363 //         {
- 364 //             printf("    The sum of the denominator coefficients is < 0,\n");
- 365 //             printf("    indicating a potentially unstable filter.\n");
- 366 //         }
- 367 //         exit(-1);
- 368 // #else
-
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 556, end_line: 566, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
- 556 // #if (NRTSIM || RTCLSIM)
- 557 //     /*
- 558 //     ** Perform some checking to ensure that the coeff table
- 559 //     ** is NULL when the user passes their own constant filter coeffs.
- 560 //     */
- 561 //     if ( NULL != coeffTable )
- 562 //     {
- 563 //         printf("WARNING: Filter class\n");
- 564 //         printf("    Setting const coeffs while coeffTable is not NULL\n");
- 565 //     }
- 566 // #endif
-
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 630, end_line: 641, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
- 630 // #if (NRTSIM || RTCLSIM)
- 631 //         /*
- 632 //         ** Check that the table size is appropriate for a filter (odd)
- 633 //         */
- 634 //         if ( (vectorSize & 1) == 0 )
- 635 //         {
- 636 //             printf("ERROR: Filter class - Table array size not odd.\n");
- 637 //             printf("   Table getVector size = %d\n", vectorSize );
- 638 //             printf("   Table getVector size != (2*FiltOrder + 1)\n");
- 639 //             exit(-1);
- 640 //         }
- 641 // #endif
-
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 678, end_line: 703, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc" }
- 678 // #if (NRTSIM || RTCLSIM)
- 679 // 
- 680 //     /*
- 681 //     ** Zero the coefficients that are not used. This is done primarily to
- 682 //     ** ensure that simulation outputs (states) for num and den represent
- 683 //     ** the current filters coefficients.
- 684 //     */
- 685 //     for ( oscUINT32 i = filterOrder+1; i <= MAX_FILTER_ORDER; i++ )
- 686 //     {
- 687 //         aCoef[i] = 0.0;
- 688 //         bCoef[i] = 0.0;
- 689 //     }
- 690 // 
- 691 //     /*
- 692 //     ** Make sure the filter order is less than the maximum filter order.
- 693 //     */
- 694 //     if ( filterOrder > MAX_FILTER_ORDER )
- 695 //     {
- 696 //         printf("ERROR: Filter class - Exceeds maximum filter order.\n");
- 697 //         printf("   Filter order = %d\n", filterOrder);
- 698 //         printf("   Maximum filter order = %d\n", MAX_FILTER_ORDER);
- 699 //         printf("   Filter order > Maximum filter order.\n");
- 700 //         exit(-1);
- 701 //     }
- 702 // 
- 703 // #endif
 
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 23, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc" }
   21 // #if (NRTSIM || RTCLSIM)
@@ -2633,13 +3605,7 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 71, end_line: 78, fil
   77 //     }
   78 // #endif
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 35, end_line: 39, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matrix.cc" }
-  35 // #if (NRTSIM || RTCLSIM)
-  36 //           printf("ERROR: Matrix must be square to compute "
-  37 //           "determinant");
-  38 //           exit(-1);
-  39 // #else
-
+Mark { conditional: "nested conditional", start_line: 39, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matrix.cc" }
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 69, end_line: 81, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc" }
   69 // #if (NRTSIM || RTCLSIM)
   70 //     if (i != n) {
@@ -2807,19 +3773,7 @@ Mark { conditional: "#if ( NRTSIM || RTCLSIM )", start_line: 23, end_line: 31, f
   30 // 
   31 // #endif /* ( NRTSIM || RTCLSIM ) */
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 358, end_line: 368, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cNav/src/navtools.cc" }
- 358 // #if (NRTSIM || RTCLSIM)
- 359 // void NavTools::CheckExpansionOrder( const INT4 &order )
- 360 // {
- 361 //     if( order >= MAX_EXPANSION_ORDER ) {
- 362 //         printf( "ERROR: Invalid DCM update expansion order: %d\n", order );
- 363 //         printf( "File: %s, Line No: %d\n", __FILE__, __LINE__ );
- 364 //         printf( "Exiting...\n" );
- 365 //         exit( -1 );
- 366 //     }
- 367 // }
- 368 // #else // !NRTSIM/RTCLSIM
-
+Mark { conditional: "nested conditional", start_line: 368, end_line: 370, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cNav/src/navtools.cc" }
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 20, end_line: 917, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simoutput.cc" }
   20 // #if (NRTSIM || RTCLSIM)
   21 // #include <stdlib.h>
@@ -3720,7 +4674,8 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 20, end_line: 917, fi
  916 // }
  917 // #endif /* NRTSIM || RTCLSIM */
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 52, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simouttypes.cc" }
+Mark { conditional: "nested conditional", start_line: 32, end_line: 52, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simouttypes.cc" }
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 113, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simouttypes.cc" }
   21 // #if (NRTSIM || RTCLSIM)
   22 // #include "simouttypes.hh"
   23 // #include "hash.hh"
@@ -3732,27 +4687,88 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 21, end_line: 52, fil
   29 // BOOLEAN OutputTypeBase::factoryTypesCreated = FALSE;
   30 // 
   31 // 
-  32 // #ifdef __PPC604__
-  33 // /*
-  34 // ** These resolve "undefined symbol" errors that show up while
-  35 // ** loading the Quad Card software.
-  36 // */
-  37 // INT2 OutputType<Quaternion, double>::dataType             = TYPE_UNDEFINED ;
-  38 // INT2 OutputType<SparseMatrix, double>::dataType           = TYPE_UNDEFINED ;
-  39 // INT2 OutputType<Angle, double>::dataType                  = TYPE_UNDEFINED ;
-  40 // INT2 OutputType<Matrix3, double>::dataType                = TYPE_UNDEFINED ;
-  41 // INT2 OutputType<Vector3, double>::dataType                = TYPE_UNDEFINED ;
-  42 // INT2 OutputType<Transform, double>::dataType              = TYPE_UNDEFINED ;
-  43 // INT2 OutputType<unsigned char, unsigned char>::dataType   = TYPE_UNDEFINED ;
-  44 // INT2 OutputType<unsigned int, unsigned int>::dataType     = TYPE_UNDEFINED ;
-  45 // INT2 OutputType<unsigned short, unsigned short>::dataType = TYPE_UNDEFINED ;
-  46 // INT2 OutputType<char, char>::dataType                     = TYPE_UNDEFINED ;
-  47 // INT2 OutputType<double, double>::dataType                 = TYPE_UNDEFINED ;
-  48 // INT2 OutputType<float, float>::dataType                   = TYPE_UNDEFINED ;
-  49 // INT2 OutputType<int, int>::dataType                       = TYPE_UNDEFINED ;
-  50 // INT2 OutputType<short, short>::dataType                   = TYPE_UNDEFINED ;
-  51 // INT2 OutputType<bool, oscUINT8>::dataType                 = TYPE_UNDEFINED ;
-  52 // #endif
+  32 // // #ifdef __PPC604__
+  33 // // /*
+  34 // // ** These resolve "undefined symbol" errors that show up while
+  35 // // ** loading the Quad Card software.
+  36 // // */
+  37 // // INT2 OutputType<Quaternion, double>::dataType             = TYPE_UNDEFINED ;
+  38 // // INT2 OutputType<SparseMatrix, double>::dataType           = TYPE_UNDEFINED ;
+  39 // // INT2 OutputType<Angle, double>::dataType                  = TYPE_UNDEFINED ;
+  40 // // INT2 OutputType<Matrix3, double>::dataType                = TYPE_UNDEFINED ;
+  41 // // INT2 OutputType<Vector3, double>::dataType                = TYPE_UNDEFINED ;
+  42 // // INT2 OutputType<Transform, double>::dataType              = TYPE_UNDEFINED ;
+  43 // // INT2 OutputType<unsigned char, unsigned char>::dataType   = TYPE_UNDEFINED ;
+  44 // // INT2 OutputType<unsigned int, unsigned int>::dataType     = TYPE_UNDEFINED ;
+  45 // // INT2 OutputType<unsigned short, unsigned short>::dataType = TYPE_UNDEFINED ;
+  46 // // INT2 OutputType<char, char>::dataType                     = TYPE_UNDEFINED ;
+  47 // // INT2 OutputType<double, double>::dataType                 = TYPE_UNDEFINED ;
+  48 // // INT2 OutputType<float, float>::dataType                   = TYPE_UNDEFINED ;
+  49 // // INT2 OutputType<int, int>::dataType                       = TYPE_UNDEFINED ;
+  50 // // INT2 OutputType<short, short>::dataType                   = TYPE_UNDEFINED ;
+  51 // // INT2 OutputType<bool, oscUINT8>::dataType                 = TYPE_UNDEFINED ;
+  52 // // #endif
+  53 // 
+  54 // /*
+  55 // ;-----------------------------------------------------------------------
+  56 // ;
+  57 // ;    Function: hashFunction (OutputVariable Specialization)
+  58 // ;
+  59 // ;    Description: Specific hashFunction routine which computes
+  60 // ;                 hashing value for OutputVariable hash table lookups.
+  61 // ;
+  62 // ;-----------------------------------------------------------------------
+  63 // */
+  64 // template <> INT4 HashTable<OutputVariable *>::hashFunction(
+  65 //                                                OutputVariable * const &arg )
+  66 // {
+  67 //     /*
+  68 //     ** Simple hashing strategy of adding bytes of the command
+  69 //     ** and taking modulo with tableSize. For this hash function
+  70 //     ** to be effective, tableSize should be a prime number.
+  71 //     */
+  72 //     INT4 sum = 0;
+  73 //     const BYTE * strName = arg->getName();
+  74 //     if ( strName != NULL )
+  75 //     {
+  76 //         INT4 len = strlen(strName);
+  77 //         for( INT4 i = 0; i < len; i++ )
+  78 //         {
+  79 //             sum += strName[i];
+  80 //         }
+  81 //     }
+  82 //     return (sum % tableSize);
+  83 // }
+  84 // 
+  85 // /*
+  86 // ;-----------------------------------------------------------------------
+  87 // ;
+  88 // ;    Function: Compare (OutputVariable Specialization)
+  89 // ;
+  90 // ;    Description: Specific Compare routine which is used to identify
+  91 // ;                 OutputVariable elements in the hash table.
+  92 // ;
+  93 // ;-----------------------------------------------------------------------
+  94 // */
+  95 // template <> BOOLEAN HashTable<OutputVariable *>::Compare(
+  96 //                                             OutputVariable * const &arg1,
+  97 //                                             OutputVariable * const &arg2 )
+  98 // {
+  99 //     /*
+ 100 //     ** For OutputVariable, we are looking to match name.
+ 101 //     */
+ 102 //     if ( arg1 != NULL && arg1->getName() != NULL &&
+ 103 //          arg2 != NULL && arg2->getName() != NULL &&
+ 104 //          strcmp( arg1->getName(), arg2->getName() ) == 0 )
+ 105 //     {
+ 106 //         return ( TRUE );
+ 107 //     }
+ 108 //     else
+ 109 //     {
+ 110 //         return ( FALSE );
+ 111 //     }
+ 112 // }
+ 113 // #endif /* (NRTSIM||RTCLSIM) */
 
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 20, end_line: 23, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc" }
   20 // #if (NRTSIM || RTCLSIM)
@@ -3995,7 +5011,8 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 214, end_line: 221, f
  220 //         }
  221 // #endif
 
-Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 25, end_line: 41, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MatrixOperations.hh" }
+Mark { conditional: "nested conditional", start_line: 41, end_line: 45, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MatrixOperations.hh" }
+Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 25, end_line: 576, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MatrixOperations.hh" }
   25 // #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
   26 // #define MATRIX_INDEX_CHECK( mindex, nindex ) \
   27 //     if( mindex < 0 || mindex >= getMSize() || \
@@ -4012,8 +5029,544 @@ Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 
   38 //                 msize1, nsize1, msize2, nsize2, __FILE__, __LINE__ ); \
   39 //         exit( -1 ); }
   40 // #undef NDEBUG
-  41 // #else
+  41 // // #else
+  42 // // #define MATRIX_INDEX_CHECK( mindex, nindex );
+  43 // // #define MATRIX_OPERATION_CHECK( msize1, nsize1, msize2, nsize2 );
+  44 // // #define NDEBUG
+  45 // // #endif
+  46 // #include <assert.h>
+  47 // #undef NDEBUG
+  48 // 
+  49 // /*
+  50 // ** MatrixOperation Forward Declarations
+  51 // */
+  52 // class Matrix;
+  53 // class MaskedMatrix;
+  54 // template <typename T1, typename T2> class MVTranspose;
+  55 // template <typename T1, typename T2, typename T3> class MVTimesMV;
+  56 // template<typename T>struct MVOpBR;
+  57 // template<typename T>struct MVOpBRInv;
+  58 // 
+  59 // /*
+  60 // ** Vector times Matrix (v*m)
+  61 // */
+  62 // template <typename T1, typename T2>
+  63 // inline const MVTimesMV<Vector,MVTranspose<Matrix,T2>,T1>
+  64 //     operator*( const MVOp<Vector,T1>& vec, const MVOp<Matrix,T2>& mat )
+  65 // {
+  66 //     return MVTimesMV<Vector,MVTranspose<Matrix,T2>,T1>(
+  67 //                     MVTranspose<Matrix,T2>(mat),vec);
+  68 // }
+  69 // 
+  70 // /*
+  71 // ** Partial Specialization of the MVOp Class for Matrix Operations
+  72 // */
+  73 // template <typename T1>
+  74 // class MVOp<Matrix,T1>
+  75 // {
+  76 // 
+  77 //     protected:
+  78 // 
+  79 //         /*
+  80 //         ** Policy Classes
+  81 //         */
+  82 //         struct Equals
+  83 //         {
+  84 //             template<typename T2, typename T3>
+  85 //             static void equality(T2 &lhs, const T3 &rhs)
+  86 //             {
+  87 //                 lhs = rhs;
+  88 //             }
+  89 //         };
+  90 // 
+  91 //         struct PlusEquals
+  92 //         {
+  93 //             template<typename T2, typename T3>
+  94 //             static void equality(T2 &lhs, const T3 &rhs)
+  95 //             {
+  96 //                 lhs += rhs;
+  97 //             }
+  98 //         };
+  99 // 
+ 100 //         struct MinusEquals
+ 101 //         {
+ 102 //             template<typename T2, typename T3>
+ 103 //             static void equality(T2 &lhs, const T3& rhs)
+ 104 //             {
+ 105 //                 lhs -= rhs;
+ 106 //             }
+ 107 //         };
+ 108 // 
+ 109 //         struct TimesEquals
+ 110 //         {
+ 111 //             template<typename T2, typename T3>
+ 112 //             static void equality(T2 &lhs, const T3&rhs)
+ 113 //             {
+ 114 //                 lhs *= rhs;
+ 115 //             }
+ 116 //         };
+ 117 // 
+ 118 //         /*
+ 119 //         ** Common Equality Operations
+ 120 //         */
+ 121 //         template <typename EqType,typename T2>
+ 122 //         void equalityOperation( const MVOp<Matrix,T2> &in )
+ 123 //         {
+ 124 //             const T2& rhs = static_cast<const T2&>(in);
+ 125 //             T1& lhs = static_cast<T1&>(*this);
+ 126 //             MATRIX_OPERATION_CHECK( lhs.getMSize(), lhs.getNSize(),
+ 127 //                                     rhs.getMSize(), rhs.getNSize() );
+ 128 //             if ( rhs.contains(&lhs) && (lhs.getMSize() == lhs.getNSize()) )
+ 129 //             {
+ 130 //                 assert( "MVOp<Matrix,T> contains the Matrix where the result "
+ 131 //                         "will be stored which is illegal for this operation." &&
+ 132 //                          rhs.replacementSafe() );
+ 133 //                 for ( oscINT32 i = 0; i < getMSize(); i++ )
+ 134 //                 {
+ 135 // 
+ 136 //                     EqType::equality(lhs[i][i],rhs[i][i]);
+ 137 //                     for ( oscINT32 j = i+1; j < getNSize(); j++ )
+ 138 //                     {
+ 139 //                         double top = rhs[i][j];
+ 140 //                         EqType::equality(lhs[j][i],rhs[j][i]);
+ 141 //                         EqType::equality(lhs[i][j],top);
+ 142 //                     }
+ 143 //                 }
+ 144 //             }
+ 145 //             else
+ 146 //             {
+ 147 //                 for ( oscINT32 i = 0; i < getMSize(); i++ )
+ 148 //                 {
+ 149 //                     EqType::equality(lhs[i],rhs[i]);
+ 150 //                 }
+ 151 //             }
+ 152 //         }
+ 153 // 
+ 154 //         template <typename EqType>
+ 155 //         void equalityOperation( double dvalue )
+ 156 //         {
+ 157 //             T1& lhs = static_cast<T1&>(*this);
+ 158 //             for ( INT4 i = 0; i < getMSize(); i++ )
+ 159 //             {
+ 160 //                 EqType::equality(lhs[i],dvalue);
+ 161 //             }
+ 162 //         }
+ 163 // 
+ 164 //     public:
+ 165 // 
+ 166 //         /*
+ 167 //         ** Evaluate Subexpression
+ 168 //         */
+ 169 //         typename MVOpStorage<typename MVOpBR<T1>::Type>::Type
+ 170 //             operator[](INT4 i) const
+ 171 //         {
+ 172 //             return static_cast<const T1&>(*this)[i];
+ 173 //         }
+ 174 // 
+ 175 //         /*
+ 176 //         ** Get Methods
+ 177 //         */
+ 178 //         INT4 getMSize( void ) const
+ 179 //         {
+ 180 //             return static_cast<const T1*>(this)->getMSize();
+ 181 //         }
+ 182 // 
+ 183 //         INT4 getNSize( void ) const
+ 184 //         {
+ 185 //             return static_cast<const T1*>(this)->getNSize();
+ 186 //         }
+ 187 // 
+ 188 //         /*
+ 189 //         ** Check if MatrixOperation contains T2 *pObj
+ 190 //         */
+ 191 //         template <typename T2>
+ 192 //         bool contains( const T2* pObj ) const
+ 193 //         {
+ 194 //             return static_cast<const T1*>(this)->contains(pObj);
+ 195 //         }
+ 196 // 
+ 197 //         /*
+ 198 //         ** Check if MatrixOperation can safely be evaluated if the results
+ 199 //         ** are stored in one of the matrices involved in the operation.
+ 200 //         */
+ 201 //         bool replacementSafe( void ) const
+ 202 //         {
+ 203 //             return static_cast<const T1*>(this)->replacementSafe();
+ 204 //         }
+ 205 // 
+ 206 //         /*
+ 207 //         ** Matrix Transpose (!m)
+ 208 //         */
+ 209 //         const MVTranspose<Matrix,T1> operator!(void) const
+ 210 //         {
+ 211 //             return MVTranspose<Matrix,T1>(*this);
+ 212 //         }
+ 213 // 
+ 214 //         /*
+ 215 //         ** Matrix times Vector (m*v)
+ 216 //         */
+ 217 //         template < typename T2 >
+ 218 //         const MVTimesMV<Vector,T1,T2>
+ 219 //             operator*(const MVOp<Vector,T2>& vec) const
+ 220 //         {
+ 221 //             return MVTimesMV<Vector,T1,T2>(*this,vec);
+ 222 //         }
+ 223 // 
+ 224 //         /*
+ 225 //         ** Matrix times Matrix (m*m)
+ 226 //         */
+ 227 //         template < typename T2 >
+ 228 //         const MVTimesMV<Matrix,T1,T2>
+ 229 //             operator*(const MVOp<Matrix,T2>& mat) const
+ 230 //         {
+ 231 //             return MVTimesMV<Matrix,T1,T2>(*this,mat);
+ 232 //         }
+ 233 // 
+ 234 // };
+ 235 // 
+ 236 // /*
+ 237 // ** Matrix and MaskedMatrix should only be kept as references.
+ 238 // ** MVOp Storage Type Definitions
+ 239 // */
+ 240 // template<>struct MVOpStorage<Matrix>
+ 241 // {
+ 242 //     typedef const Matrix& Type;
+ 243 // };
+ 244 // 
+ 245 // template<>struct MVOpStorage<MaskedMatrix>
+ 246 // {
+ 247 //     typedef const MaskedMatrix& Type;
+ 248 // };
+ 249 // 
+ 250 // /*
+ 251 // ** Bracket return type conversion for MVOp<Matrix,Type> classes
+ 252 // ** Bracket operator on a MVOp<Matrix,Type> returns a MVOp<Vector,Type>
+ 253 // */
+ 254 // template<template<class,class>class T1,class T2>
+ 255 // struct MVOpBR<T1<Matrix,T2> >
+ 256 // {
+ 257 //     typedef T1<Vector,typename MVOpBR<T2>::Type> Type;
+ 258 // };
+ 259 // 
+ 260 // /*
+ 261 // ** Inverse bracket return type conversion for MVOp<Vector,Type> classes
+ 262 // ** MVOp<Vector,Type> type will be returned by a bracket operator on a
+ 263 // ** MVOp<Matrix,Type>
+ 264 // */
+ 265 // template<template<class,class>class T1,class T2>
+ 266 // struct MVOpBRInv<T1<Vector,T2> >
+ 267 // {
+ 268 //     typedef T1<Matrix,typename MVOpBRInv<T2>::Type> Type;
+ 269 // };
+ 270 // 
+ 271 // /*
+ 272 // ** Matrix Negation Class
+ 273 // */
+ 274 // template <typename T1>
+ 275 // class MVNegative<Matrix,T1>: public MVOp< Matrix, MVNegative<Matrix,T1> >
+ 276 // {
+ 277 //     private:
+ 278 //         typename MVOpStorage<T1>::Type m;
+ 279 // 
+ 280 //     public:
+ 281 //         MVNegative( const MVOp<Matrix,T1>&  min )
+ 282 //           : m(static_cast<const T1&>(min)) {}
+ 283 // 
+ 284 //         template <typename T2>
+ 285 //         bool contains( const T2* pObj ) const { return m.contains(pObj); }
+ 286 //         bool replacementSafe( void ) const { return m.replacementSafe(); }
+ 287 //         INT4 getMSize( void ) const { return m.getMSize(); }
+ 288 //         INT4 getNSize( void ) const { return m.getNSize(); }
+ 289 // 
+ 290 //         const MVNegative<Vector,typename MVOpBR<T1>::Type>
+ 291 //             operator[](INT4 i) const
+ 292 //         {
+ 293 //             return MVNegative<Vector,typename MVOpBR<T1>::Type>(m[i]);
+ 294 //         }
+ 295 // 
+ 296 // };
+ 297 // 
+ 298 // /*
+ 299 // ** Matrix Transpose Class
+ 300 // */
+ 301 // template <typename T1>
+ 302 // class MVTranspose<Matrix,T1>: public MVOp<Matrix,MVTranspose<Matrix,T1> >
+ 303 // {
+ 304 //     private:
+ 305 //         typename MVOpStorage<T1>::Type m;
+ 306 // 
+ 307 //     public:
+ 308 //         MVTranspose( const MVOp<Matrix,T1>& min )
+ 309 //           : m(static_cast<const T1&>(min)) {}
+ 310 // 
+ 311 //         template <typename T2>
+ 312 //         bool contains( const T2* pObj ) const { return m.contains(pObj); }
+ 313 //         bool replacementSafe( void ) const { return m.replacementSafe(); }
+ 314 //         INT4 getMSize( void ) const { return m.getNSize(); } //Switched
+ 315 //         INT4 getNSize( void ) const { return m.getMSize(); }
+ 316 // 
+ 317 //         const MVTranspose<Vector,typename MVOpBR<T1>::Type>
+ 318 //             operator[](INT4 i) const
+ 319 //         {
+ 320 //             return MVTranspose<Vector,typename MVOpBR<T1>::Type>(m,i);
+ 321 //         }
+ 322 // 
+ 323 // };
+ 324 // 
+ 325 // /*
+ 326 // ** Vector Transpose is really just a way to access matrix columns
+ 327 // ** (!A)[i] access column i of Matrix A
+ 328 // */
+ 329 // template <typename T1>
+ 330 // class MVTranspose<Vector,T1>: public MVOp<Vector,MVTranspose<Vector,T1> >
+ 331 // {
+ 332 //     private:
+ 333 //         /*
+ 334 //         ** m is always stored by reference since it is stored by value in
+ 335 //         ** MVTranspose<Matrix,T1>
+ 336 //         */
+ 337 //         const typename MVOpBRInv<T1>::Type& m;
+ 338 //         const oscINT32 rowidx;
+ 339 // 
+ 340 //     public:
+ 341 //         MVTranspose( const MVOp<Matrix,
+ 342 //             typename MVOpBRInv<T1>::Type>& min, oscINT32 idx )
+ 343 //           : m(static_cast<const typename MVOpBRInv<T1>::Type&>(min)),
+ 344 //             rowidx(idx) {}
+ 345 // 
+ 346 //         template <typename T2>
+ 347 //         bool contains( const T2* pObj ) const { return m.contains(pObj); }
+ 348 //         bool replacementSafe( void ) const { return m.replacementSafe(); }
+ 349 //         INT4 getSize( void ) const { return m.getMSize(); }
+ 350 // 
+ 351 //         double operator[]( oscINT32 colidx ) const
+ 352 //         {
+ 353 //             return m[colidx][rowidx];
+ 354 //         }
+ 355 // };
+ 356 // 
+ 357 // /*
+ 358 // ** Matrix Scalar Addition Class
+ 359 // */
+ 360 // template <typename T1>
+ 361 // class MVPlusDouble<Matrix,T1>: public MVOp<Matrix,MVPlusDouble<Matrix,T1> >
+ 362 // {
+ 363 //     private:
+ 364 //         typename MVOpStorage<T1>::Type m;
+ 365 //         const double d;
+ 366 // 
+ 367 //     public:
+ 368 //         MVPlusDouble( const MVOp<Matrix,T1>& min, double din )
+ 369 //           : m(static_cast<const T1&>(min)), d(din) {}
+ 370 // 
+ 371 //         template <typename T2>
+ 372 //         bool contains( const T2* pObj ) const { return m.contains(pObj); }
+ 373 //         bool replacementSafe( void ) const { return m.replacementSafe(); }
+ 374 //         INT4 getMSize( void ) const { return m.getMSize(); }
+ 375 //         INT4 getNSize( void ) const { return m.getNSize(); }
+ 376 // 
+ 377 //         const MVPlusDouble<Vector,typename MVOpBR<T1>::Type>
+ 378 //             operator[](INT4 i) const
+ 379 //         {
+ 380 //             return MVPlusDouble<Vector,typename MVOpBR<T1>::Type>(m[i],d);
+ 381 //         }
+ 382 // 
+ 383 // };
+ 384 // 
+ 385 // /*
+ 386 // ** Matrix Scalar Multiplication Class
+ 387 // */
+ 388 // template <typename T1>
+ 389 // class MVTimesDouble<Matrix,T1> : public MVOp<Matrix,MVTimesDouble<Matrix,T1> >
+ 390 // {
+ 391 //     private:
+ 392 //         typename MVOpStorage<T1>::Type m;
+ 393 //         const double d;
+ 394 // 
+ 395 //     public:
+ 396 //         MVTimesDouble( const MVOp<Matrix,T1>& min, double din )
+ 397 //           : m(static_cast<const T1&>(min)), d(din) {}
+ 398 // 
+ 399 //         template <typename T2>
+ 400 //         bool contains( const T2* pObj ) const { return m.contains(pObj); }
+ 401 //         bool replacementSafe( void ) const { return m.replacementSafe(); }
+ 402 //         INT4 getMSize( void ) const { return m.getMSize(); }
+ 403 //         INT4 getNSize( void ) const { return m.getNSize(); }
+ 404 // 
+ 405 //         const MVTimesDouble<Vector,typename MVOpBR<T1>::Type>
+ 406 //             operator[](INT4 i) const
+ 407 //         {
+ 408 //             return MVTimesDouble<Vector,typename MVOpBR<T1>::Type>(m[i],d);
+ 409 //         }
+ 410 // 
+ 411 // };
+ 412 // 
+ 413 // /*
+ 414 // ** Matrix Matrix Addition Class
+ 415 // */
+ 416 // template <typename T1,typename T2>
+ 417 // class MVPlusMV<Matrix,T1,T2> : public MVOp<Matrix,MVPlusMV<Matrix,T1,T2> >
+ 418 // {
+ 419 //     private:
+ 420 //         typename MVOpStorage<T1>::Type m1;
+ 421 //         typename MVOpStorage<T2>::Type m2;
+ 422 // 
+ 423 //     public:
+ 424 //         MVPlusMV( const MVOp<Matrix,T1>& m1in, const MVOp<Matrix,T2>& m2in )
+ 425 //           : m1(static_cast<const T1&>(m1in)), m2(static_cast<const T2&>(m2in))
+ 426 //         {
+ 427 //             MATRIX_OPERATION_CHECK( m1.getMSize(), m1.getNSize(),
+ 428 //                                     m2.getMSize(), m2.getNSize() );
+ 429 //         }
+ 430 //         template <typename T3>
+ 431 //         bool contains( const T3* pObj ) const
+ 432 //         {
+ 433 //             return ( m1.contains(pObj) || m2.contains(pObj) );
+ 434 //         }
+ 435 //         bool replacementSafe( void ) const
+ 436 //         {
+ 437 //             return ( m1.replacementSafe() && m2.replacementSafe() );
+ 438 //         }
+ 439 //         INT4 getMSize( void ) const { return m1.getMSize(); }
+ 440 //         INT4 getNSize( void ) const { return m1.getNSize(); }
+ 441 // 
+ 442 //         const MVPlusMV<Vector,typename MVOpBR<T1>::Type,
+ 443 //             typename MVOpBR<T2>::Type>operator[](INT4 i) const
+ 444 //         {
+ 445 //             return MVPlusMV<Vector,typename MVOpBR<T1>::Type,
+ 446 //                 typename MVOpBR<T2>::Type>(m1[i],m2[i]);
+ 447 //         }
+ 448 // };
+ 449 // 
+ 450 // /*
+ 451 // ** Bracket return type conversion for MVPlusMV class
+ 452 // */
+ 453 // template<typename T1,typename T2>struct MVOpBR<MVPlusMV<Matrix,T1,T2> >
+ 454 // {
+ 455 //     typedef MVPlusMV<Vector,typename MVOpBR<T1>::Type,
+ 456 //                             typename MVOpBR<T2>::Type> Type;
+ 457 // };
+ 458 // template<typename T1,typename T2>struct MVOpBRInv<MVPlusMV<Vector,T1,T2> >
+ 459 // {
+ 460 //     typedef MVPlusMV<Matrix,typename MVOpBRInv<T1>::Type,
+ 461 //                             typename MVOpBRInv<T2>::Type> Type;
+ 462 // };
+ 463 // 
+ 464 // /*
+ 465 // ** Matrix Vector Multiplication Class
+ 466 // */
+ 467 // template <typename T1,typename T2>
+ 468 // class MVTimesMV<Vector,T1,T2>: public MVOp<Vector,MVTimesMV<Vector,T1,T2> >
+ 469 // {
+ 470 //     private:
+ 471 //         typename MVOpStorage<T1>::Type m;
+ 472 //         typename MVOpStorage<T2>::Type v;
+ 473 // 
+ 474 //     public:
+ 475 //         MVTimesMV( const MVOp<Matrix,T1>& min, const MVOp<Vector,T2>& vin)
+ 476 //           : m(static_cast<const T1&>(min)), v(static_cast<const T2&>(vin))
+ 477 //         {
+ 478 //             VECTOR_OPERATION_CHECK( m.getNSize(), v.getSize() );
+ 479 //         }
+ 480 //         template <typename T3>
+ 481 //         bool contains( const T3* pObj ) const
+ 482 //         {
+ 483 //             return ( m.contains(pObj) || v.contains(pObj) );
+ 484 //         }
+ 485 //         bool replacementSafe( void ) const
+ 486 //         {
+ 487 //             return false;
+ 488 //         }
+ 489 //         INT4 getSize( void ) const { return m.getMSize(); }
+ 490 // 
+ 491 //         double operator[]( INT4 i ) const
+ 492 //         {
+ 493 //             return m[i]*v;
+ 494 //         }
+ 495 // };
+ 496 // 
+ 497 // /*
+ 498 // ** Matrix Matrix Multiplication Class
+ 499 // */
+ 500 // template <typename T1,typename T2>
+ 501 // class MVTimesMV<Matrix,T1,T2> : public MVOp<Matrix,MVTimesMV<Matrix,T1,T2> >
+ 502 // {
+ 503 //     private:
+ 504 //         typename MVOpStorage<T1>::Type m1;
+ 505 //         /*
+ 506 //         ** (m1*m2)[i] = m1[i]*m2 = (!m2)*m1[i] = m2T*m1[i]
+ 507 //         */
+ 508 //         const MVTranspose<Matrix,T2> m2T;
+ 509 // 
+ 510 //     public:
+ 511 //         MVTimesMV( const MVOp<Matrix,T1>& m1in, const MVOp<Matrix,T2>& m2in )
+ 512 //           :m1(static_cast<const T1&>(m1in)), m2T(MVTranspose<Matrix,T2>(m2in))
+ 513 //         {
+ 514 //             MATRIX_OPERATION_CHECK( m1.getNSize(), 0, m2T.getNSize(), 0);
+ 515 //         }
+ 516 //         template <typename T3>
+ 517 //         bool contains( const T3* pObj ) const
+ 518 //         {
+ 519 //             return ( m1.contains(pObj) || m2T.contains(pObj) );
+ 520 //         }
+ 521 //         bool replacementSafe( void ) const
+ 522 //         {
+ 523 //             return false;
+ 524 //         }
+ 525 //         INT4 getMSize( void ) const { return m1.getMSize(); }
+ 526 //         INT4 getNSize( void ) const { return m2T.getMSize(); }
+ 527 // 
+ 528 //         const MVTimesMV<Vector,MVTranspose<Matrix,T2>,
+ 529 //             typename MVOpBR<T1>::Type>operator[](INT4 i) const
+ 530 //         {
+ 531 //             return MVTimesMV<Vector,MVTranspose<Matrix,T2>,
+ 532 //                 typename MVOpBR<T1>::Type>(m2T,m1[i]);
+ 533 //         }
+ 534 // };
+ 535 // 
+ 536 // /*
+ 537 // ** Bracket return type conversion for MVTimesMV class
+ 538 // */
+ 539 // template<typename T1,typename T2>struct MVOpBR<MVTimesMV<Matrix,T1,T2> >
+ 540 // {
+ 541 //     typedef MVTimesMV<Vector,
+ 542 //         MVTranspose<Matrix,T2>,typename MVOpBR<T1>::Type> Type;
+ 543 // };
+ 544 // template<typename T2,typename T1>
+ 545 //     struct MVOpBRInv<MVTimesMV<Vector,MVTranspose<Matrix,T2>,T1> >
+ 546 // {
+ 547 //     typedef MVTimesMV<Matrix,typename MVOpBRInv<T1>::Type,T2> Type;
+ 548 // };
+ 549 // 
+ 550 // /*
+ 551 // ** Explicit Specialization of the bracket return type
+ 552 // ** conversion templates for Matrix
+ 553 // */
+ 554 // template<>struct MVOpBR<Matrix>
+ 555 // {
+ 556 //     typedef Vector Type;
+ 557 // };
+ 558 // template<>struct MVOpBRInv<Vector>
+ 559 // {
+ 560 //     typedef Matrix Type;
+ 561 // };
+ 562 // 
+ 563 // /*
+ 564 // ** Explicit Specialization of the bracket return type
+ 565 // ** conversion templates for MaskedMatrix
+ 566 // */
+ 567 // template<>struct MVOpBR<MaskedMatrix>
+ 568 // {
+ 569 //     typedef MaskedVector Type;
+ 570 // };
+ 571 // template<>struct MVOpBRInv<MaskedVector>
+ 572 // {
+ 573 //     typedef MaskedMatrix Type;
+ 574 // };
+ 575 // 
+ 576 // #endif
 
+Mark { conditional: "nested conditional", start_line: 298, end_line: 302, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
 Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 29, end_line: 36, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
   29 // #if (NRTSIM || RTCLSIM || _DEBUG)
   30 // 
@@ -4036,13 +5589,6 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 119, end_li
  127 // 
  128 // #endif
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 298, end_line: 302, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
- 298 // #if (NRTSIM || RTCLSIM)
- 299 // 
- 300 //             exit( 1 );
- 301 // 
- 302 // #endif
-
 Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 288, end_line: 306, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh" }
  288 // #if (NRTSIM || RTCLSIM || _DEBUG)
  289 // 
@@ -4064,10 +5610,15 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM || _DEBUG)", start_line: 288, end_li
  305 // 
  306 // #endif // (NRTSIM || RTCLSIM || _DEBUG)
 
-Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 24, end_line: 26, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/output.hh" }
+Mark { conditional: "nested conditional", start_line: 26, end_line: 28, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/output.hh" }
+Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 24, end_line: 30, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/output.hh" }
   24 // #if (NRTSIM || RTCLSIM)
   25 // #include "simoutput.hh"
-  26 // #else
+  26 // // #else
+  27 // // #include "fltoutput.hh"
+  28 // // #endif
+  29 // 
+  30 // #endif  /** __OUTPUT_HH__ **/
 
 Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 122, end_line: 124, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh" }
  122 // #if (NRTSIM || RTCLSIM)
@@ -4158,7 +5709,8 @@ Mark { conditional: "#if (NRTSIM || RTCLSIM)", start_line: 354, end_line: 368, f
  367 //     }
  368 // #endif
 
-Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 24, end_line: 40, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh" }
+Mark { conditional: "nested conditional", start_line: 40, end_line: 44, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh" }
+Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 24, end_line: 493, file: "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh" }
   24 // #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
   25 // #define VECTOR_INDEX_CHECK( index ) \
   26 //     if ( index < 0 || index >= getSize() ) { \
@@ -4175,11 +5727,464 @@ Mark { conditional: "#if defined(_DEBUG) && ( NRTSIM || RTCLSIM )", start_line: 
   37 //                 "Exiting...\n", size1, size2, __FILE__, __LINE__ ); \
   38 //         exit( -1 ); }
   39 // #undef NDEBUG
-  40 // #else
+  40 // // #else
+  41 // // #define VECTOR_INDEX_CHECK( index );
+  42 // // #define VECTOR_OPERATION_CHECK( size1, size2 );
+  43 // // #define NDEBUG
+  44 // // #endif
+  45 // #include <assert.h>
+  46 // #undef NDEBUG
+  47 // 
+  48 // /*
+  49 // ** MVOp Class Forward Declarations
+  50 // */
+  51 // class Vector;
+  52 // class MaskedVector;
+  53 // template <typename T1, typename T2> class MVOp;
+  54 // template <typename T1, typename T2> class MVNegative;
+  55 // template <typename T1, typename T2> class MVPlusDouble;
+  56 // template <typename T1, typename T2> class MVTimesDouble;
+  57 // template <typename T1, typename T2, typename T3> class MVPlusMV;
+  58 // template <typename T1, typename T2, typename T3> class MVElementwiseMult;
+  59 // 
+  60 // /*
+  61 // ** Standard Matrix/Vector Operations
+  62 // ** (Operations that are common between the two Classes)
+  63 // ** T1 is return type (Matrix or Vector)
+  64 // ** T2 is the operation type thus far
+  65 // */
+  66 // 
+  67 // /*
+  68 // ** Matrix/Vector Negation (-mv)
+  69 // */
+  70 // template <typename T1, typename T2>
+  71 // inline const MVNegative<T1,T2> operator-( const MVOp<T1,T2>& vec )
+  72 // {
+  73 //     return MVNegative<T1,T2>(vec);
+  74 // }
+  75 // 
+  76 // /*
+  77 // ** Matrix/Vector plus Double (mv+d)
+  78 // */
+  79 // template <typename T1, typename T2>
+  80 // inline const MVPlusDouble<T1,T2>
+  81 //     operator+(const MVOp<T1,T2>& vec, double scalar)
+  82 // {
+  83 //     return MVPlusDouble<T1,T2>(vec,scalar);
+  84 // }
+  85 // 
+  86 // /*
+  87 // ** Double plus Matrix/Vector (d+mv)
+  88 // */
+  89 // template <typename T1, typename T2>
+  90 // inline const  MVPlusDouble<T1,T2>
+  91 //     operator+( double scalar, const MVOp<T1,T2>& vec )
+  92 // {
+  93 //     return MVPlusDouble<T1,T2>(vec,scalar);
+  94 // }
+  95 // 
+  96 // /*
+  97 // ** Matrix/Vector minus Double (mv-d)
+  98 // */
+  99 // template <typename T1, typename T2>
+ 100 // inline const MVPlusDouble<T1,T2>
+ 101 //     operator-( const MVOp<T1,T2>& vec, double scalar)
+ 102 // {
+ 103 //     return MVPlusDouble<T1,T2>(vec,-scalar);
+ 104 // }
+ 105 // 
+ 106 // /*
+ 107 // ** Double minus Matrix/Vector (d-mv)
+ 108 // */
+ 109 // template <typename T1, typename T2>
+ 110 // inline const MVPlusDouble<T1,MVNegative<T1,T2> >
+ 111 //     operator-( double scalar, const MVOp<T1,T2>& vec )
+ 112 // {
+ 113 //     return MVPlusDouble<T1,MVNegative<T1,T2> >(MVNegative<T1,T2>(vec),scalar);
+ 114 // }
+ 115 // 
+ 116 // /*
+ 117 // ** Matrix/Vector time double (v*d)
+ 118 // */
+ 119 // template <typename T1, typename T2>
+ 120 // inline const MVTimesDouble<T1,T2>
+ 121 //     operator*(const MVOp<T1,T2>& vec, double scalar)
+ 122 // {
+ 123 //     return MVTimesDouble<T1,T2>(vec,scalar);
+ 124 // }
+ 125 // 
+ 126 // /*
+ 127 // ** Double times Matrix/Vector (d*mv)
+ 128 // */
+ 129 // template <typename T1, typename T2>
+ 130 // inline const MVTimesDouble<T1,T2>
+ 131 //     operator*( double scalar, const MVOp<T1,T2>& vec )
+ 132 // {
+ 133 //     return MVTimesDouble<T1,T2>(vec,scalar);
+ 134 // }
+ 135 // 
+ 136 // /*
+ 137 // ** Matrix/Vector plus Matrix/Vector (mv1+mv2)
+ 138 // */
+ 139 // template <typename T1, typename T2, typename T3>
+ 140 // inline const MVPlusMV<T1,T2,T3>
+ 141 //     operator+( const MVOp<T1,T2>& mv1, const MVOp<T1,T3>& mv2 )
+ 142 // {
+ 143 //     return MVPlusMV<T1,T2,T3>(mv1,mv2);
+ 144 // }
+ 145 // 
+ 146 // /*
+ 147 // ** Matrix/Vector minus Matrix/Vector (mv1-mv2)
+ 148 // */
+ 149 // template <typename T1, typename T2, typename T3>
+ 150 // inline const MVPlusMV<T1,T2,MVNegative<T1,T3> >
+ 151 //     operator-( const MVOp<T1,T2>& mv1, const MVOp<T1,T3>& mv2 )
+ 152 // {
+ 153 //     return MVPlusMV<T1,T2,MVNegative<T1,T3> >( mv1, MVNegative<T1,T3>(mv2) );
+ 154 // }
+ 155 // 
+ 156 // /*
+ 157 // ** Partial Specialization of the MVOp Class for Vector Operations
+ 158 // */
+ 159 // template <typename T1>
+ 160 // class MVOp<Vector,T1>
+ 161 // {
+ 162 //     protected:
+ 163 // 
+ 164 //         /*
+ 165 //         ** Policy Classes
+ 166 //         */
+ 167 //         struct Equals
+ 168 //         {
+ 169 //             static void equality(double &lhs, const double&rhs)
+ 170 //             {
+ 171 //                 lhs = rhs;
+ 172 //             }
+ 173 //         };
+ 174 // 
+ 175 //         struct PlusEquals
+ 176 //         {
+ 177 //             static void equality(double &lhs, const double&rhs)
+ 178 //             {
+ 179 //                 lhs += rhs;
+ 180 //             }
+ 181 //         };
+ 182 // 
+ 183 //         struct MinusEquals
+ 184 //         {
+ 185 //             static void equality(double &lhs, const double&rhs)
+ 186 //             {
+ 187 //                 lhs -= rhs;
+ 188 //             }
+ 189 //         };
+ 190 // 
+ 191 //         struct TimesEquals
+ 192 //         {
+ 193 //             static void equality(double &lhs, const double&rhs)
+ 194 //             {
+ 195 //                 lhs *= rhs;
+ 196 //             }
+ 197 //         };
+ 198 // 
+ 199 //         /*
+ 200 //         ** Common Equality Operations
+ 201 //         */
+ 202 //         template <typename EqType,typename T2>
+ 203 //         void equalityOperation( const MVOp<Vector,T2> &in )
+ 204 //         {
+ 205 //             const T2& rhs = static_cast<const T2&>(in);
+ 206 //             T1& lhs = static_cast<T1&>(*this);
+ 207 //             VECTOR_OPERATION_CHECK( lhs.getSize(), rhs.getSize() );
+ 208 //             assert( "MVOp<Vector,T> contains the Vector where the result"
+ 209 //                     "will be stored which is illegal for this operation." &&
+ 210 //                     (rhs.replacementSafe() || !rhs.contains(&lhs)) );
+ 211 //             for ( INT4 i = 0; i < lhs.getSize(); i++ )
+ 212 //             {
+ 213 //                 EqType::equality(lhs[i],rhs[i]);
+ 214 //             }
+ 215 //         }
+ 216 // 
+ 217 //         template <typename EqType>
+ 218 //         void equalityOperation( double dvalue )
+ 219 //         {
+ 220 //             T1& lhs = static_cast<T1&>(*this);
+ 221 //             for ( INT4 i = 0; i < getSize(); i++ )
+ 222 //             {
+ 223 //                 EqType::equality(lhs[i],dvalue);
+ 224 //             }
+ 225 //         }
+ 226 // 
+ 227 //     public:
+ 228 // 
+ 229 //         /*
+ 230 //         ** Evaluate Subexpression
+ 231 //         */
+ 232 //         double operator[](INT4 i) const
+ 233 //         {
+ 234 //             return static_cast<const T1&>(*this)[i];
+ 235 //         }
+ 236 // 
+ 237 //         /*
+ 238 //         ** Get Methods
+ 239 //         */
+ 240 //         INT4 getSize( void ) const
+ 241 //         {
+ 242 //             return static_cast<const T1*>(this)->getSize();
+ 243 //         }
+ 244 // 
+ 245 //         /*
+ 246 //         ** Check if MVOp contains T2 *pObj
+ 247 //         */
+ 248 //         template <typename T2>
+ 249 //         bool contains( const T2* pObj ) const
+ 250 //         {
+ 251 //             return static_cast<const T1*>(this)->contains(pObj);
+ 252 //         }
+ 253 // 
+ 254 //         /*
+ 255 //         ** Check if MVOp can safely be evaluated if the results
+ 256 //         ** are stored in one of the vectors involved in the operation.
+ 257 //         */
+ 258 //         bool replacementSafe( void ) const
+ 259 //         {
+ 260 //             return static_cast<const T1*>(this)->replacementSafe();
+ 261 //         }
+ 262 // 
+ 263 //         /*
+ 264 //         ** Elementwise Vector Multiplication ([v1[0]*v2[0],...,v1[n]*v2[n]])
+ 265 //         */
+ 266 //         template < typename T2 >
+ 267 //         const MVElementwiseMult<Vector,T1,T2>
+ 268 //             multiply( const MVOp<Vector,T2>& vec ) const
+ 269 //         {
+ 270 //             return MVElementwiseMult<Vector,T1,T2>(*this,vec);
+ 271 //         }
+ 272 // 
+ 273 //         /*
+ 274 //         ** Vector Inner Product (v1*v2)
+ 275 //         */
+ 276 //         template < typename T2 >
+ 277 //         double operator*( const MVOp<Vector,T2>& vec ) const
+ 278 //         {
+ 279 //             const T1& lhs = static_cast<const T1&>(*this);
+ 280 //             const T2& rhs = static_cast<const T2&>(vec);
+ 281 //             VECTOR_OPERATION_CHECK( lhs.getSize(), rhs.getSize() );
+ 282 //             double dvalue = 0.0;
+ 283 //             for ( oscINT32 i = 0; i < lhs.getSize(); i++ )
+ 284 //             {
+ 285 //                 dvalue += lhs[i] * rhs[i];
+ 286 //             }
+ 287 //             return dvalue;
+ 288 //         }
+ 289 // 
+ 290 //         /*
+ 291 //         ** Vector Euclidean Norm sqrt(v[0]*v[0]+...+v[n]*v[n])
+ 292 //         */
+ 293 //         double norm( void ) const
+ 294 //         {
+ 295 //             return sqrt( (*this)*(*this) );
+ 296 //         }
+ 297 // 
+ 298 //         /*
+ 299 //         ** Vector Sum Product (v[0]+...+v[n])
+ 300 //         */
+ 301 //         double sum( void ) const
+ 302 //         {
+ 303 //             const T1& lhs = static_cast<const T1&>(*this);
+ 304 //             double dvalue = 0.0;
+ 305 //             for ( INT4 i = 0; i < getSize(); i++ )
+ 306 //             {
+ 307 //                 dvalue += lhs[i];
+ 308 //             }
+ 309 //             return dvalue;
+ 310 //         }
+ 311 // 
+ 312 //         /*
+ 313 //         ** Check for monotonically increasing values
+ 314 //         */
+ 315 //         bool IsMonotonic( void ) const
+ 316 //         {
+ 317 //             const T1& lhs = static_cast<const T1&>(*this);
+ 318 //             for ( INT4 i = 1; i < getSize(); i++ )
+ 319 //             {
+ 320 //                 if(lhs[i] <= lhs[i-1])
+ 321 //                 {
+ 322 //                     return false;
+ 323 //                 }
+ 324 //             }
+ 325 //             return true;
+ 326 //         }
+ 327 // };
+ 328 // 
+ 329 // /*
+ 330 // ** MVOp Storage Type Definitions
+ 331 // ** Any operations that are not actual vectors or matrices must be stored by
+ 332 // ** value in subsequent operations to prevent them from going out of scope
+ 333 // */
+ 334 // template<typename T>struct MVOpStorage
+ 335 // {
+ 336 //     typedef const T Type;
+ 337 // };
+ 338 // 
+ 339 // /*
+ 340 // ** Vectors should only be kept as references do prevent copying.
+ 341 // */
+ 342 // template<>struct MVOpStorage<Vector>
+ 343 // {
+ 344 //     typedef const Vector& Type;
+ 345 // };
+ 346 // 
+ 347 // /*
+ 348 // ** Vectors should only be kept as references do prevent copying.
+ 349 // */
+ 350 // template<>struct MVOpStorage<MaskedVector>
+ 351 // {
+ 352 //     typedef const MaskedVector& Type;
+ 353 // };
+ 354 // 
+ 355 // /*
+ 356 // ** Vector Negation Class
+ 357 // */
+ 358 // template <typename T1>
+ 359 // class MVNegative<Vector,T1>: public MVOp< Vector, MVNegative<Vector,T1> >
+ 360 // {
+ 361 //     private:
+ 362 //         typename MVOpStorage<T1>::Type v;
+ 363 // 
+ 364 //     public:
+ 365 //         MVNegative( const MVOp<Vector,T1>& vin )
+ 366 //           : v(static_cast<const T1&>(vin)) {}
+ 367 // 
+ 368 //         double operator[]( INT4 i ) const
+ 369 //         {
+ 370 //             return -v[i];
+ 371 //         }
+ 372 //         template <typename T2>
+ 373 //         bool contains( const T2* pObj ) const { return v.contains(pObj); }
+ 374 //         bool replacementSafe( void ) const { return v.replacementSafe(); }
+ 375 //         INT4 getSize( void ) const { return v.getSize(); }
+ 376 // };
+ 377 // 
+ 378 // /*
+ 379 // ** Vector Scalar Addition Class
+ 380 // */
+ 381 // template <typename T1>
+ 382 // class MVPlusDouble<Vector,T1>: public MVOp< Vector, MVPlusDouble<Vector,T1> >
+ 383 // {
+ 384 //     private:
+ 385 //         typename MVOpStorage<T1>::Type v;
+ 386 //         const double d;
+ 387 // 
+ 388 //     public:
+ 389 //         MVPlusDouble( const MVOp<Vector,T1>& vin, double din )
+ 390 //           : v(static_cast<const T1&>(vin)), d(din) {}
+ 391 // 
+ 392 //         double operator[]( INT4 i ) const
+ 393 //         {
+ 394 //             return v[i]+d;
+ 395 //         }
+ 396 //         template <typename T2>
+ 397 //         bool contains( const T2* pObj ) const { return v.contains(pObj); }
+ 398 //         bool replacementSafe( void ) const { return v.replacementSafe(); }
+ 399 //         INT4 getSize( void ) const { return v.getSize(); }
+ 400 // };
+ 401 // 
+ 402 // /*
+ 403 // ** Vector Scalar Multiplication Class
+ 404 // */
+ 405 // template <typename T1>
+ 406 // class MVTimesDouble<Vector,T1>: public MVOp< Vector,MVTimesDouble<Vector,T1> >
+ 407 // {
+ 408 //     private:
+ 409 //         typename MVOpStorage<T1>::Type v;
+ 410 //         const double d;
+ 411 // 
+ 412 //     public:
+ 413 //         MVTimesDouble( const MVOp<Vector,T1>& vin, double din )
+ 414 //           : v(static_cast<const T1&>(vin)), d(din) {}
+ 415 // 
+ 416 //         double operator[]( INT4 i ) const
+ 417 //         {
+ 418 //             return v[i]*d;
+ 419 //         }
+ 420 //         template <typename T2>
+ 421 //         bool contains( const T2* pObj ) const { return v.contains(pObj); }
+ 422 //         bool replacementSafe( void ) const { return v.replacementSafe(); }
+ 423 //         INT4 getSize( void ) const { return v.getSize(); }
+ 424 // };
+ 425 // 
+ 426 // /*
+ 427 // ** Vector Vector Addition Class
+ 428 // */
+ 429 // template <typename T1,typename T2>
+ 430 // class MVPlusMV<Vector,T1,T2>: public MVOp< Vector,MVPlusMV<Vector,T1,T2> >
+ 431 // {
+ 432 //     private:
+ 433 //         typename MVOpStorage<T1>::Type v1;
+ 434 //         typename MVOpStorage<T2>::Type v2;
+ 435 // 
+ 436 //     public:
+ 437 //         MVPlusMV( const MVOp<Vector,T1>& v1in, const MVOp<Vector,T2>& v2in )
+ 438 //           : v1(static_cast<const T1&>(v1in)), v2(static_cast<const T2&>(v2in))
+ 439 //         {
+ 440 //             VECTOR_OPERATION_CHECK( v1.getSize(), v2.getSize() );
+ 441 //         }
+ 442 //         double operator[]( INT4 i ) const
+ 443 //         {
+ 444 //             return v1[i]+v2[i];
+ 445 //         }
+ 446 //         template <typename T3>
+ 447 //         bool contains( const T3* pObj ) const
+ 448 //         {
+ 449 //             return ( v1.contains(pObj) || v2.contains(pObj) );
+ 450 //         }
+ 451 //         bool replacementSafe( void ) const
+ 452 //         {
+ 453 //             return ( v1.replacementSafe() && v2.replacementSafe() );
+ 454 //         }
+ 455 //         INT4 getSize( void ) const { return v1.getSize(); }
+ 456 // };
+ 457 // 
+ 458 // /*
+ 459 // ** Vector Vector Elementwise Multiplication Class
+ 460 // */
+ 461 // template <typename T1,typename T2>
+ 462 // class MVElementwiseMult<Vector,T1,T2>
+ 463 //     : public MVOp< Vector,MVElementwiseMult<Vector,T1,T2> >
+ 464 // {
+ 465 //     private:
+ 466 //         typename MVOpStorage<T1>::Type v1;
+ 467 //         typename MVOpStorage<T2>::Type v2;
+ 468 // 
+ 469 //     public:
+ 470 //         MVElementwiseMult( const MVOp<Vector,T1>& v1in,
+ 471 //                            const MVOp<Vector,T2>& v2in )
+ 472 //           : v1(static_cast<const T1&>(v1in)), v2(static_cast<const T2&>(v2in))
+ 473 //         {
+ 474 //             VECTOR_OPERATION_CHECK( v1.getSize(), v2.getSize() );
+ 475 //         }
+ 476 //         double operator[]( INT4 i ) const
+ 477 //         {
+ 478 //             return v1[i]*v2[i];
+ 479 //         }
+ 480 // 
+ 481 //         template <typename T3>
+ 482 //         bool contains( const T3* pObj ) const
+ 483 //         {
+ 484 //             return ( v1.contains(pObj) || v2.contains(pObj) );
+ 485 //         }
+ 486 //         bool replacementSafe( void ) const
+ 487 //         {
+ 488 //             return ( v1.replacementSafe() && v2.replacementSafe() );
+ 489 //         }
+ 490 //         INT4 getSize( void ) const { return v1.getSize(); }
+ 491 // };
+ 492 // 
+ 493 // #endif
 
 
 Summary Results
   Total files:      933
   Affected files:    72
-  Blocks removed:   169
-  Lines removed:   4611
+  Blocks removed:   221
+  Lines removed:  30460

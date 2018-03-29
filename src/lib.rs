@@ -89,3 +89,16 @@ pub fn print_commented_lines(ss: &Vec<String>, mark: &Mark, detailed: bool) {
         }
     }
 }
+
+pub fn find_conditional_end_line(ss: &Vec<String>, start_line: usize) -> usize {
+    for (i, s) in ss.iter().skip(start_line).enumerate() {
+        if is_start(s) {
+            println!("i = {}", i);
+            return find_conditional_end_line(&ss, i);
+        }
+        if is_end(s) {
+            return i + 1;
+        }
+    }
+    0
+}

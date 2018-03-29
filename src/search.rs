@@ -56,7 +56,7 @@ impl<'a> Search<'a> {
         for (i, s) in ss.into_iter().enumerate() {
             let s = s.trim();
             if target_line {
-                if is_start(s) || s.starts_with("#ifndef") {
+                if is_start(s) || s.starts_with("#ifndef") || s.starts_with("#else") {
                     mark.conditional = s.clone().to_string();
                     mark.start_line = i + 1;
                 }
@@ -70,9 +70,7 @@ impl<'a> Search<'a> {
                 }
             }
 
-            if is_start(s) && is_affirmative(s) && self.contains_target_usage(s)
-                && s.starts_with("#else")
-            {
+            if is_start(s) && is_affirmative(s) && self.contains_target_usage(s) {
                 target_line = true;
             }
         }
