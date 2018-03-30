@@ -94,7 +94,7 @@ pub fn find_conditional_end_line(ss: &Vec<String>, start_line: usize) -> usize {
     for (i, s) in ss.iter().skip(start_line).enumerate() {
         if is_start(s) {
             println!("i = {}", i);
-            return find_conditional_end_line(&ss, i);
+            return find_conditional_end_line(&ss, i + 1);
         }
         if is_end(s) {
             return i + 1;
