@@ -16,23 +16,17 @@ fn main() {
     let files = get_file_list(SOURCE);
     metrics.total_files = files.len();
 
-    search.debug_print_unique_target_ifs(&files);
+    // search.debug_print_unique_target_ifs(&files);
 
     for (full_file, _file) in files.clone() {
         if full_file == "/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh"
         {
-            println!("here");
+            println!("{}", full_file);
             let mut ss = read_file(&full_file);
-            let _aaa = find_conditional_end_line(&ss, 0);
-            println!("{}", _aaa)
+            print_vec_range(&ss, 14, 43);
+            // let _aaa = find_conditional_end_line(&ss, 0);
+            // println!("{}", _aaa)
         }
-
-        // process affirmatives
-        // search.process_nested_affirmatives(&mut ss, &full_file, false);
-        // search.process_affirmative(&mut ss, &mut metrics, &full_file, true)
-
-        // process not affirmative
     }
     metrics.print_summary_metrics();
-    // print_vec(&metrics.removed_lines);
 }

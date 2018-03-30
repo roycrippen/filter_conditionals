@@ -34,7 +34,7 @@ pub fn is_affirmative(s: &str) -> bool {
     !s.contains("!") && !s.starts_with("#ifndef")
 }
 
-pub fn read_file(path: &String) -> Vec<String> {
+pub fn read_file(path: &str) -> Vec<String> {
     let mut f = File::open(path).unwrap();
     let mut buffer = String::new();
     f.read_to_string(&mut buffer).unwrap();
