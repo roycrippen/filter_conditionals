@@ -11,32 +11,39 @@ pub struct Search {
 }
 
 impl<'a> Search {
+    pub fn contains_target(&self, s: &str) -> bool {
+        self.targets.iter().any(|k| s.contains(k))
+    }
+
     pub fn debug_print_unique_target_ifs(&self, files: &Vec<(String, String)>) {
         let mut xs = vec![];
         let mut ys = vec![];
         for &(ref fully_qualified_file, ref _file) in files {
             let ss = read_file(&fully_qualified_file);
             for s in ss {
-                let s_trim = s.trim().to_string();
-                if is_start(&s_trim) && self.targets.contains(&s) {
+                if is_start(&s) && self.contains_target(&s) {
                     if is_affirmative(&s) {
-                        xs.push(s_trim);
+                        xs.push(s);
                     } else {
-                        ys.push(s_trim);
+                        ys.push(s);
                     }
                 }
             }
         }
+
         xs.sort();
         xs.dedup();
+        println!("Affirmative targets:");
         for x in xs.iter() {
-            println!("affirmative if: {:50}", x)
+            println!("{}", x.trim())
         }
         println!("");
+
         ys.sort();
         ys.dedup();
+        println!("Non-affirmative targets:");
         for y in ys.iter() {
-            println!("not affirmative if: {:50}", y)
+            println!("{}", y.trim())
         }
         println!("")
     }

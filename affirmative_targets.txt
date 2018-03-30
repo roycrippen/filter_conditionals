@@ -6,4 +6,8 @@
 #if (defined CPU_B) || (defined NRTSIM)
 #if (defined NRTSIM)
 #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+#if defined(_DEBUG) && (NRTSIM || RTCLSIM)
 #ifdef NRTSIM
+#ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
+#if (!defined CPU_B) || (defined NRTSIM)
+#if ((NRTSIM || RTCLSIM) && (!__PPC604__))

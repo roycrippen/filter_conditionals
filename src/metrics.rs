@@ -1,20 +1,45 @@
-use std::collections::HashSet;
+use std::fmt;
+
+#[derive(Debug, Default, Clone)]
+pub struct Mark {
+    pub file: String,
+    pub lines: Vec<(usize, usize)>,
+}
+
+impl fmt::Display for Mark {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
 
 #[derive(Default)]
 pub struct Metrics {
     pub total_files: usize,
-    pub removed_blocks: usize,
-    pub affected_files: HashSet<String>,
-    pub removed_lines: Vec<String>,
+    pub marks: Vec<Mark>,
 }
 
 impl Metrics {
+    fn get_removed_blocks_cnt(&self) -> usize {
+        self.marks
+            .iter()
+            .fold(0, |acc, v| {
+                acc + v.lines.len()
+            })
+    } 
+
+    fn get_removed_lines_cnt(&self) -> usize {
+        self.marks
+            .iter()
+            .fold(0, |acc1, v| {
+                acc1 + v.lines.iter().fold(0, |acc2, &(b, e)| { acc2 + e - b })
+            })
+    } 
+
     pub fn print_summary_metrics(&self) {
-        let removed_lines = self.removed_lines.len() - self.removed_blocks * 2;
         println!("\nSummary Results");
         println!("  Total files:    {:5}", self.total_files);
-        println!("  Affected files: {:5}", self.affected_files.len());
-        println!("  Blocks removed: {:5}", self.removed_blocks);
-        println!("  Lines removed:  {:5}", removed_lines);
+        println!("  Affected files: {:5}", self.marks.len());
+        println!("  Blocks removed: {:5}", self.get_removed_blocks_cnt());
+        println!("  Lines removed:  {:5}", self.get_removed_lines_cnt());
     }
 }

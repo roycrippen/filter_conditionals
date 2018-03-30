@@ -1,19 +1,19 @@
-#if !( NRTSIM || RTCLSIM )                        
-#if !(NRTSIM || RTCLSIM)                          
-#if !(NRTSIM)                                     
-#if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )    
-#if ( !NRTSIM && !RTCLSIM )                       
-#if ( !NRTSIM )                                   
-#if (!NRTSIM && !RTCLSIM)                         
-#if (!NRTSIM )                                    
+#if !( NRTSIM || RTCLSIM )
+#if !(NRTSIM || RTCLSIM)
+#if !(NRTSIM)
+#if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )
+#if ( !NRTSIM && !RTCLSIM )
+#if ( !NRTSIM )
+#if (!NRTSIM && !RTCLSIM)
+#if (!NRTSIM )
 #if (!NRTSIM || _TBBVSIM_ ) // Not needed for desktop simulation
-#if (!NRTSIM)                                     
+#if (!NRTSIM)
 #if (!NRTSIM) // Not needed for desktop simulation
-#if (!defined CPU_B) && (!defined NRTSIM)         
-#if (!defined CPU_B) || (defined NRTSIM)          
-#if (!defined NRTSIM)                             
-#if ((NRTSIM || RTCLSIM) && (!__PPC604__))        
-#if (defined CPU_B) && (!defined NRTSIM)          
-#if (defined WINDVIEW_DEBUG) && (!defined NRTSIM) 
-#ifndef NRTSIM                                    
-#ifndef RTCLSIM  
+#if (!defined CPU_B) && (!defined NRTSIM)
+// moved to affirmative #if (!defined CPU_B) || (defined NRTSIM)
+#if (!defined NRTSIM)
+// moved to affirmative #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+#if (defined CPU_B) && (!defined NRTSIM)
+#if (defined WINDVIEW_DEBUG) && (!defined NRTSIM)
+#ifndef NRTSIM
+#ifndef RTCLSIM

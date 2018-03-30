@@ -5,29 +5,15 @@ use self::walkdir::{DirEntry, WalkDir};
 use std::io::prelude::*;
 use std::fs::File;
 use std::fmt::Display;
-use std::fmt;
-
-#[derive(Debug, Default, Clone)]
-pub struct Mark {
-    pub conditional: String,
-    pub start_line: usize,
-    pub end_line: usize,
-    pub file: String,
-}
-
-impl fmt::Display for Mark {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
 
 pub fn is_start(s: &str) -> bool {
     s.starts_with("#")
-        && (s.starts_with("#if") || s.starts_with("#ifdef") || s.starts_with("#elif"))
+        && (s.starts_with("#if") || s.starts_with("#ifdef") || s.starts_with("#elif")
+            || s.starts_with("#ifndef"))
 }
 
-pub fn is_end(s: &str) -> bool {
-    s.starts_with("#endif") || s.starts_with("#elif") || s.starts_with("#else")
+pub fn is_end(s: &str, else_end: bool) -> bool {
+    s.starts_with("#endif") || s.starts_with("#elif") || (s.starts_with("#else") && else_end)
 }
 
 pub fn is_affirmative(s: &str) -> bool {
@@ -74,30 +60,26 @@ pub fn print_vec_range<T: Display>(xs: &Vec<T>, start: usize, end: usize) {
     (start..end + 1).for_each(|i| println!("{:4} {}", i + 1, xs[i]))
 }
 
-pub fn comment_lines(ss: &mut Vec<String>, mark: &Mark) {
-    if mark.start_line > 0 && mark.end_line > 0 {
-        (mark.start_line - 1..mark.end_line).for_each(|i| ss[i] = format!("// {}", ss[i]));
-    }
-}
+pub fn find_conditional_end_line(ss: &Vec<String>, start_line: usize, else_end: bool) -> usize {
+    let mut current_line = start_line;
+    let mut next_line = current_line + 1;
+    let mut it = ss.iter().skip(next_line);
 
-pub fn print_commented_lines(ss: &Vec<String>, mark: &Mark, detailed: bool) {
-    if mark.start_line > 0 && mark.end_line > 0 {
-        println!("{}", mark);
-        if detailed {
-            print_vec_range(&ss, mark.start_line - 1, mark.end_line - 1);
-            println!("");
-        }
-    }
-}
-
-pub fn find_conditional_end_line(ss: &Vec<String>, start_line: usize) -> usize {
-    for (i, s) in ss.iter().skip(start_line).enumerate() {
-        if is_start(s) {
-            println!("i = {}", i);
-            return find_conditional_end_line(&ss, i + 1);
-        }
-        if is_end(s) {
-            return i + 1;
+    loop {
+        current_line += 1;
+        match it.next() {
+            Some(s) => {
+                if next_line > current_line {
+                    continue;
+                }
+                if is_start(s) {
+                    next_line = find_conditional_end_line(&ss, current_line, false) + 1;
+                }
+                if is_end(s, else_end) {
+                    return current_line;
+                }
+            }
+            None => break,
         }
     }
     0
