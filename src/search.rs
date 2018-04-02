@@ -2,7 +2,7 @@
 use std::collections::HashSet;
 use std::fmt;
 
-use lib::*;
+use utils::{is_affirmative, is_start, read_file};
 
 pub struct Search {
     pub targets: HashSet<String>,

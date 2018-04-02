@@ -16,30 +16,26 @@ impl fmt::Display for Mark {
 pub struct Metrics {
     pub total_files: usize,
     pub marks: Vec<Mark>,
+    pub log: Vec<String>,
 }
 
 impl Metrics {
     fn get_removed_blocks_cnt(&self) -> usize {
-        self.marks
-            .iter()
-            .fold(0, |acc, v| {
-                acc + v.lines.len()
-            })
-    } 
+        self.marks.iter().fold(0, |acc, v| acc + v.lines.len())
+    }
 
     fn get_removed_lines_cnt(&self) -> usize {
-        self.marks
-            .iter()
-            .fold(0, |acc1, v| {
-                acc1 + v.lines.iter().fold(0, |acc2, &(b, e)| { acc2 + e - b })
-            })
-    } 
+        self.marks.iter().fold(0, |acc1, v| {
+            acc1 + v.lines.iter().fold(0, |acc2, &(b, e)| acc2 + e - b)
+        })
+    }
 
-    pub fn print_summary_metrics(&self) {
-        println!("\nSummary Results");
-        println!("  Total files:    {:5}", self.total_files);
-        println!("  Affected files: {:5}", self.marks.len());
-        println!("  Blocks removed: {:5}", self.get_removed_blocks_cnt());
-        println!("  Lines removed:  {:5}", self.get_removed_lines_cnt());
+    pub fn fmt_summary_metrics(&self) -> String {
+        let s1 = format!("Summary Results\n");
+        let s2 = format!("  Total files:    {:5}\n", self.total_files);
+        let s3 = format!("  Affected files: {:5}\n", self.marks.len());
+        let s4 = format!("  Blocks removed: {:5}\n", self.get_removed_blocks_cnt());
+        let s5 = format!("  Lines removed:  {:5}\n", self.get_removed_lines_cnt());
+        s1 + &s2 + &s3 + &s4 + &s5
     }
 }

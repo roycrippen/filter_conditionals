@@ -1,48 +1,49 @@
 Target identifiers: 
   [ 
-    NRTSIM
     RTCLSIM
+    NRTSIM
   ]
 
 Affirmative targets: 
   [ 
-    #if (NRTSIM || RTCLSIM)
-    #if ( NRTSIM )
-    #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
-    #if defined(_DEBUG) && (NRTSIM || RTCLSIM)
-    #if (NRTSIM || RTCLSIM || _DEBUG)
-    #if ( NRTSIM || RTCLSIM )
     #ifdef NRTSIM
-    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
-    #if (defined CPU_B) || (defined NRTSIM)
+    #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
+    #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+    #if defined(_DEBUG) && (NRTSIM || RTCLSIM)
     #if (NRTSIM)
+    #if ( NRTSIM || RTCLSIM )
+    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+    #if (NRTSIM || RTCLSIM || _DEBUG)
+    #if (NRTSIM || RTCLSIM)
+    #if (!defined CPU_B) || (defined NRTSIM)
     #if (defined NRTSIM)
+    #if (defined CPU_B) || (defined NRTSIM)
+    #if ( NRTSIM )
   ]
 
 Non-affirmative targets: 
   [ 
-    #if (!defined CPU_B) && (!defined NRTSIM)         
-    #if !(NRTSIM || RTCLSIM)                          
-    #if (!NRTSIM && !RTCLSIM)                         
-    #if ((NRTSIM || RTCLSIM) && (!__PPC604__))        
-    #ifndef RTCLSIM  
-    #if (!defined CPU_B) || (defined NRTSIM)          
-    #if ( !NRTSIM && !RTCLSIM )                       
-    #if (!NRTSIM)                                     
-    #if (defined WINDVIEW_DEBUG) && (!defined NRTSIM) 
-    #if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )    
+    #if !( NRTSIM || RTCLSIM )
+    #if (!defined CPU_B) && (!defined NRTSIM)
     #if (!NRTSIM) // Not needed for desktop simulation
-    #if (!defined NRTSIM)                             
-    #ifndef NRTSIM                                    
+    #if !(NRTSIM || RTCLSIM)
+    #if !(NRTSIM)
+    #if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )
+    #if (!NRTSIM && !RTCLSIM)
+    #if (defined CPU_B) && (!defined NRTSIM)
+    #if (!NRTSIM)
+    #if ( !NRTSIM && !RTCLSIM )
     #if (!NRTSIM || _TBBVSIM_ ) // Not needed for desktop simulation
-    #if !(NRTSIM)                                     
-    #if ( !NRTSIM )                                   
-    #if (!NRTSIM )                                    
-    #if !( NRTSIM || RTCLSIM )                        
-    #if (defined CPU_B) && (!defined NRTSIM)          
+    #if (defined WINDVIEW_DEBUG) && (!defined NRTSIM)
+    #ifndef NRTSIM
+    #ifndef RTCLSIM
+    #if ( !NRTSIM )
+    #if (!NRTSIM )
+    #if (!defined NRTSIM)
   ]
 
-/home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h
+file:        /home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h
+Conditional: #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
   46 #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
   47 
   48 #include "systypes.h"
@@ -55,7 +56,8 @@ Non-affirmative targets:
   55 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AcsAutopilot_test/src/AcsAutopilot_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AcsAutopilot_test/src/AcsAutopilot_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
   57 #if ( NRTSIM || RTCLSIM )
   58 void help(char*);
   59 
@@ -209,7 +211,8 @@ Non-affirmative targets:
  207 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AlphaLoop_test/src/AlphaLoop_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/AlphaLoop_test/src/AlphaLoop_test.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  135 #if (NRTSIM || RTCLSIM)
  136 void printHelp()
  137 {
@@ -292,7 +295,8 @@ Non-affirmative targets:
  214 #endif // (NRTSIM || RTCLSIM)
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
   79 #if ( NRTSIM || RTCLSIM )
   80 
   81 /**
@@ -401,19 +405,22 @@ Non-affirmative targets:
  184 #endif /* ( NRTSIM || RTCLSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/InnerLoop_test/src/InnerLoop_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
  767 #if ( NRTSIM || RTCLSIM )
  768     MyActuator &myActuator = *(new MyActuator("/dev/null"));
  769 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   92 #if (NRTSIM || RTCLSIM)
   93 void help(char*);
   94 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  138 #if (NRTSIM || RTCLSIM)
  139 
  140 /**
@@ -517,13 +524,15 @@ Non-affirmative targets:
  238 #endif /* (NRTSIM || RTCLSIM) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  678 #if (NRTSIM || RTCLSIM)
  679         help("Missing mandatory Input Filename.\n");
  680 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OuterLoop_test/src/OuterLoop_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cAutoPilot/test/OuterLoop_test/src/OuterLoop_test.cc
+Conditional: #if ( NRTSIM )
   88 #if ( NRTSIM )
   89 
   90 void printHelp()
@@ -619,7 +628,8 @@ Non-affirmative targets:
  180 #endif /* ( NRTSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cFilter/test/AccelFilter_test/src/AccelFilter_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cFilter/test/AccelFilter_test/src/AccelFilter_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
   66 #if ( NRTSIM || RTCLSIM )
   67 
   68 void printHelp()
@@ -717,7 +727,8 @@ Non-affirmative targets:
  160 #endif /* ( NRTSIM || RTCLSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cFilter/test/RateFilter_test/src/RateFilter_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cFilter/test/RateFilter_test/src/RateFilter_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
   67 #if ( NRTSIM || RTCLSIM )
   68 
   69 void printHelp()
@@ -815,7 +826,8 @@ Non-affirmative targets:
  161 #endif /* ( NRTSIM || RTCLSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  317 #ifdef NRTSIM
  318                 printf("LambertScrubGuide: Attempting to execute in an invalid "
  319                        "mode ... Exiting\n");
@@ -823,14 +835,16 @@ Non-affirmative targets:
  321 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  359 #ifdef NRTSIM
  360                 printf("LambertScrubGuide: Failed to converge in guidance "
  361                        "mode %d\n", guidanceMode);
  362 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  413 #ifdef NRTSIM
  414         printf("LambertScrubGuide::setGuidanceMode: Cannot command "
  415                "guidance to UNINITIALIZED mode using this function. "
@@ -839,7 +853,8 @@ Non-affirmative targets:
  418 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  440 #ifdef NRTSIM
  441                     printf("LambertScrubGuide::setGuidanceMode: Cannot command "
  442                            "guidance to INIT_GUIDANCE_FIXED_IGNITION_TIME mode "
@@ -849,7 +864,8 @@ Non-affirmative targets:
  446 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  451 #ifdef NRTSIM
  452                 printf("LambertScrubGuide::setGuidanceMode: Cannot command "
  453                        "guidance to INIT_GUIDANCE_FIXED_IGNITION_TIME mode "
@@ -859,7 +875,8 @@ Non-affirmative targets:
  457 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  462 #ifdef NRTSIM
  463             printf("LambertScrubGuide::setGuidanceMode: Can only transition "
  464                    "guidance to INIT_GUIDANCE_FIXED_IGNITION_TIME mode from "
@@ -868,7 +885,8 @@ Non-affirmative targets:
  467 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  486 #ifdef NRTSIM
  487                 printf("LambertScrubGuide::setGuidanceMode: Cannot command "
  488                        "guidance to INIT_GUIDANCE_VARIABLE_IGNITION_TIME mode "
@@ -878,7 +896,8 @@ Non-affirmative targets:
  492 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  497 #ifdef NRTSIM
  498             printf("LambertScrubGuide::setGuidanceMode: Can only transition "
  499                    "guidance to INIT_GUIDANCE_VARIABLE_IGNITION_TIME mode from "
@@ -887,7 +906,8 @@ Non-affirmative targets:
  502 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  510 #ifdef NRTSIM
  511             printf("*** WARNING -> NO TRANSLATIONAL ERRORS NORMAL TO THE "
  512                    "ALONG DIRECTION WILL BE CORRECTED !!!\n"
@@ -897,7 +917,8 @@ Non-affirmative targets:
  516 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  526 #ifdef NRTSIM
  527         printf("LambertScrubGuide::setGuidanceMode: Cannot command "
  528                "guidance to STANDBY mode using this function. "
@@ -907,7 +928,8 @@ Non-affirmative targets:
  532 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  546 #ifdef NRTSIM
  547                 printf("LambertScrubGuide::setGuidanceMode: Cannot command "
  548                        "guidance to RECOMPUTE_IGNITION_TIME mode without "
@@ -917,7 +939,8 @@ Non-affirmative targets:
  552 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  556 #ifdef NRTSIM
  557             printf("LambertScrubGuide::setGuidanceMode: Can only transition "
  558                    "guidance to RECOMPUTE_IGNITION_TIME mode from the "
@@ -926,7 +949,8 @@ Non-affirmative targets:
  561 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  576 #ifdef NRTSIM
  577             printf("LambertScrubGuide::setGuidanceMode: Can only transition "
  578                    "guidance to RUN_GUIDANCE mode from the STANDBY mode "
@@ -935,7 +959,8 @@ Non-affirmative targets:
  581 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  591 #ifdef NRTSIM
  592         printf("LambertScrubGuide::setGuidanceMode: Attempting to set "
  593                "guidance to an invalid mode ... Exiting\n");
@@ -943,7 +968,8 @@ Non-affirmative targets:
  595 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  631 #ifdef NRTSIM
  632         printf("LambertScrubGuide::setScrubStrategy: Cannot set the "
  633                "scrub strategy after guidance has been initialized ... "
@@ -952,7 +978,8 @@ Non-affirmative targets:
  636 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
  801 #ifdef NRTSIM
  802         printf("LambertScrubGuide::calcAxleOfRotation: Attempting to compute "
  803                "the scrubAxleOfRotation with an invalid scrub strategy ... "
@@ -961,7 +988,8 @@ Non-affirmative targets:
  806 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/src/lambertScrubGuide.cc
+Conditional: #ifdef NRTSIM
 1765 #ifdef NRTSIM
 1766         printf("LambertScrubGuide::calcScrub: steering vector and "
 1767                "axleOfRotation for the scrub are parallel ... Exiting\n");
@@ -969,13 +997,15 @@ Non-affirmative targets:
 1769 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
   23 #if (NRTSIM)
   24 #include "cmdlineargs.hh"
   25 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
   47 #if (NRTSIM)
   48 /**
   49 ********************************************************************************
@@ -1111,7 +1141,8 @@ Non-affirmative targets:
  179 #endif /* (NRTSIM) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
  200 #if (NRTSIM)
  201 oscINT32 LambertGuideTestChild::LambertGuidance_test(oscUINT32 scrubStrategy,
  202                                                      oscUINT32 initScrubMode,
@@ -1121,13 +1152,15 @@ Non-affirmative targets:
  206 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
  427 #if (NRTSIM)
  428     OsTask::setInitEntryFunction(LambertGuideTestChild::Start,OSTASK_MIN_PRIORITY);
  429 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
  455 #if (NRTSIM)
  456     switch (failureMode)
  457     {
@@ -1583,13 +1616,15 @@ Non-affirmative targets:
  907 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
 1035 #if (NRTSIM)
 1036         OsTask::execRunQueue();
 1037 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.cc
+Conditional: #if (NRTSIM)
 1049 #if (NRTSIM)
 1050             if ( 2 == setPend ) // run for pend case
 1051             {
@@ -1606,7 +1641,8 @@ Non-affirmative targets:
 1062 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/LambertScrubGuide_test/src/LambertScrubGuide_test.hh
+Conditional: #if (NRTSIM)
   59 #if (NRTSIM)
   60     static int LambertGuidance_test(oscUINT32 scrubStrategy,
   61                                     oscUINT32 initScrubMode,
@@ -1616,7 +1652,8 @@ Non-affirmative targets:
   65 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/VelocitySteering_test/src/VelocitySteering_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cGuidance/test/VelocitySteering_test/src/VelocitySteering_test.cc
+Conditional: #if ( NRTSIM )
   91 #if ( NRTSIM )
   92 /*
   93 ;------------------------------------------------------------------------------
@@ -1723,7 +1760,8 @@ Non-affirmative targets:
  194 #endif /* ( NRTSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/cNavigator/src/NexGenSigiRT.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/cNavigator/src/NexGenSigiRT.cc
+Conditional: #if (NRTSIM)
  470 #if (NRTSIM)
  471                 /*
  472                 ** Additional logic so that NRTSIM mimics 1553 device driver
@@ -1738,14 +1776,16 @@ Non-affirmative targets:
  481 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   84 #if (NRTSIM || RTCLSIM)
   85             printf("Upper limit not >= lower limit ... Exiting\n");
   86             exit(-1);
   87 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   95 #if (NRTSIM || RTCLSIM)
   96         if ( limit < _FLOATING_POINT_TOLERENCE ) {
   97             printf("Lower limit not < zero tolerance %f ... Exiting\n",
@@ -1755,7 +1795,8 @@ Non-affirmative targets:
  101 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/flightConditions.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  106 #if (NRTSIM || RTCLSIM)
  107             else {
  108                 printf("Lower limit not <= upper limit ... Exiting\n");
@@ -1764,13 +1805,15 @@ Non-affirmative targets:
  111 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/hwdevice.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/hwdevice.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   26 #if (NRTSIM || RTCLSIM)
   27 #include "simhwdevice.hh"
   28 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/lambertScrubGuide.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/lambertScrubGuide.hh
+Conditional: #ifdef NRTSIM
  512 #ifdef NRTSIM
  513     void initErrorCheck(const BYTE *string)
  514     {
@@ -1784,25 +1827,79 @@ Non-affirmative targets:
  522 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/que.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/ostask.hh
+Conditional: #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+  24 #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+  25 #include "simostask.hh"
+  26 #else
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/que.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   24 #if (NRTSIM || RTCLSIM)
   25 #include "simQue.hh"
   26 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/timeBase.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/semaphore.hh
+Conditional: #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+  24 #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+  25 #include "simsemaphore.hh"
+  26 #else
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/timeBase.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   21 #if (NRTSIM || RTCLSIM)
   22 #include "simTimeBase.hh"
   23 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Flight/include/watchdog.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Flight/include/watchdog.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   22 #if (NRTSIM || RTCLSIM)
   23 #include "simwatchdog.hh"
   24 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/c1553/src/ObvRemoteTerminal.cc
+Conditional: #if (!NRTSIM)
+ 125 #else //NRTSIM
+ 126 
+ 127     oscINT32 result = M1553_MESSAGE_NONE;
+ 128     oscINT32 bytesRead = rtObj->devRead((BYTE *)raw,sizeof(Full1553MsgType));
+ 129 
+ 130     if ( bytesRead == sizeof(Full1553MsgType) )
+ 131     {
+ 132         if ( ByteOrder::htobe(raw->subAddress) == 11 )
+ 133         {
+ 134             result = M1553_MESSAGE_ONE;
+ 135         }
+ 136         else
+ 137         {
+ 138             result = M1553_MESSAGE_MANY;
+ 139         }
+ 140     }
+ 141 #ifdef _DEBUG
+ 142     else if ( bytesRead != 0 )
+ 143     {
+ 144         printf("ERROR: NextGenSigi.cc bytes read = %d\n", bytesRead);
+ 145         exit(-1);
+ 146     }
+ 147 #endif //_DEBUG
+ 148     return (result);
+ 149 #endif //NRTSIM
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+  32 #else
+  33 #include "byteOrder.hh"
+  34 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
   75 #if ( NRTSIM || RTCLSIM )
   76 void help(char*);
   77 
@@ -1902,7 +1999,104 @@ Non-affirmative targets:
  171 #endif /* ( NRTSIM || RTCLSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+ 210 #else
+ 211     BYTE             aBuf[ALLIED_RX_DATA_LEN] = {0};
+ 212     BYTE             pBuf[PARKER_RX_DATA_LEN] = {0};
+ 213     INT4             bytes         = 0;
+ 214     INT2             pitCmd        = 0;
+ 215     INT2             yawCmd        = 0;
+ 216     double           pit           = 0.0;
+ 217     double           yaw           = 0.0;
+ 218 
+ 219     /*
+ 220     ** Parker actuator specific parameters taken from o50actsys.cc
+ 221     */
+ 222     const double     zeroOffset    = (double)0x200;
+ 223     const double     scale         = 3.5 * DEG2RAD / zeroOffset;
+ 224     const double     talkbackScale = +1739.178517195578; // counts per rad
+ 225 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+ 304 #else
+ 305     /*
+ 306     ** Instantiate simulation-to-flight code interface objects
+ 307     */
+ 308     HwDevice &simAlliedHwDevice = *(new HwDevice(S1_TVC, 0, 0));
+ 309     HwDevice &simParkerHwDevice = *(new HwDevice(S2_TVC, 0, 0));
+ 310     HwDevice &simParkerHwDevice_s3 = *(new HwDevice(S3_TVC, 0, 0));
+ 311 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+ 395 #else
+ 396                     simAlliedHwDevice.devFlush();
+ 397 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+ 426 #else
+ 427                     bytes = simAlliedHwDevice.devRead(aBuf, sizeof(aBuf));
+ 428 
+ 429                     /*
+ 430                     ** Transmission order within a byte is least significant bit
+ 431                     ** first.  Transmission order within a message is least
+ 432                     ** significant byte first.
+ 433                     */
+ 434                     actuatorCommands[PITCH] = (((aBuf[1] & 0x0f) << 8) |
+ 435                         (aBuf[0] & 0x0ff)) & 0x0fff;
+ 436                     actuatorCommands[YAW] = (((aBuf[3] & 0x0f) << 8) |
+ 437                         (aBuf[2] & 0x0ff)) & 0x0fff;
+ 438 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+ 523 #else
+ 524                     simParkerHwDevice.devFlush();
+ 525                     simParkerHwDevice_s3.devFlush();
+ 526 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if !( NRTSIM || RTCLSIM )
+ 559 #else
+ 560                     bytes = simParkerHwDevice.devRead(pBuf, sizeof(pBuf));
+ 561                     bytes = simParkerHwDevice_s3.devRead(pBuf, sizeof(pBuf));
+ 562 
+ 563                     /*
+ 564                     ** Transmission order within a byte is least significant bit
+ 565                     ** first.  Transmission order within a message is least
+ 566                     ** significant byte first.
+ 567                     */
+ 568                     pitCmd = ((((pBuf[1] & 0x0ff) << 8) | (pBuf[0] & 0x0ff)) &
+ 569                         0x3ff);
+ 570                     yawCmd = ((((pBuf[3] & 0x0ff) << 8) | (pBuf[2] & 0x0ff)) &
+ 571                         0x3ff);
+ 572 
+ 573                     /*
+ 574                     ** Convert integer count (10 bit number) to radians
+ 575                     */
+ 576                     pit = ((double)pitCmd - zeroOffset) * scale;
+ 577                     yaw = ((double)yawCmd - zeroOffset) * scale;
+ 578 
+ 579                     /*
+ 580                     ** Form response message
+ 581                     */
+ 582                     actuatorCommands[PITCH] = pit * talkbackScale -
+ 583                         feedbackOffset;
+ 584                     actuatorCommands[YAW] = yaw * talkbackScale -
+ 585                         feedbackOffset;
+ 586 #endif /* !( NRTSIM || RTCLSIM ) */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cActuator/test/target/TvcActuator_test/src/TvcActuator_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
  688 #if ( NRTSIM || RTCLSIM )
  689     delete &simAlliedHwDevice;
  690     delete &simParkerHwDevice;
@@ -1910,7 +2104,15 @@ Non-affirmative targets:
  692 #endif /* ( NRTSIM || RTCLSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cAvionics/src/avCmdTask.cc
+Conditional: #ifndef NRTSIM
+  37 #else
+  38 #define OPEN   1
+  39 #endif // !NRTSIM
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
+Conditional: #if (defined CPU_B) || (defined NRTSIM)
   17 #if (defined CPU_B) || (defined NRTSIM)
   18 
   19 /*
@@ -2240,92 +2442,8 @@ Non-affirmative targets:
  343 #endif // CPU_B
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
-  38 #if (NRTSIM)
-  39 #include "fileparser.hh"
-  40 #include "cmdlineargs.hh"
-  41 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
-  93 #if (NRTSIM)
-  94     simOutput = 0;
-  95     FileParser &MissionFile = *(new FileParser("MISSION.DAT"));
-  96 
-  97     /*
-  98     ** Set the simOutput based on the command line argument "so", otherwise,
-  99     ** set it based on the value in the MISSION.DAT data file.
- 100     */
- 101     BOOLEAN simOutputSpecified = CmdLineArgs::getArg("so", simOutput);
- 102     if (false == simOutputSpecified)
- 103     {
- 104         simOutput = (INT4)MissionFile.getDouble("simOutput");
- 105     }
- 106 
- 107     /*
- 108     ** Error check the value of the simOutput variable
- 109     */
- 110     if (simOutput > 2)
- 111     {
- 112         printf("WARNING: Setting simOutput value (%d) to 1\n",
- 113                simOutput);
- 114         simOutput = 1;
- 115     }
- 116 
- 117     /*
- 118     ** Specify a single output time step for all data
- 119     */
- 120     double outputDeltaT;
- 121     bool dtSpecified = CmdLineArgs::getArg("dt", outputDeltaT);
- 122     if (false == dtSpecified)
- 123     {
- 124         outputDeltaT = MissionFile.getDouble("OutputDeltaT");
- 125     }
- 126 
- 127     if (outputDeltaT < 0.0)
- 128     {
- 129         printf("WARNING: outputDeltaT < 0.0.  Reset (%f) to 0.0.\n",
- 130                outputDeltaT);
- 131         outputDeltaT = 0.0;
- 132     }
- 133 
- 134     /*
- 135     ** Simulation output time step
- 136     */
- 137     covOutputDt = outputDeltaT;
- 138     banOutputDt = outputDeltaT;
- 139 
- 140     if (outputDeltaT < _FLOATING_POINT_TOLERANCE)
- 141     {
- 142         covOutputDt = MissionFile.getDouble("covOutputDt");
- 143         banOutputDt = MissionFile.getDouble("banOutputDt");
- 144     }
- 145 
- 146     MissionFile.disableUnreadDataWarnings();
- 147     delete &MissionFile;
- 148 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
- 166 #if (NRTSIM)
- 167     SET_OUTPUT_PRODUCER_NAME_OBV(COV, "cov", simOutput);
- 168 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
- 193 #if (NRTSIM)
- 194     SET_OUTPUT_PRODUCER_NAME_OBV(BAN, "ban", simOutput);
- 195 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/banCovMgr.cc
- 337 #if (NRTSIM)
- 338     ACTIVATE_OUTPUT_OBV(COV, covOutputDt, simOutput);
- 339     ACTIVATE_OUTPUT_OBV(BAN, banOutputDt, simOutput);
- 340 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/bandata.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBAN/src/bandata.cc
+Conditional: #ifdef NRTSIM
   91 #ifdef NRTSIM
   92 
   93     /*
@@ -2369,7 +2487,24 @@ Non-affirmative targets:
  131 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/FlightCompBit.cc
+Conditional: #ifndef NRTSIM
+  41 #else
+  42 bool orbImageValidationTest (void){return true;};
+  43 bool orbSioRamTest          (void){return true;};
+  44 bool orbTimerSetTest        (void){return true;};
+  45 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/FlightCompBit.cc
+Conditional: #ifndef NRTSIM
+ 257 #else
+ 258   return true;
+ 259 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc
+Conditional: #ifdef NRTSIM
   34 #ifdef NRTSIM
   35 void   orbLEDset (oscUINT32 value)
   36 {
@@ -2378,7 +2513,18 @@ Non-affirmative targets:
   39 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc
+Conditional: #ifndef NRTSIM
+  52 #else
+  53 
+  54 void orbSioMemCtlTestSet ( void ) {}
+  55 void orbSioMemCtlAppSet  ( void ) {}
+  56 
+  57 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc
+Conditional: #if (defined NRTSIM)
  136 #if (defined NRTSIM)
  137     (void) _result;
  138     // Return success in NRTSIM
@@ -2387,7 +2533,102 @@ Non-affirmative targets:
  141 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cCle/src/CleTxMessageFactory.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cBit/src/StartUpBit.cc
+Conditional: #if (!defined CPU_B) || (defined NRTSIM)
+ 325 #if (!defined CPU_B) || (defined NRTSIM)
+ 326 
+ 327     /*
+ 328      * Lock out RAM until the SIO test passes
+ 329      */
+ 330     orbSioMemCtlTestSet();
+ 331 
+ 332     _result = processBit(FC_SIO_RAM, NULL);
+ 333     if (BIT_ROLLUP_PASS == _result)
+ 334     {
+ 335         BIT_CLEAR( localResult, SUP_FC_SIO_RAM_BIT );
+ 336     }
+ 337     else
+ 338     {
+ 339         /*
+ 340          * Write the FATAL SIO failure status out the LED and drop into an
+ 341          * infinite loop. The application will not proceed past this failure.
+ 342          */
+ 343         while(1)
+ 344         {
+ 345             orbLEDset(OBVTP_F_STARTUP_SIOFAIL);
+ 346 
+ 347             /*
+ 348              * The task delay is here to allow OS tasks to run in case of a fatal
+ 349              * BIT error.
+ 350              */
+ 351             taskDelay(1);
+ 352         };
+ 353     }
+ 354 
+ 355     /*
+ 356      * SIO Test passed, set the SIO memory controller up for application running
+ 357      */
+ 358     orbSioMemCtlAppSet();
+ 359 
+ 360     _result = processBit(FC_BC_S1_S2_PRESENT, NULL);
+ 361     if (BIT_ROLLUP_PASS == _result)
+ 362     {
+ 363         BIT_CLEAR( localResult, SUP_FC_BC_S1_S2_PRESENT_BIT );
+ 364     }
+ 365 
+ 366     _result = processBit(FC_BC_S3_PRESENT, NULL);
+ 367     if (BIT_ROLLUP_PASS == _result)
+ 368     {
+ 369         BIT_CLEAR( localResult, SUP_FC_BC_S3_PRESENT_BIT );
+ 370 
+ 371         // make it known to BIT that we think we are a 3-stage booster
+ 372         // vehicle
+ 373         BitState::bitStartUpFlags.setBoosterType( BOOSTER_3_STAGE );
+ 374     }
+ 375 
+ 376     /*
+ 377      * If both failed or both passed, there is an error. Add ! to convert bit
+ 378      * check result to boolean, then make sure one passes and one fails.
+ 379      */
+ 380     if ( OBV_INTERCEPTOR_CODE_UNKNOWN == fltComp.getInterceptorCode() )
+ 381     {
+ 382         orbLEDset(OBVTP_E_STARTUP_BCFAIL);
+ 383     }
+ 384 
+ 385     _result = processBit(FC_BC_S2_RESOLVER_CHECK, NULL);
+ 386     if (BIT_ROLLUP_PASS == _result)
+ 387     {
+ 388         BIT_CLEAR( localResult, SUP_FC_BC_S2_RESOLVER_BIT );
+ 389     }
+ 390 
+ 391     _result = processBit(FC_BC_S3_RESOLVER_CHECK, NULL);
+ 392     if (BIT_ROLLUP_PASS == _result)
+ 393     {
+ 394         BIT_CLEAR( localResult, SUP_FC_BC_S3_RESOLVER_BIT );
+ 395     }
+ 396 
+ 397 #endif // !CPU_B
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cCle/src/BitState.cc
+Conditional: #ifndef NRTSIM
+  30 #else
+  31 #include "scheduler.hh"
+  32 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cCle/src/BitState.cc
+Conditional: #ifndef NRTSIM
+ 229 #else // NRTSIM
+ 230     /*
+ 231      * The sim just wants the scheduler time, not a hw clock
+ 232      */
+ 233     gt0DeltaTime = Scheduler::getTime() - static_cast<double>(gt0StartTime);
+ 234 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cCle/src/CleTxMessageFactory.cc
+Conditional: #ifdef NRTSIM
  100 #ifdef NRTSIM
  101 void CleTxMessageFactory::clear()
  102 {
@@ -2403,7 +2644,8 @@ Non-affirmative targets:
  112 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cDiscrete/src/Discrete.cc
+Conditional: #ifdef NRTSIM
   30 #ifdef NRTSIM
   31 bool dummyLaunchEnable = false;
   32 bool Discrete::isLaunchEnableActive( void ){return dummyLaunchEnable;};
@@ -2412,7 +2654,55 @@ Non-affirmative targets:
   35 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/backupTimer.cc
+Conditional: #if !(NRTSIM)
+ 179 #else
+ 180     (void)duration;
+ 181 #endif // !NRTSIM
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XFile.cc
+Conditional: #ifndef NRTSIM
+  88 #else
+  89         // Arbitrarily force single remote file on desktop
+  90         largest_free_block_size = XFile::MEMORY_RESERVE;
+  91 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #ifndef NRTSIM
+ 256 #else
+ 257     10000; // This is an arbitrary don't care value for the sim
+ 258 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #ifndef NRTSIM
+ 293 #else
+ 294     static bool initialized = false;
+ 295 
+ 296     /*
+ 297      * The desktop only needs a single init of a sinle block of memory, so check
+ 298      * the static initialized flag to see if the memory has already been created
+ 299      * Is so, nothing more needs to be dome.
+ 300      */
+ 301     if (!initialized)
+ 302     {
+ 303         oscSizeT const &start_addr =
+ 304                 reinterpret_cast<oscSizeT>(::malloc(sizeof(UserReservedMem)));
+ 305 
+ 306         // No need for separate memory on desktop, just read from the same spot
+ 307         pLocal = (UserReservedMem *)start_addr;
+ 308         pRemote = (UserReservedMem *)start_addr;
+ 309 
+ 310         initialized = true;
+ 311     }
+ 312 
+ 313 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #ifdef NRTSIM
  338 #ifdef NRTSIM
  339     /*
  340      * Free the memory on shutdown in the sim, no need to in flight
@@ -2421,7 +2711,52 @@ Non-affirmative targets:
  343 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #if (!defined CPU_B) || (defined NRTSIM)
+ 405 #if (!defined CPU_B) || (defined NRTSIM)
+ 406 
+ 407     if( primaryNav )
+ 408     {
+ 409         /*
+ 410          * Given 1553 raw data, find a corresponding ResponseMessage.
+ 411          */
+ 412         ResponseMessage *pResponse =
+ 413             CleTxMessageFactory::setMessage( primaryNav );
+ 414         if( pResponse != NULL )
+ 415         {
+ 416             /*
+ 417              *  Write message to 1553 mem for CLE to request
+ 418              */
+ 419             pResponse->setQueEntry();
+ 420         }
+ 421     }
+ 422 
+ 423     if( covMatrix )
+ 424     {
+ 425         CovarianceDataSet data = covMatrix;
+ 426 
+ 427         for( size_t part = 0; part < MaxCovarianceElements; ++part )
+ 428         {
+ 429             ResponseMessage *pResponse =
+ 430                 CleTxMessageFactory::setMessage( data.msg[part] );
+ 431 
+ 432             /*
+ 433              * Given 1553 raw data, find a corresponding ResponseMessage.
+ 434              */
+ 435             if( pResponse != NULL )
+ 436             {
+ 437                 /*
+ 438                  * Write message to 1553 mem for CLE to request
+ 439                  */
+ 440                 pResponse->setQueEntry();
+ 441             }
+ 442         }
+ 443     }
+ 444 #endif // !CPU_B
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #if (defined CPU_B) || (defined NRTSIM)
  527 #if (defined CPU_B) || (defined NRTSIM)
  528 
  529     if( missionMode )
@@ -2467,19 +2802,50 @@ Non-affirmative targets:
  569 #endif // defined CPU_B || defined NRTSIM
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #ifndef NRTSIM
+ 744 #else
+ 745         void *mem = ::malloc( bytes );
+ 746 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #ifndef NRTSIM
+ 802 #else
+ 803         ::free( mem );
+ 804 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/src/XRAM.cc
+Conditional: #ifndef NRTSIM
+ 884 #else
+ 885         /*
+ 886          * There is no mailbox interrupt in the desktop, just make the unblock
+ 887          * call here.
+ 888          */
+ 889         if( BIT_TEST( flags, XRAM::CMD_UNBLOCK ) )
+ 890         {
+ 891             XRAM::remoteMemory.unblock();
+ 892         }
+ 893 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
   18 #ifdef NRTSIM
   19 #include "pthreadsupport.hh"
   20 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
   29 #ifdef NRTSIM
   30     void *bSideTestmain( void * );
   31 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
   39 #ifdef NRTSIM
   40 int main( void )
   41 {
@@ -2511,7 +2877,8 @@ Non-affirmative targets:
   67 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
  119 #ifdef NRTSIM
  120     while(xTest::instanceCounter < 2)
  121     {
@@ -2521,7 +2888,8 @@ Non-affirmative targets:
  125 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
  151 #ifdef NRTSIM
  152             // Desktop runs with 2 threads, not 2 CPUs, so need to give up
  153             // context here for other "side" to run
@@ -2529,13 +2897,15 @@ Non-affirmative targets:
  155 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
  178 #ifdef NRTSIM
  179     exitPthread(NULL);
  180 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/ASideTest.cc
+Conditional: #ifdef NRTSIM
  185 #ifdef NRTSIM
  186 #include "BitSweepTest.hh"
  187 #include "FlightCompBit.hh"
@@ -2583,13 +2953,15 @@ Non-affirmative targets:
  229 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+Conditional: #ifdef NRTSIM
   18 #ifdef NRTSIM
   19 #include "pthreadsupport.hh"
   20 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+Conditional: #ifdef NRTSIM
   63 #ifdef NRTSIM
   64             // Desktop runs with 2 threads, not 2 CPUs, so need to give up
   65             // context here for other "side" to run
@@ -2597,7 +2969,8 @@ Non-affirmative targets:
   67 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+Conditional: #ifdef NRTSIM
   91 #ifdef NRTSIM
   92             // Desktop runs with 2 threads, not 2 CPUs, so need to give up
   93             // context here for other "side" to run
@@ -2605,40 +2978,55 @@ Non-affirmative targets:
   95 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cExecutive/test/target/xramTest/BSideTest.cc
+Conditional: #ifdef NRTSIM
  101 #ifdef NRTSIM
  102     sleep(5);
  103     exitPthread(NULL);
  104 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+Conditional: #ifdef NRTSIM
   26 #ifdef NRTSIM
   27 #include "scheduler.hh"
   28 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+Conditional: #if ( NRTSIM )
   45 #if ( NRTSIM )
   46     OsTask::setInitEntryFunction(UnitTest::Start,OSTASK_MIN_PRIORITY);
   47     OsTask::execRunQueue();
   48 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+Conditional: #ifndef NRTSIM
+  83 #else
+  84     usleep(10000);
+  85     Scheduler::setTime(testTime += 0.01);
+  86     Scheduler::setSystemTime(testTime);
+  87 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/unitTest.cc
+Conditional: #ifdef NRTSIM
  118 #ifdef NRTSIM
  119     OsTask::execRunQueue();
  120     TaskDelay::execRunQueue();
  121 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+Conditional: #ifdef NRTSIM
   40 #ifdef NRTSIM
   41             reinterpret_cast<oscSizeT>(::malloc((sizeof(UserReservedMemTest) * 2)));
   42 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+Conditional: #ifdef NRTSIM
   47 #ifdef NRTSIM
   48         // No need for separate memory on desktop, just read from the same spot
   49         testMem = (UserReservedMemTest *)start_addr;
@@ -2653,7 +3041,8 @@ Non-affirmative targets:
   58 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+Conditional: #ifdef NRTSIM
   99 #ifdef NRTSIM
  100         // Clear the queue out if it had been running elsewhere
  101         while (!cleTxQueue.isEmpty())
@@ -2664,14 +3053,16 @@ Non-affirmative targets:
  106 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+Conditional: #ifdef NRTSIM
  119 #ifdef NRTSIM
  120     CleTxMessageFactory::clear();
  121     ::free((void *)start_addr);
  122 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTest/src/xTest.cc
+Conditional: #ifdef NRTSIM
  593 #ifdef NRTSIM
  594         // Desktop runs with 2 threads, not 2 CPUs, so need to give up
  595         // context here for other "side" to run
@@ -2679,7 +3070,22 @@ Non-affirmative targets:
  597 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTlm/src/idents.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTlm/src/idents.cc
+Conditional: #if !(NRTSIM)
+ 144 #else
+ 145 #define TLMIDENT(ident,arrayname,scale) TlmIdent ident( 0, 0, 1)
+ 146 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTlm/src/idents.cc
+Conditional: #if !(NRTSIM || RTCLSIM)
+1212 #else
+1213 sTimer->getTimeDelta(0);
+1214 #endif /* !NRTSIM */
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cTlm/src/idents.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2497 #if (NRTSIM || RTCLSIM)
 2498 void CovariancePropagator::getTlmData(oscUINT8 *)
 2499 {
@@ -2687,13 +3093,15 @@ Non-affirmative targets:
 2501 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/DataPages.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/DataPages.cc
+Conditional: #ifdef NRTSIM
   30 #ifdef NRTSIM
   31 oscSizeT SIO_SRAM_BASE_ADDRESS = reinterpret_cast<oscSizeT>(::malloc(0x8000));
   32 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/DataPages.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/DataPages.cc
+Conditional: #ifdef NRTSIM
   63 #ifdef NRTSIM
   64     if (0 != SIO_SRAM_BASE_ADDRESS)
   65     {
@@ -2703,7 +3111,15 @@ Non-affirmative targets:
   69 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/flight/cUserCommand/src/launchEnableTest.cc
+Conditional: #ifndef NRTSIM
+  90 #else
+  91         count++; // Just increment every time in desktop
+  92 #endif
+
+
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh
+Conditional: #if (defined CPU_B) || (defined NRTSIM)
   17 #if (defined CPU_B) || (defined NRTSIM)
   18 
   19 #include "singleton.hh"
@@ -2776,15 +3192,8 @@ Non-affirmative targets:
   86 #endif // CPU_B
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/banCovMgr.hh
-  78 #if ( NRTSIM )
-  79     oscINT32 simOutput;
-  80     double covOutputDt;
-  81     double banOutputDt;
-  82 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/CleTxMessageFactory.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/include/CleTxMessageFactory.hh
+Conditional: #ifdef NRTSIM
   41 #ifdef NRTSIM
   42     /*
   43     ***********************************************************************
@@ -2802,7 +3211,8 @@ Non-affirmative targets:
   55 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/ObvState.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/include/ObvState.hh
+Conditional: #ifdef NRTSIM
   65 #ifdef NRTSIM
   66 
   67         COMM_PLAN_ORDER   = BIT_12,
@@ -2812,14 +3222,16 @@ Non-affirmative targets:
   71 #endif // NRTSIM
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/ObvState.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/include/ObvState.hh
+Conditional: #ifdef NRTSIM
   83 #ifdef NRTSIM
   84         MDL_COMM_MSG     = BIT_6,
   85         MDL_IFICS_MSG    = BIT_7,
   86 #endif // NRTSIM
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/OBV/include/SimVxWorks.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/OBV/include/SimVxWorks.hh
+Conditional: #ifdef NRTSIM
   26 #ifdef NRTSIM
   27 
   28 #include <stdio.h>
@@ -2833,7 +3245,8 @@ Non-affirmative targets:
   36 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  129 #if (NRTSIM || RTCLSIM)
  130         printf( "ERROR: Duplicate record name **\n" );
  131         printf( "Record name (%s) already exits\n",
@@ -2842,7 +3255,8 @@ Non-affirmative targets:
  134 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  226 #if (NRTSIM || RTCLSIM)
  227         printf( "ERROR: Database record (%s) not found **\n",
  228                 dbRecordInterfacePtr->getRecordName() );
@@ -2850,14 +3264,16 @@ Non-affirmative targets:
  230 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  311 #if (NRTSIM || RTCLSIM)
  312         printf( "ERROR: Database record not found **\n" );
  313         printf( "Record name (%s)\n", name );
  314 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/src/database.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  850 #if (NRTSIM || RTCLSIM)
  851         printf( "ERROR: Database not found **\n" );
  852         printf( "Database number (%d) does not exit\n", database_num );
@@ -2865,7 +3281,8 @@ Non-affirmative targets:
  854 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc
+Conditional: #if ( NRTSIM )
   43 #if ( NRTSIM )
   44 
   45 int main( void )
@@ -2879,7 +3296,8 @@ Non-affirmative targets:
   53 #endif /* ( NRTSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc
+Conditional: #ifdef NRTSIM
  226 #ifdef NRTSIM
  227     /*
  228     ** Test DataBase getTable method
@@ -2891,19 +3309,22 @@ Non-affirmative targets:
  234 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cDataBase/test/src/database_test.cc
+Conditional: #ifdef NRTSIM
  685 #ifdef NRTSIM
  686     delete &table1Obj;
  687 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   17 #if (NRTSIM || RTCLSIM)
   18 #include <stdio.h>
   19 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  267 #if (NRTSIM || RTCLSIM)
  268         printf("ERROR: Filter class\n");
  269         printf("    Invalid filter initialization method selected.\n");
@@ -2911,7 +3332,8 @@ Non-affirmative targets:
  271 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  291 #if (NRTSIM || RTCLSIM)
  292         printf("ERROR: Filter class\n");
  293         printf("    Initialization Sample Count (m=%d): m must be 0<m<=%d.\n",
@@ -2920,7 +3342,8 @@ Non-affirmative targets:
  296 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  355 #if (NRTSIM || RTCLSIM)
  356         printf("ERROR: Filter class\n");
  357         if ( ABS( FILTER_MAX_SS_GAIN*aSum ) <= ABS( bSum ) )
@@ -2937,7 +3360,8 @@ Non-affirmative targets:
  368 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  556 #if (NRTSIM || RTCLSIM)
  557     /*
  558     ** Perform some checking to ensure that the coeff table
@@ -2951,7 +3375,8 @@ Non-affirmative targets:
  566 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  630 #if (NRTSIM || RTCLSIM)
  631         /*
  632         ** Check that the table size is appropriate for a filter (odd)
@@ -2966,7 +3391,8 @@ Non-affirmative targets:
  641 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cFilter/src/filter.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  678 #if (NRTSIM || RTCLSIM)
  679 
  680     /*
@@ -2995,13 +3421,15 @@ Non-affirmative targets:
  703 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   21 #if (NRTSIM || RTCLSIM)
   22 #include <stdlib.h>
   23 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/genarray.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   71 #if (NRTSIM || RTCLSIM)
   72     if (firstValue <= 0.0 || lastValue <= 0.0) {
   73         printf("ERROR: "
@@ -3012,7 +3440,8 @@ Non-affirmative targets:
   78 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matrix.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matrix.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   35 #if (NRTSIM || RTCLSIM)
   36           printf("ERROR: Matrix must be square to compute "
   37           "determinant");
@@ -3020,7 +3449,8 @@ Non-affirmative targets:
   39 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   69 #if (NRTSIM || RTCLSIM)
   70     if (i != n) {
   71         printf("ERROR: "
@@ -3036,7 +3466,8 @@ Non-affirmative targets:
   81 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/matsolve.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  159 #if (NRTSIM || RTCLSIM)
  160     if (i != n) {
  161         printf("ERROR: MatrixBacksub: A not a square matrix ... Exiting\n");
@@ -3063,7 +3494,8 @@ Non-affirmative targets:
  182 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/quaternion.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/quaternion.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  346 #if (NRTSIM || RTCLSIM)
  347         printf( "ERROR: "
  348                 "Invalid quaternion approximation order: %d\n", order );
@@ -3073,7 +3505,8 @@ Non-affirmative targets:
  352 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/quaternion.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/quaternion.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  366 #if (NRTSIM || RTCLSIM)
  367         printf( "ERROR: "
  368                 "Invalid quaternion index: %d\n", index );
@@ -3083,7 +3516,8 @@ Non-affirmative targets:
  372 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/rqlsqfit.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/rqlsqfit.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   47 #if (NRTSIM || RTCLSIM)
   48 
   49     /*
@@ -3123,7 +3557,8 @@ Non-affirmative targets:
   83 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  279 #if (NRTSIM || RTCLSIM)
  280     printf("ERROR: "
  281            "Transform::setEulerAngles: Cannot set Euler Angles for "
@@ -3132,7 +3567,8 @@ Non-affirmative targets:
  284 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform1.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform1.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   93 #if (NRTSIM || RTCLSIM)
   94         printf("ERROR: "
   95                "Trying to extract a single Euler angle from a DCM in "
@@ -3143,7 +3579,8 @@ Non-affirmative targets:
  100 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform2.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform2.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   93 #if (NRTSIM || RTCLSIM)
   94         printf("ERROR: "
   95                "Trying to extract a single Euler angle from a DCM in "
@@ -3154,7 +3591,8 @@ Non-affirmative targets:
  100 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform23.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform23.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   97 #if (NRTSIM || RTCLSIM)
   98         printf("ERROR: "
   99                "Trying to extract a single Euler angle from a DCM in "
@@ -3165,7 +3603,8 @@ Non-affirmative targets:
  104 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform3.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform3.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   93 #if (NRTSIM || RTCLSIM)
   94         printf("ERROR: "
   95                "Trying to extract a single Euler angle from a DCM in "
@@ -3176,7 +3615,8 @@ Non-affirmative targets:
  100 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform32.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/src/transform32.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   97 #if (NRTSIM || RTCLSIM)
   98         printf("ERROR: "
   99                "Trying to extract a single Euler angle from a DCM in "
@@ -3187,7 +3627,8 @@ Non-affirmative targets:
  104 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/test/Matrix3/src/Matrix3_test.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cMath/test/Matrix3/src/Matrix3_test.cc
+Conditional: #if ( NRTSIM || RTCLSIM )
   23 #if ( NRTSIM || RTCLSIM )
   24 
   25 int main( void )
@@ -3199,7 +3640,8 @@ Non-affirmative targets:
   31 #endif /* ( NRTSIM || RTCLSIM ) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cNav/src/navtools.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cNav/src/navtools.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  358 #if (NRTSIM || RTCLSIM)
  359 void NavTools::CheckExpansionOrder( const INT4 &order )
  360 {
@@ -3213,7 +3655,8 @@ Non-affirmative targets:
  368 #else // !NRTSIM/RTCLSIM
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simoutput.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simoutput.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   20 #if (NRTSIM || RTCLSIM)
   21 #include <stdlib.h>
   22 #include <unistd.h>
@@ -4114,7 +4557,8 @@ Non-affirmative targets:
  917 #endif /* NRTSIM || RTCLSIM */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simouttypes.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cOutput/src/simouttypes.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   21 #if (NRTSIM || RTCLSIM)
   22 #include "simouttypes.hh"
   23 #include "hash.hh"
@@ -4210,14 +4654,16 @@ Non-affirmative targets:
  113 #endif /* (NRTSIM||RTCLSIM) */
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
   20 #if (NRTSIM || RTCLSIM)
   21 #include <stdio.h>
   22 #include <stdlib.h>
   23 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  221 #if (NRTSIM || RTCLSIM)
  222     if ( false == flag )
  223     {
@@ -4226,7 +4672,8 @@ Non-affirmative targets:
  226 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  241 #if (NRTSIM || RTCLSIM)
  242     if ( false == flag )
  243     {
@@ -4235,7 +4682,8 @@ Non-affirmative targets:
  246 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2070 #if (NRTSIM || RTCLSIM)
 2071     if ( (false == exitOnExceed) || (false == globalExitOnExceed) )
 2072     {
@@ -4263,7 +4711,8 @@ Non-affirmative targets:
 2094 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2109 #if (NRTSIM || RTCLSIM)
 2110     printf("ERROR: Independent table (%s) values not monotonic\n",
 2111            string);
@@ -4273,7 +4722,8 @@ Non-affirmative targets:
 2115 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2131 #if (NRTSIM || RTCLSIM)
 2132         printf( "ERROR: Independent and Dependent Arrays Are Different"
 2133                 " in Length\n");
@@ -4285,7 +4735,8 @@ Non-affirmative targets:
 2139 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2155 #if (NRTSIM || RTCLSIM)
 2156         printf ("ERROR: Invalid Dependent Array index\n");
 2157         printf ("       Table Name: %s\n",tableName);
@@ -4296,7 +4747,8 @@ Non-affirmative targets:
 2162 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2178 #if (NRTSIM || RTCLSIM)
 2179         printf ("ERROR: Invalid No of Dependent Arrays\n");
 2180         printf ("       Table Name: %s\n",tableName);
@@ -4306,7 +4758,8 @@ Non-affirmative targets:
 2184 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2201 #if (NRTSIM || RTCLSIM)
 2202         printf ("ERROR: Invalid function pointer\n");
 2203         printf ("       Table Name: %s\n",tableName);
@@ -4316,7 +4769,8 @@ Non-affirmative targets:
 2207 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/table.cc
+Conditional: #if (NRTSIM || RTCLSIM)
 2223 #if (NRTSIM || RTCLSIM)
 2224     printf( "ERROR: In Table %s **\n", getTableName() );
 2225     printf( "       %s\n", string );
@@ -4324,20 +4778,23 @@ Non-affirmative targets:
 2227 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/TableList.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/TableList.cc
+Conditional: #if (NRTSIM || RTCLSIM || _DEBUG)
  241 #if (NRTSIM || RTCLSIM || _DEBUG)
  242     printf( "ERROR: in Table %s **\n", getTableName() );
  243     printf( "    %s\n", string );
  244 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/TableList.cc
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/cTable/src/TableList.cc
+Conditional: #if (NRTSIM || RTCLSIM)
  245 #if (NRTSIM || RTCLSIM)
  246     exit(-11);
  247 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/gvector.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/gvector.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   95 #if (NRTSIM || RTCLSIM)
   96             printf("ERROR: "
   97                    "Could not allocate memory for gvector ... Exiting\n");
@@ -4346,14 +4803,16 @@ Non-affirmative targets:
  100 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/gvector.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/gvector.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  110 #if (NRTSIM || RTCLSIM)
  111             printf("WARNING: "
  112                    "Could not deallocate memory for gvector ... Continuing\n");
  113 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  219 #if (NRTSIM || RTCLSIM)
  220         else
  221         {
@@ -4362,7 +4821,8 @@ Non-affirmative targets:
  224 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  241 #if (NRTSIM || RTCLSIM)
  242         else
  243         {
@@ -4371,7 +4831,8 @@ Non-affirmative targets:
  246 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+Conditional: #if (NRTSIM || RTCLSIM || _DEBUG)
  362 #if (NRTSIM || RTCLSIM || _DEBUG)
  363         /*
  364         ** Search list to see if the user is trying to add a duplicate
@@ -4385,7 +4846,8 @@ Non-affirmative targets:
  372 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+Conditional: #if (NRTSIM || RTCLSIM || _DEBUG)
  541 #if (NRTSIM || RTCLSIM || _DEBUG)
  542         /*
  543         ** Search list to see if the user is trying to add a duplicate
@@ -4400,7 +4862,8 @@ Non-affirmative targets:
  552 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/list.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  639 #if (NRTSIM || RTCLSIM)
  640     printf( "ERROR: Attempting to access data past the list " );
  641     printf( "items\n" );
@@ -4408,7 +4871,8 @@ Non-affirmative targets:
  643 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/Mask.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/Mask.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  202 #if (NRTSIM || RTCLSIM)
  203             for ( oscINT32 i = 0; i < msize; i++ )
  204             {
@@ -4418,7 +4882,8 @@ Non-affirmative targets:
  208 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MaskedMatrix.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MaskedMatrix.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  257 #if (NRTSIM || RTCLSIM)
  258             for ( oscINT32 i=0; i < getMSize(); i++ )
  259             {
@@ -4431,7 +4896,8 @@ Non-affirmative targets:
  266 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MaskedVector.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MaskedVector.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  242 #if (NRTSIM || RTCLSIM)
  243             for ( INT4 i = 0; i < getSize(); i++ )
  244             {
@@ -4441,7 +4907,8 @@ Non-affirmative targets:
  248 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  252 #if (NRTSIM || RTCLSIM)
  253         for ( oscINT32 i=0; i < getMSize(); i++ )
  254         {
@@ -4454,7 +4921,8 @@ Non-affirmative targets:
  261 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  197 #if (NRTSIM || RTCLSIM)
  198         if (i < 0 || i > 2) {
  199             printf("ERROR: "
@@ -4465,7 +4933,8 @@ Non-affirmative targets:
  204 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/matrix3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  214 #if (NRTSIM || RTCLSIM)
  215         if (i < 0 || i > 2) {
  216             printf("ERROR: "
@@ -4476,7 +4945,8 @@ Non-affirmative targets:
  221 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MatrixOperations.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/MatrixOperations.hh
+Conditional: #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
   25 #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
   26 #define MATRIX_INDEX_CHECK( mindex, nindex ) \
   27     if( mindex < 0 || mindex >= getMSize() || \
@@ -4496,7 +4966,8 @@ Non-affirmative targets:
   41 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
+Conditional: #if (NRTSIM || RTCLSIM || _DEBUG)
   29 #if (NRTSIM || RTCLSIM || _DEBUG)
   30 
   31 /*
@@ -4507,7 +4978,8 @@ Non-affirmative targets:
   36 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
+Conditional: #if (NRTSIM || RTCLSIM || _DEBUG)
  119 #if (NRTSIM || RTCLSIM || _DEBUG)
  120 
  121                 /*
@@ -4520,7 +4992,8 @@ Non-affirmative targets:
  128 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
+Conditional: #if (NRTSIM || RTCLSIM || _DEBUG)
  288 #if (NRTSIM || RTCLSIM || _DEBUG)
  289 
  290         /*
@@ -4542,51 +5015,50 @@ Non-affirmative targets:
  306 #endif // (NRTSIM || RTCLSIM || _DEBUG)
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/OscMemory.hh
- 298 #if (NRTSIM || RTCLSIM)
- 299 
- 300             exit( 1 );
- 301 
- 302 #endif
-
-
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/output.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/output.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   24 #if (NRTSIM || RTCLSIM)
   25 #include "simoutput.hh"
   26 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  122 #if (NRTSIM || RTCLSIM)
  123         CheckApproximationOrder( order );
  124 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  151 #if (NRTSIM || RTCLSIM)
  152         CheckApproximationOrder( order );
  153 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  191 #if (NRTSIM || RTCLSIM)
  192         IndexCheck( index );
  193 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  200 #if (NRTSIM || RTCLSIM)
  201         IndexCheck( index );
  202 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/quaternion.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  232 #if (NRTSIM || RTCLSIM)
  233         printf( "Vector: %f %f %f ; Scalar: %f\n", q[0], q[1], q[2], q[3] );
  234 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  266 #if (NRTSIM || RTCLSIM)
  267         for ( oscINT32 i = 0; i < getSize(); i++ )
  268         {
@@ -4596,7 +5068,8 @@ Non-affirmative targets:
  272 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   53 #if (NRTSIM || RTCLSIM)
   54     if(vin.getSize() != 3) {
   55       printf("ERROR: "
@@ -4606,7 +5079,8 @@ Non-affirmative targets:
   59 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
   83 #if (NRTSIM || RTCLSIM)
   84     if(vin.getSize() != 3) {
   85       printf("ERROR: "
@@ -4616,7 +5090,8 @@ Non-affirmative targets:
   89 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  132 #if (NRTSIM || RTCLSIM)
  133     if (index < 0 || index > 2) {
  134       printf("ERROR: "
@@ -4627,7 +5102,8 @@ Non-affirmative targets:
  139 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  147 #if (NRTSIM || RTCLSIM)
  148     if (index < 0 || index > 2) {
  149       printf("ERROR: "
@@ -4638,7 +5114,8 @@ Non-affirmative targets:
  154 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/vector3.hh
+Conditional: #if (NRTSIM || RTCLSIM)
  354 #if (NRTSIM || RTCLSIM)
  355     if (fabs(1.0 - magnitude()) > _FLOATING_POINT_TOLERENCE)
  356     {
@@ -4656,7 +5133,8 @@ Non-affirmative targets:
  368 #endif
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh
+file:        /home/crippenre/dev/booster/OBV2_4_SC/Utility/include/VectorOperations.hh
+Conditional: #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
   24 #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
   25 #define VECTOR_INDEX_CHECK( index ) \
   26     if ( index < 0 || index >= getSize() ) { \
@@ -4676,41 +5154,9 @@ Non-affirmative targets:
   40 #else
 
 
-/home/crippenre/dev/booster/OBV2_4_SC/test.cc
-  24 #if defined(_DEBUG) && (NRTSIM || RTCLSIM)
-  25 #define VECTOR_INDEX_CHECK(index)                           \
-  26     if (index < 0 || index >= getSize())                    \
-  27     {                                                       \
-  28         printf("ERROR: "                                    \
-  29                "Invalid vector index (Vector Object): %d\n" \
-  30                "File: %s, Line No: %d\n"                    \
-  31                "Exiting...\n",                              \
-  32                index, __FILE__, __LINE__);                  \
-  33         exit(-1);                                           \
-  34     }
-  35 #define VECTOR_OPERATION_CHECK(size1, size2)                                 \
-  36     if (size1 != size2)                                                      \
-  37     {                                                                        \
-  38         printf("ERROR: "                                                     \
-  39                "Invalid vector operation (Vector Object): sizes = %d , %d\n" \
-  40                "File: %s, Line No: %d\n"                                     \
-  41                "Exiting...\n",                                               \
-  42                size1, size2, __FILE__, __LINE__);                            \
-  43         exit(-1);                                                            \
-  44     }
-  45 #undef NDEBUG
-  46 
-  47 #ifdef TAG_1
-  48 #ifndef TAG_2
-  49 #endif // TAG_2
-  50 #else
-  51 #endif // TAG_1
-  52 #else
-
-
-
 Summary Results
-  Total files:      934
-  Affected files:     0
-  Blocks removed:     0
-  Lines removed:      0
+  Total files:      933
+  Affected files:    79
+  Blocks removed:   186
+  Lines removed:   4182
+
