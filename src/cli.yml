@@ -1,0 +1,17 @@
+name: filter_conditionals
+version: "0.1.0"
+author: Roy Crippen <roycrippen@gmail.com>
+about: Remove conditionals found in targetys.txt from C/C++ 
+args:
+    - INPUT:
+        help: Sets the input source directory
+        required: true
+        index: 1
+    - build:
+        short: b
+        long: build
+        help: Writes affirmative and non-affirmative target files
+    - remove:
+        short: r
+        long: remove
+        help: Removes affirmative and non-affirmative conditionals

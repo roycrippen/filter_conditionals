@@ -6,40 +6,40 @@ Target identifiers:
 
 Affirmative targets: 
   [ 
-    #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+    #if ( NRTSIM || RTCLSIM )
     #if (defined CPU_B) || (defined NRTSIM)
-    #if defined(_DEBUG) && (NRTSIM || RTCLSIM)
-    #ifdef NRTSIM
+    #if (NRTSIM)
     #if (NRTSIM || RTCLSIM || _DEBUG)
-    #if (!defined CPU_B) || (defined NRTSIM)
-    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
-    #if (NRTSIM || RTCLSIM)
-    #if ( NRTSIM )
     #ifdef NRTSIM /* If on desktop, redefine types to match new systypes. */
     #if (defined NRTSIM)
-    #if ( NRTSIM || RTCLSIM )
-    #if (NRTSIM)
+    #if ( NRTSIM )
+    #if (NRTSIM || RTCLSIM)
+    #if defined(_DEBUG) && ( NRTSIM || RTCLSIM )
+    #if (!defined CPU_B) || (defined NRTSIM)
+    #if ((NRTSIM || RTCLSIM) && (!__PPC604__))
+    #ifdef NRTSIM
+    #if defined(_DEBUG) && (NRTSIM || RTCLSIM)
   ]
 
 Non-affirmative targets: 
   [ 
-    #if (defined CPU_B) && (!defined NRTSIM)
-    #ifndef NRTSIM
-    #if (!NRTSIM && !RTCLSIM)
-    #ifndef RTCLSIM
-    #if !( NRTSIM || RTCLSIM )
-    #if !(NRTSIM)
-    #if (!NRTSIM)
-    #if (!defined NRTSIM)
-    #if !(NRTSIM || RTCLSIM)
-    #if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )
-    #if (!NRTSIM || _TBBVSIM_ ) // Not needed for desktop simulation
-    #if ( !NRTSIM )
-    #if (!NRTSIM) // Not needed for desktop simulation
-    #if (!NRTSIM )
-    #if (defined WINDVIEW_DEBUG) && (!defined NRTSIM)
-    #if ( !NRTSIM && !RTCLSIM )
     #if (!defined CPU_B) && (!defined NRTSIM)
+    #if (defined WINDVIEW_DEBUG) && (!defined NRTSIM)
+    #ifndef NRTSIM
+    #if (!NRTSIM )
+    #if (!NRTSIM || _TBBVSIM_ ) // Not needed for desktop simulation
+    #if (!defined NRTSIM)
+    #if (!NRTSIM) // Not needed for desktop simulation
+    #if !(NRTSIM)
+    #if !defined(_DEBUG) || !( NRTSIM || RTCLSIM )
+    #if (!NRTSIM)
+    #ifndef RTCLSIM
+    #if ( !NRTSIM && !RTCLSIM )
+    #if ( !NRTSIM )
+    #if (defined CPU_B) && (!defined NRTSIM)
+    #if (!NRTSIM && !RTCLSIM)
+    #if !(NRTSIM || RTCLSIM)
+    #if !( NRTSIM || RTCLSIM )
   ]
 
 file:        /home/crippenre/dev/booster/OBV2_4_SC/BSPRad750/BSP_API.h
