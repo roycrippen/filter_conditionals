@@ -22,7 +22,7 @@ impl<'a> Search {
         self.targets.iter().any(|k| s.contains(k))
     }
 
-    pub fn write_unique_target_ifs(&self, files: &Vec<(String, String)>) {
+    pub fn write_unique_target_ifs(&self, files: &Vec<String>) {
         let s1 = "// This file is automatically created with the '-b' argument.";
         let s2 = "// A backup is created with the extension '.backup'.";
         let s3 = "// Inspect and modify this file manually before running with the -r argument.";
@@ -34,7 +34,7 @@ impl<'a> Search {
 
         let mut xs = vec![];
         let mut ys = vec![];
-        for &(ref fully_qualified_file, ref _file) in files {
+        for ref fully_qualified_file in files {
             let ss = read_file(&fully_qualified_file);
             for s in ss {
                 if is_start(&s) && self.contains_target(&s) {
@@ -136,17 +136,12 @@ fn read_file(path: &str) -> Vec<String> {
     buffer.lines().map(|s| s.to_string()).collect()
 }
 
-pub fn get_file_list(path: &str) -> Vec<(String, String)> {
+pub fn get_file_list(path: &str, pred: fn(&DirEntry) -> bool) -> Vec<String> {
     WalkDir::new(path)
         .into_iter()
         .map(|e| e.unwrap())
-        .filter(|e| is_source(e))
-        .map(|e| {
-            (
-                e.path().display().to_string(),
-                e.file_name().to_str().unwrap().to_string(),
-            )
-        })
+        .filter(|e| pred(e))
+        .map(|e| e.path().display().to_string())
         .collect()
 }
 
@@ -230,7 +225,21 @@ fn backup_file(file: &str, extension: &str) {
     }
 }
 
-fn is_source(entry: &DirEntry) -> bool {
+fn is_original(entry: &DirEntry) -> bool {
+    entry
+        .file_name()
+        .to_str()
+        .map(|s| s.ends_with(".original"))
+        .unwrap_or(false)
+}
+
+fn add_line_nums_vec_range<T: Display>(xs: &Vec<T>, start: usize, end: usize) -> Vec<String> {
+    let mut res: Vec<String> = Vec::new();
+    (start..end + 1).for_each(|i| res.push(format!("{:4} {}", i + 1, xs[i])));
+    res
+}
+
+pub fn is_source(entry: &DirEntry) -> bool {
     entry
         .file_name()
         .to_str()
@@ -239,12 +248,6 @@ fn is_source(entry: &DirEntry) -> bool {
                 || s.ends_with(".cpp") || s.ends_with(".cxx")
         })
         .unwrap_or(false)
-}
-
-fn add_line_nums_vec_range<T: Display>(xs: &Vec<T>, start: usize, end: usize) -> Vec<String> {
-    let mut res: Vec<String> = Vec::new();
-    (start..end + 1).for_each(|i| res.push(format!("{:4} {}", i + 1, xs[i])));
-    res
 }
 
 pub fn print_vec<T: Display>(xs: &Vec<T>) {
@@ -259,17 +262,17 @@ pub fn write_log(log: &Vec<String>) {
     write_file("results.txt", log)
 }
 
-pub fn process_source(source: &str) -> Metrics {
+pub fn process_source(files: &Vec<String>) -> Metrics {
     let search: Search = Default::default();
     let mut metrics: Metrics = Default::default();
     metrics.log.push(format!("{}", search));
 
-    let files = get_file_list(source);
+    // let files = get_file_list(source_path, is_source);
     metrics.total_files = files.len();
 
     // search.debug_print_unique_target_ifs(&files);
 
-    for (full_file, _file) in files.clone() {
+    for full_file in files.clone() {
         let mut mark: Mark = Default::default();
         mark.file = full_file.to_string();
 
@@ -317,4 +320,21 @@ pub fn process_source(source: &str) -> Metrics {
     let summary = metrics.fmt_summary_metrics();
     metrics.log.push(summary.clone());
     metrics
+}
+
+pub fn undo(source_path: &str) -> usize {
+    let files = get_file_list(source_path, is_original);
+    files.iter().for_each(|ref full_file| {
+        let new_file = &full_file[..full_file.len() - 9];
+        fs::rename(full_file, new_file).unwrap()
+    });
+    files.len()
+}
+
+pub fn backup_files(files: &Vec<String>, extension: &str) {
+    files.iter().for_each(|file| backup_file(file, extension))
+}
+
+pub fn write_new_source_files(metrics: &Metrics) {
+    print_vec(&metrics.marks);
 }

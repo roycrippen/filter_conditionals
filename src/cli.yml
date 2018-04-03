@@ -11,7 +11,15 @@ args:
         short: b
         long: build
         help: Writes affirmative and non-affirmative target files
+    - explore:
+        short: e
+        long: explore
+        help: Explore removal of affirmative and non-affirmative conditionals
     - remove:
         short: r
         long: remove
         help: Removes affirmative and non-affirmative conditionals
+    - undo:
+        short: u
+        long: undo
+        help: Restore original files
