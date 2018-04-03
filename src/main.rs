@@ -12,6 +12,8 @@ fn main() {
     let matches = App::from_yaml(yaml).get_matches();
     let source_path = matches.value_of("INPUT").unwrap();
 
+    println!("{:?}", matches);
+
     if matches.is_present("build") {
         let search: Search = Default::default();
         let files = get_file_list(source_path, is_source);
