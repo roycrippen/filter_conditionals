@@ -13,13 +13,13 @@ impl fmt::Display for Mark {
 }
 
 #[derive(Default)]
-pub struct Metrics {
+pub struct Metric {
     pub total_files: usize,
     pub marks: Vec<Mark>,
     pub log: Vec<String>,
 }
 
-impl Metrics {
+impl Metric {
     fn get_removed_blocks_cnt(&self) -> usize {
         self.marks.iter().fold(0, |acc, v| acc + v.lines.len())
     }
@@ -30,7 +30,7 @@ impl Metrics {
         })
     }
 
-    pub fn fmt_summary_metrics(&self) -> String {
+    pub fn fmt_summary_metric(&self) -> String {
         let s1 = format!("Summary Results\n");
         let s2 = format!("  Total files:    {:5}\n", self.total_files);
         let s3 = format!("  Affected files: {:5}\n", self.marks.len());

@@ -9,7 +9,7 @@ use std::collections::HashSet;
 use std::fmt;
 use std::path::Path;
 
-use metrics::{Mark, Metrics};
+use metric::{Mark, Metric};
 
 pub struct Search {
     pub targets: HashSet<String>,
@@ -262,13 +262,13 @@ pub fn write_log(log: &Vec<String>) {
     write_file("results.txt", log)
 }
 
-pub fn process_source(files: &Vec<String>) -> Metrics {
+pub fn process_source(files: &Vec<String>) -> Metric {
     let search: Search = Default::default();
-    let mut metrics: Metrics = Default::default();
-    metrics.log.push(format!("{}", search));
+    let mut metric: Metric = Default::default();
+    metric.log.push(format!("{}", search));
 
     // let files = get_file_list(source_path, is_source);
-    metrics.total_files = files.len();
+    metric.total_files = files.len();
 
     // search.debug_print_unique_target_ifs(&files);
 
@@ -281,13 +281,13 @@ pub fn process_source(files: &Vec<String>) -> Metrics {
         let mut end_line = 0;
         for (i, s) in ss.iter().enumerate() {
             let process_lines =
-                |mark: &mut Mark, metrics: &mut Metrics, start_line: usize, end_line: usize| {
+                |mark: &mut Mark, metric: &mut Metric, start_line: usize, end_line: usize| {
                     mark.lines.push((start_line, end_line));
-                    metrics.log.push(format!("file:        {}", full_file));
-                    metrics.log.push(format!("Conditional: {}", s));
+                    metric.log.push(format!("file:        {}", full_file));
+                    metric.log.push(format!("Conditional: {}", s));
                     let mut removed = add_line_nums_vec_range(&ss, start_line, end_line);
-                    metrics.log.append(&mut removed);
-                    metrics.log.push("\n".to_string());
+                    metric.log.append(&mut removed);
+                    metric.log.push("\n".to_string());
                 };
 
             if start_line > i || end_line > i {
@@ -299,7 +299,7 @@ pub fn process_source(files: &Vec<String>) -> Metrics {
                     if end_line == 0 {
                         continue;
                     }
-                    process_lines(&mut mark, &mut metrics, i, end_line);
+                    process_lines(&mut mark, &mut metric, i, end_line);
                 } else if search.non_affirmative_targets.contains(s) {
                     start_line = find_else_start_line(&ss, i);
                     if start_line == 0 {
@@ -309,17 +309,18 @@ pub fn process_source(files: &Vec<String>) -> Metrics {
                     if end_line == 0 {
                         continue;
                     }
-                    process_lines(&mut mark, &mut metrics, start_line, end_line);
+                    process_lines(&mut mark, &mut metric, start_line, end_line);
                 }
             }
         }
         if mark.lines.len() > 0 {
-            metrics.marks.push(mark);
+            mark.lines.reverse();
+            metric.marks.push(mark);
         }
     }
-    let summary = metrics.fmt_summary_metrics();
-    metrics.log.push(summary.clone());
-    metrics
+    let summary = metric.fmt_summary_metric();
+    metric.log.push(summary.clone());
+    metric
 }
 
 pub fn undo(source_path: &str) -> usize {
@@ -335,6 +336,21 @@ pub fn backup_files(files: &Vec<String>, extension: &str) {
     files.iter().for_each(|file| backup_file(file, extension))
 }
 
-pub fn write_new_source_files(metrics: &Metrics) {
-    print_vec(&metrics.marks);
+pub fn write_new_source_files(marks: &Vec<Mark>) {
+    for mark in marks {
+        let mut xs = read_file(&mark.file);
+        for &(start, end) in &mark.lines {
+            let _ys: Vec<_> = xs.drain(start + 1..end).collect();
+            xs.insert(start + 1, "// removed by filter_conditionals".to_string());
+        }
+        // if mark.file
+        //     == "../Flight/cAutoPilot/test/OpenLoop_test/src/OpenLoopGuidance_test.cc".to_string()
+        // {
+        //     // print_vec(&xs);
+        //     // println!("{:?}", mark);
+        //     write_file(&mark.file, &xs);
+        //     break;
+        // }
+        write_file(&mark.file, &xs);
+    }
 }
