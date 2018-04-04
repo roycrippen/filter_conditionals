@@ -1,5 +1,13 @@
 # filter_conditionals
 
+## install
+```
+git clone ....
+cargo install
+cd directory/with/targets.txt
+filter_conditionals -h
+```
+
 ### linux steps
 1. help
 ```
